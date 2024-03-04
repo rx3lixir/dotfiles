@@ -23,5 +23,5 @@ As simple as that. Made with "Nord" color palette with great neovim config for g
 ![Neovim in action](https://drive.google.com/uc?export=view&id=1g0Kr-RanQjKQ3Qmum5W6IISWwVDTESR4)
 
 
-## made by [@anxi3tyexe](https://www.github.com/anxi3tyexe)
+## made by [@rx3lixir](https://www.github.com/rx3lixir)
 
