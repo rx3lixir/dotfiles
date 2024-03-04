@@ -1,0 +1,73 @@
+{
+	"layer": "top",
+	"position": "top",
+
+	"modules-left": [
+        "hyprland/window",	
+	],
+
+	"modules-center": [
+	"hyprland/workspaces",
+	],
+
+	"modules-right": [
+    "custom/wireguard",
+	"memory",
+	"wireplumber",
+    "network",
+	"clock"
+	],
+
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "default": "",
+            "active": "",
+            "urgent": ""
+	    },
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "on-click": "activate"
+    },
+
+	"clock": {
+        "format": "{: %I:%M %p  󰃭 %d/%m/%Y}",
+		"tooltip": false
+	},
+
+	"hyprland/window": {
+		"max-length": 40,
+		"separate-outputs": false
+	},
+
+	"memory": {
+		"interval": 5,
+		"format": "󰍛 {}%"
+	},
+
+	"network": {
+        "interface": "wlp4s0",
+        "format-icons": [
+            	"󰤯",
+           	  "󰤟",
+            	"󰤢",
+            	"󰤥",
+            	"󰤨"
+        ],
+        "format-wifi": "{icon}",
+        "format-disconnected": "󰤮",
+        "on-click": "kitty -e nmtui",
+        "tooltip": false,
+    },
+
+	"wireplumber": {
+    	"format": "{volume}% {icon}",
+	"max-volume": 100.0, 
+    	"format-muted": "󰝟",
+    	"format-icons": ["", "", ""]
+	},
+	"on-click": "kitty -e pavucontrol",
+
+}
+
