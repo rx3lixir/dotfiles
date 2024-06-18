@@ -7,8 +7,7 @@
 }
 
 window#waybar {
-  background-color: rgba(46, 52, 64, 0.8);
-  border-bottom: 2px solid rgba(46, 52, 64, 0.8);
+  background-color: rgba(24, 24, 37, 1);
 }
 
 /* -----------------------------------------------------
@@ -17,7 +16,11 @@ window#waybar {
 
 #workspaces button {
   background: inherit;
-  color: #d8dee9;
+  color: #f5e0dc;
+}
+
+#workspaces:hover {
+  color: #f5e0dc;
 }
 
 /* -----------------------------------------------------
@@ -36,27 +39,33 @@ tooltip label {
 /* -----------------------------------------------------
  * Window
  * ----------------------------------------------------- */
-#window {
-  color: #d8dee9;
-  padding: 4px 10px;
-}
 
 #memory {
-  color: #d08770;
-  padding: 4px 10px;
+  color: #fab387;
 }
 
 #clock {
-  color: #81a1c1;
+  color: #89b4fa;
+  margin-right: 10px;
+}
+
+#wireplumber,
+#network,
+#clock,
+#memory,
+#language,
+#window {
   padding: 4px 10px;
 }
 
-#network {
-  color: #d8dee9;
-  padding: 4px 10px;
+#wireplumber,
+#language,
+#network,
+#window {
+  color: #f5e0dc;
 }
 
-#wireplumber {
-  color: #d8dee9;
-  padding: 4px 10px;
+#language {
+  font-weight: bold;
+  margin-left: 10px;
 }

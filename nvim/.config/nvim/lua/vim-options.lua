@@ -31,7 +31,7 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "0"
 
-----------------Keymaps----------------------
+---------------- Keymaps ----------------------
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -65,3 +65,17 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("n", "<leader><leader>", function()
 	vim.cmd("so")
 end)
+
+--- Russian maps ---
+vim.keymap.set("n", "<leader>зм", vim.cmd.Ex)
+
+vim.keymap.set("v", "О", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "Л", ":m '<-2<CR>gv=gv")
+
+vim.keymap.set("n", "<C-в>", "<C-d>zz")
+vim.keymap.set("n", "<C-г>", "<C-u>zz")
+
+vim.keymap.set({ "n", "v" }, "<leader>н", [["+y]])
+vim.keymap.set("n", "<leader>Н", [["+Y]])
+
+vim.keymap.set("n", "<leader>ы", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])

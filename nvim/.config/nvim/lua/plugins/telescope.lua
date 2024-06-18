@@ -12,7 +12,11 @@ return {
 
 		telescope.setup({
 			defaults = {
-				path_display = { "truncate " },
+				border = {},
+				borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+				path_display = { "truncate" },
+				color_devicons = true,
+				set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
 				mappings = {
 					i = {
 						["<C-k>"] = actions.move_selection_previous, -- move to prev result
@@ -29,8 +33,11 @@ return {
 		local keymap = vim.keymap -- for conciseness
 
 		keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
+		keymap.set("n", "<leader>аа", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
 		keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
 		keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
+		keymap.set("n", "<leader>аы", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
 		keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
+		keymap.set("n", "<leader>ас", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
 	end,
 }

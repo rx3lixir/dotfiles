@@ -1,6 +1,6 @@
 return {
 	"stevearc/conform.nvim",
-	event = { "BufReadPre", "BufNewFile" },
+	-- event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local conform = require("conform")
 
@@ -11,6 +11,8 @@ return {
 
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
+
+				svelte = { "prettier" },
 
 				css = { "prettier" },
 				html = { "prettier" },

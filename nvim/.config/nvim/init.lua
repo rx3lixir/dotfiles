@@ -1,3 +1,4 @@
+-- Setting up LazyVim options
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -10,7 +11,12 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
--- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -
+
+-- Setting up vim options
 require("vim-options")
 
+-- Setting up LazyVim plugin manager
 require("lazy").setup({ { import = "plugins" }, { import = "plugins.lsp" } })
+
+-- Setting up russian keys in vim
+require("rusKey")

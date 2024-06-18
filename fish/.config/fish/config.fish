@@ -18,6 +18,7 @@ alias g git
 alias vi nvim
 alias wgu "sudo wg-quick up wg0"
 alias wgd "sudo wg-quick down wg0"
+alias yy yazi
 
 # zoxide initialization
 zoxide init fish | source
