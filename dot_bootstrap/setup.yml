@@ -1,0 +1,169 @@
+- name: Machine setup
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: true
+  tasks:
+    - name: Get my user
+      ansible.builtin.set_fact:
+        remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+    - name: Update all system packages
+      community.general.pacman:
+        update_cache: true
+        upgrade: dist
+    - name: Install packages
+      community.general.pacman:
+        name:
+          - git
+          - vim
+          - firefox
+          - base-devel
+          - clang
+          - ldd
+          - lib32-glibc
+          - bat
+          - bluez
+          - bluez-utils
+          - docker-compose
+          - libvirt
+          - virt-manager
+          - qemu
+          - networkmanager
+          - network-manager-applet
+          - linux-firmware
+          - dkms
+          - openssh
+          - gnome
+          - go-task
+          - ripgrep
+          - zsh
+          - fzf
+          - tmux
+          - ffmpeg
+          - make
+          - wl-clipboard
+          - docker
+          - go
+          - rustc
+          - neovim
+          - hyprland
+          - hyprpaper
+          - hyprlock
+          - kitty
+          - zoxide
+          - yazi
+          - wget
+          - tlp
+          - wireplumber
+          - unrar
+          - unzip
+          - dart-sass
+          - brightnessctl
+          - swww
+          - python
+          - gnome-bluetooth-3.0
+          - pacman-contrib
+          - gvfs
+          - tmux
+          - pnpm
+          - nodejs
+          - wireguard-tools
+          - vulkan-tools
+          - vulkan-icd-loader
+          - lib32-vulkan-icd-loader
+          - mesa
+          - lib32-mesa
+          - amdvlk
+          - mesa
+          - amd-ucode
+          - vulkan-mesa-layers
+          - mesa-vdpau
+          - libva-mesa-driver
+          - pipewire
+          - pipewire-pulse
+          - lib32-pipewire
+          - npm
+          - lazygit
+          - hyprpicker
+          - firefox
+          - eza
+          - chezmoi
+          - btop
+          - gnome
+          - flatpak
+        state: present
+    - name: Change shell to zsh
+      ansible.builtin.user:
+        name: "{{ remote_regular_user }}"
+        shell: /usr/bin/zsh
+    - name: Add Docker group
+      ansible.builtin.group:
+        name: docker
+        state: present
+    - name: Add user to docker group
+      ansible.builtin.user:
+        name: "{{ remote_regular_user }}"
+        groups: docker
+        append: true
+    - name: Enable and start Docker service
+      ansible.builtin.systemd:
+        name: docker
+        enabled: true
+        state: started
+    - name: Enable and start TLP for power management
+      ansible.builtin.systemd:
+        name: tlp
+        enabled: true
+        state: started
+    - name: Installing Bun runtime
+      ansible.builtin.shell: curl -fsSL https://bun.sh/install | zsh && sudo ln -s $HOME/.bun/bin/bun /usr/local/bin/bun
+      args:
+        executable: /bin/zsh
+      register: bun_installation
+    - name: Ensure Bun is in PATH
+      ansible.builtin.lineinfile:
+        path: "/home/{{remote_regular_user}}/.zshrc"
+        line: 'export PATH="$HOME/.bun/bin:$PATH'
+        state: present
+      become: false
+      when: bun_installation is changed
+    - name: Install paru (AUR helper)
+      ansible.builtin.command: |
+        git clone https://aur.archlinux.org/paru.git /tmp/paru && \
+        cd /tmp/paru && \
+        makepkg -si --noconfirm
+      args:
+        creates: /usr/bin/paru
+    - name: Install packages from AUR
+      community.general.pacman:
+        name:
+          - hyprpanel
+          - tofi
+          - grimblast-git
+          - gpu-screen-recorder
+          - hyprpicker
+          - matugen-bin
+          - python-gpu-stat
+          - aylurs-gtk-shell-git
+        state: present
+        executable: paru
+        extra-args: --builddir /var/cache/yay
+    - name: Ensure fonts directory
+      ansible.builtin.file:
+        path: "~{{ remote_regular_user }}/.fonts"
+        state: directory
+        mode: "0755"
+        owner: "{{ remote_regular_user }}"
+    - name: Check if Jetbrains Mono exists
+      ansible.builtin.shell: "ls ~{{ remote_regular_user }}/.fonts/JetBrainsMonoNerd*FontMono*"
+      register: jetbrains_mono_exists
+      ignore_errors: true
+      changed_when: false
+    - name: Download Jetbrains mono
+      when: jetbrains_mono_exists is failed
+      ansible.builtin.unarchive:
+        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+        dest: "~{{ remote_regular_user }}/.fonts/"
+        remote_src: true
+        mode: "0755"
+        owner: "{{ remote_regular_user }}"
