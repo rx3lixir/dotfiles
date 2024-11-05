@@ -27,7 +27,7 @@
           - docker-compose
           - libvirt
           - virt-manager
-          - qemu
+          - qemu-base
           - networkmanager
           - network-manager-applet
           - linux-firmware
