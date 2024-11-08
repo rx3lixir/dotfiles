@@ -30,6 +30,6 @@ case "${OS}" in
 esac
 
 
-ansible-playbook ~/.bootstrap/setup.yml --ask-become-pass
+ansible-playbook ~/.bootstrap/setup.yml -K
 
-echo "Ansible installation complete."
+ cho "Ansible installation complete."

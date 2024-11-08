@@ -1,26 +1,27 @@
-- name: Machine setup
+- name: Setting up a machine
   hosts: localhost
-  become: true
-  connection: local
-  gather_facts: true
+  become: yes
   tasks:
-    - name: Get my user
+    - name: Get user
       ansible.builtin.set_fact:
         remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
-    - name: Update all system packages
+    - name: Changing shell to zsh
+      ansible.builtin.user:
+        name: "{{ remote_regular_user }}"
+        shell: /usr/bin/zsh
+    - name: Updating all system packages
       community.general.pacman:
         update_cache: true
-        upgrade: dist
-    - name: Install packages
+        upgrade: true
+    - name: Installing system packages
       community.general.pacman:
         name:
           - git
           - vim
+          - systemd-resolvconf
           - firefox
           - base-devel
           - clang
-          - ldd
-          - lib32-glibc
           - bat
           - bluez
           - bluez-utils
@@ -28,8 +29,8 @@
           - libvirt
           - virt-manager
           - qemu-base
-          - networkmanager
           - network-manager-applet
+          - networkmanager
           - linux-firmware
           - dkms
           - openssh
@@ -44,7 +45,7 @@
           - wl-clipboard
           - docker
           - go
-          - rustc
+          - rust
           - neovim
           - hyprland
           - hyprpaper
@@ -64,7 +65,7 @@
           - gnome-bluetooth-3.0
           - pacman-contrib
           - gvfs
-          - tmux
+          - npm
           - pnpm
           - nodejs
           - wireguard-tools
@@ -74,7 +75,6 @@
           - mesa
           - lib32-mesa
           - amdvlk
-          - mesa
           - amd-ucode
           - vulkan-mesa-layers
           - mesa-vdpau
@@ -82,72 +82,29 @@
           - pipewire
           - pipewire-pulse
           - lib32-pipewire
-          - npm
           - lazygit
           - hyprpicker
-          - firefox
           - eza
           - chezmoi
           - btop
-          - gnome
           - flatpak
+          - curl
         state: present
-    - name: Change shell to zsh
-      ansible.builtin.user:
-        name: "{{ remote_regular_user }}"
-        shell: /usr/bin/zsh
-    - name: Add Docker group
-      ansible.builtin.group:
-        name: docker
-        state: present
-    - name: Add user to docker group
-      ansible.builtin.user:
-        name: "{{ remote_regular_user }}"
-        groups: docker
-        append: true
-    - name: Enable and start Docker service
-      ansible.builtin.systemd:
-        name: docker
-        enabled: true
-        state: started
-    - name: Enable and start TLP for power management
-      ansible.builtin.systemd:
-        name: tlp
-        enabled: true
-        state: started
-    - name: Installing Bun runtime
-      ansible.builtin.shell: curl -fsSL https://bun.sh/install | zsh && sudo ln -s $HOME/.bun/bin/bun /usr/local/bin/bun
-      args:
-        executable: /bin/zsh
-      register: bun_installation
-    - name: Ensure Bun is in PATH
-      ansible.builtin.lineinfile:
-        path: "/home/{{remote_regular_user}}/.zshrc"
-        line: 'export PATH="$HOME/.bun/bin:$PATH'
-        state: present
-      become: false
-      when: bun_installation is changed
-    - name: Install paru (AUR helper)
-      ansible.builtin.command: |
-        git clone https://aur.archlinux.org/paru.git /tmp/paru && \
-        cd /tmp/paru && \
-        makepkg -si --noconfirm
-      args:
-        creates: /usr/bin/paru
-    - name: Install packages from AUR
+    - name: Installing AUR packages
+      become: no
+      ignore_errors: true
       community.general.pacman:
         name:
-          - hyprpanel
           - tofi
           - grimblast-git
-          - gpu-screen-recorder
+          - gpu-screen-recorder-git
+          - kanata-bin
           - hyprpicker
           - matugen-bin
-          - python-gpu-stat
+          - python-gpustat
           - aylurs-gtk-shell-git
-        state: present
         executable: paru
-        extra-args: --builddir /var/cache/yay
+        extra_args: --builddir /var/cache/paru
     - name: Ensure fonts directory
       ansible.builtin.file:
         path: "~{{ remote_regular_user }}/.fonts"
@@ -167,3 +124,30 @@
         remote_src: true
         mode: "0755"
         owner: "{{ remote_regular_user }}"
+    - name: Add user to docker group
+      ansible.builtin.user:
+        name: "{{ remote_regular_user }}"
+        groups: docker
+        append: true
+    - name: Enable and start Docker service
+      ansible.builtin.systemd:
+        name: docker
+        enabled: true
+        state: started
+    - name: Enable and start TLP for power management
+      ansible.builtin.systemd:
+        name: tlp
+        enabled: true
+        state: started
+    - name: Enable and start resolvconf for network resolution
+      ansible.builtin.systemd:
+        name: resolved
+        enabled: true
+        state: started
+    - name: Enable and start kanata for keybindings
+      become: false
+      ansible.builtin.systemd:
+        name: kanata
+        enabled: true
+        scope: user
+        state: started
