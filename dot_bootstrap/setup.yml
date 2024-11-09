@@ -37,6 +37,7 @@
           - gnome
           - go-task
           - ripgrep
+          - ly
           - zsh
           - fzf
           - tmux
@@ -136,6 +137,11 @@
     - name: Enable and start resolvconf for network resolution
       ansible.builtin.systemd:
         name: systemd-resolved
+        enabled: true
+        state: started
+    - name: Enable ly display manager
+      ansible.builtin.systemd:
+        name: ly
         enabled: true
         state: started
     - name: Enable and start kanata for keybindings

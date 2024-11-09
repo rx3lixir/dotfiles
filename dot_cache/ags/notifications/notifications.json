@@ -1,0 +1,22 @@
+[
+  {
+    "actions": [],
+    "appIcon": "dialog-warning-symbolic",
+    "appName": "notify-send",
+    "body": "Please select a wallpaper in 'Theming > General' first.",
+    "id": 1,
+    "summary": "Matugen Failed ",
+    "time": 1731132374,
+    "urgency": "normal"
+  },
+  {
+    "actions": [],
+    "appIcon": "dialog-warning-symbolic",
+    "appName": "notify-send",
+    "body": "Please select a wallpaper in 'Theming > General' first.",
+    "id": 2,
+    "summary": "Matugen Failed ",
+    "time": 1731132379,
+    "urgency": "normal"
+  }
+]
