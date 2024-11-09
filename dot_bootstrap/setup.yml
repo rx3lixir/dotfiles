@@ -90,21 +90,15 @@
           - flatpak
           - curl
         state: present
+    - name: Update paru database
+      ansible.builtin.command:
+        cmd: paru -Sy
+        creates: /var/cache/paru
+      become: false
     - name: Installing AUR packages
-      become: no
-      ignore_errors: true
-      community.general.pacman:
-        name:
-          - tofi
-          - grimblast-git
-          - gpu-screen-recorder-git
-          - kanata-bin
-          - hyprpicker
-          - matugen-bin
-          - python-gpustat
-          - aylurs-gtk-shell-git
-        executable: paru
-        extra_args: --builddir /var/cache/paru
+      ansible.builtin.command:
+        cmd: paru --noconfirm --needed -S tofi bluetui grimblast-git gpu-screen-recorder-git hyprpanel kanata-bin hyprpicker matugen-bin python-gpustat aylurs-gtk-shell-git
+      become: false
     - name: Ensure fonts directory
       ansible.builtin.file:
         path: "~{{ remote_regular_user }}/.fonts"
@@ -141,7 +135,7 @@
         state: started
     - name: Enable and start resolvconf for network resolution
       ansible.builtin.systemd:
-        name: resolved
+        name: systemd-resolved
         enabled: true
         state: started
     - name: Enable and start kanata for keybindings
