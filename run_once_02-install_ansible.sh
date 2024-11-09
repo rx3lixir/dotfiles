@@ -32,4 +32,4 @@ esac
 
 ansible-playbook ~/.bootstrap/setup.yml -K
 
- cho "Ansible installation complete."
+echo "Ansible installation complete."
