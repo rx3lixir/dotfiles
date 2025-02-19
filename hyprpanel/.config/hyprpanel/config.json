@@ -1,0 +1,87 @@
+{
+  "bar.customModules.updates.pollingInterval": 1440000,
+  "theme.font.size": "0.75rem",
+  "theme.bar.menus.monochrome": true,
+  "theme.font.weight": 400,
+  "scalingPriority": "hyprland",
+  "theme.bar.buttons.style": "default",
+  "theme.bar.buttons.monochrome": true,
+  "theme.bar.buttons.background": "#11111b",
+  "bar.clock.format": "%H:%M | %d-%m",
+  "menus.transition": "crossfade",
+  "theme.bar.buttons.padding_y": "0rem",
+  "theme.bar.buttons.padding_x": "0.6rem",
+  "theme.bar.buttons.y_margins": "0rem",
+  "bar.workspaces.show_icons": false,
+  "theme.bar.outer_spacing": "0.5em",
+  "bar.layouts": {
+    "0": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "kbinput"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "network",
+        "bluetooth",
+        "battery",
+        "systray",
+        "clock",
+        "notifications"
+      ]
+    },
+    "1": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "clock",
+        "notifications"
+      ]
+    },
+    "2": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "kbinput"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "clock",
+        "notifications"
+      ]
+    }
+  },
+  "bar.launcher.autoDetectIcon": true,
+  "bar.workspaces.showWsIcons": false,
+  "bar.workspaces.showApplicationIcons": false,
+  "bar.workspaces.showAllActive": false,
+  "bar.workspaces.applicationIconOncePerWorkspace": false,
+  "bar.customModules.kbLayout.labelType": "layout",
+  "bar.customModules.kbLayout.label": true,
+  "bar.customModules.kbLayout.icon": "",
+  "bar.network.label": false,
+  "bar.bluetooth.label": false,
+  "menus.dashboard.directories.left.directory1.label": "󰉍  Downloads",
+  "menus.dashboard.directories.left.directory2.label": "󰉏  Videos",
+  "menus.dashboard.directories.left.directory3.label": "󰚝  Projects",
+  "menus.dashboard.directories.right.directory1.label": "󱧶  Documents",
+  "menus.dashboard.directories.right.directory2.label": "󰉏  Pictures",
+  "menus.dashboard.directories.right.directory3.label": "󱂵  Home",
+  "bar.autoHide": "never",
+  "theme.bar.shadow": "0px 1px 2px 1px #16161e",
+  "theme.bar.shadowMargins": "0px 0px 1px 0px"
+}
