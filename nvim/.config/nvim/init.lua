@@ -16,8 +16,11 @@ vim.o.background = "light" -- or "light" for light mode
 -- Setting up vim options
 require("vim-options")
 
--- Setting up LazyVim plugin manager
-require("lazy").setup({ { import = "plugins" }, { import = "plugins.lsp" } })
+-- Подгрузка биндов
+require("keymaps")
 
--- Setting up russian keys in vim
-require("rusKey")
+-- Setting up LazyVim plugin manager
+require("lazy").setup({
+	{ import = "plugins" },
+	{ import = "plugins.lsp" },
+})

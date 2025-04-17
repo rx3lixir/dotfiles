@@ -65,7 +65,7 @@
       ]
     }
   },
-  "bar.launcher.autoDetectIcon": true,
+  "bar.launcher.autoDetectIcon": false,
   "bar.workspaces.showWsIcons": false,
   "bar.workspaces.showApplicationIcons": false,
   "bar.workspaces.showAllActive": false,
@@ -83,5 +83,21 @@
   "menus.dashboard.directories.right.directory3.label": "󱂵  Home",
   "bar.autoHide": "never",
   "theme.bar.shadow": "0px 1px 2px 1px #16161e",
-  "theme.bar.shadowMargins": "0px 0px 1px 0px"
+  "theme.bar.shadowMargins": "0px 0px 1px 0px",
+  "bar.launcher.icon": "󰕮",
+  "theme.bar.buttons.workspaces.active": "#b4befe",
+  "theme.bar.buttons.workspaces.available": "#a6e3a1",
+  "theme.bar.buttons.workspaces.occupied": "#3a3b4d",
+  "theme.bar.buttons.workspaces.hover": "#585b70",
+  "theme.font.name": "Cantarell",
+  "theme.font.label": "Cantarell",
+  "theme.osd.shadow": "0px 0px 4px 0px #16161e",
+  "theme.osd.radius": "0.2em",
+  "theme.osd.orientation": "horizontal",
+  "theme.osd.location": "bottom",
+  "theme.osd.margins": "7px 7px 10px 7px",
+  "menus.dashboard.powermenu.avatar.image": "/home/rx3lixir/Downloads/avatar.jpg",
+  "menus.clock.weather.enabled": false,
+  "menus.clock.time.military": true,
+  "menus.clock.time.hideSeconds": true
 }

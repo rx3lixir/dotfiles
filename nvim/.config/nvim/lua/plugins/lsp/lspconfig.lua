@@ -1,106 +1,160 @@
+-- LSP Configuration
 return {
 	"neovim/nvim-lspconfig",
+	-- Загружать плагин только когда открывается файл
 	event = { "BufReadPre", "BufNewFile" },
+	-- Зависимости, необходимые для работы LSP
 	dependencies = {
+		-- Интеграция с nvim-cmp для автодополнения
 		"hrsh7th/cmp-nvim-lsp",
+		-- Плагин для операций с файлами через LSP
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 	},
 	config = function()
-		-- import lspconfig plugin
+		----------------------------------------------------------------------
+		-- БАЗОВАЯ НАСТРОЙКА
+		----------------------------------------------------------------------
+		-- Импорт основных модулей
 		local lspconfig = require("lspconfig")
-
-		-- import cmp-nvim-lsp plugin
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
-		local keymap = vim.keymap -- for conciseness
-
-		local _border = "rounded"
-
-		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-			border = _border,
-		})
-
-		vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-			border = _border,
-		})
-
-		vim.diagnostic.config({
-			float = { border = _border },
-		})
-
-		local opts = { noremap = true, silent = true }
-		local on_attach = function(client, bufnr)
-			opts.buffer = bufnr
-
-			-- set keybinds
-			opts.desc = "Show LSP references"
-			keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
-
-			opts.desc = "Go to declaration"
-			keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
-
-			opts.desc = "Show LSP definitions"
-			keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
-
-			opts.desc = "Show LSP implementations"
-			keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
-
-			opts.desc = "Show LSP type definitions"
-			keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
-
-			opts.desc = "See available code actions"
-			keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
-
-			opts.desc = "Smart rename"
-			keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
-
-			opts.desc = "Show buffer diagnostics"
-			keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
-
-			opts.desc = "Show line diagnostics"
-			keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
-
-			opts.desc = "Go to previous diagnostic"
-			keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
-
-			opts.desc = "Go to next diagnostic"
-			keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
-
-			opts.desc = "Show documentation for what is under cursor"
-			keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-
-			opts.desc = "Restart LSP"
-			keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
-		end
-
-		-- used to enable autocompletion (assign to every lsp server config)
-		local capabilities = cmp_nvim_lsp.default_capabilities()
 		local util = require("lspconfig/util")
+		local keymap = vim.keymap -- Для краткости
 
-		-- Change the Diagnostic symbols in the sign column (gutter)
-		-- (not in youtube nvim video)
-		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-		for type, icon in pairs(signs) do
+		----------------------------------------------------------------------
+		-- НАСТРОЙКА ДИАГНОСТИКИ
+		----------------------------------------------------------------------
+		-- Настройка значков для диагностических сообщений в gutter
+		local diagnostic_signs = {
+			Error = " ", -- Иконка для ошибок
+			Warn = " ", -- Иконка для предупреждений
+			Hint = "󰠠 ", -- Иконка для подсказок
+			Info = " ", -- Иконка для информации
+		}
+
+		-- Регистрация значков диагностики
+		for type, icon in pairs(diagnostic_signs) do
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
-		-- configure html server
-		lspconfig["html"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
+		----------------------------------------------------------------------
+		-- ОБРАБОТЧИК ПОДКЛЮЧЕНИЯ И СОЧЕТАНИЯ КЛАВИШ
+		----------------------------------------------------------------------
+		local opts = { noremap = true, silent = true }
 
-		-- configure svelte server
-		lspconfig["svelte"].setup({
-			capabilities = capabilities,
+		-- Функция, вызываемая при подключении LSP сервера к буферу
+		local on_attach = function(client, bufnr)
+			opts.buffer = bufnr
+
+			-- НАВИГАЦИЯ ПО КОДУ
+			-- Показать ссылки на текущий символ
+			opts.desc = "Показать использования символа"
+			keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
+
+			-- Перейти к объявлению
+			opts.desc = "Перейти к объявлению"
+			keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+
+			-- Показать определения
+			opts.desc = "Показать определения"
+			keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+
+			-- Показать реализации интерфейса
+			opts.desc = "Показать реализации"
+			keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+
+			-- Показать определения типов
+			opts.desc = "Показать определения типов"
+			keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+
+			-- ДЕЙСТВИЯ С КОДОМ
+			-- Показать доступные действия с кодом
+			opts.desc = "Доступные действия с кодом"
+			keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+
+			-- Умное переименование символа
+			opts.desc = "Переименовать символ"
+			keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+
+			-- ДИАГНОСТИКА
+			-- Показать диагностику для файла
+			opts.desc = "Показать диагностику буфера"
+			keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+
+			-- Показать диагностику для текущей строки
+			opts.desc = "Показать диагностику строки"
+			keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+
+			-- ДОКУМЕНТАЦИЯ И УПРАВЛЕНИЕ
+			-- Показать документацию для элемента под курсором
+			opts.desc = "Показать документацию"
+			keymap.set("n", "K", vim.lsp.buf.hover, opts)
+
+			-- Перезапуск LSP сервера
+			opts.desc = "Перезапустить LSP"
+			keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
+		end
+
+		----------------------------------------------------------------------
+		-- ОБЩИЕ НАСТРОЙКИ ДЛЯ ВСЕХ СЕРВЕРОВ
+		----------------------------------------------------------------------
+		-- Настройка возможностей автодополнения (будет применяться к каждому серверу)
+		local capabilities = cmp_nvim_lsp.default_capabilities()
+
+		----------------------------------------------------------------------
+		-- ФУНКЦИЯ ДЛЯ НАСТРОЙКИ СЕРВЕРОВ С ДЕФОЛТНЫМИ ЗНАЧЕНИЯМИ
+		----------------------------------------------------------------------
+		-- Функция для установки базовой конфигурации LSP с стандартными параметрами
+		local function setup_server(server_name, custom_opts)
+			-- Объединяем стандартные параметры с пользовательскими
+			local opts = {
+				capabilities = capabilities,
+				on_attach = on_attach,
+			}
+
+			-- Если есть пользовательские параметры, объединяем их с дефолтными
+			if custom_opts then
+				for k, v in pairs(custom_opts) do
+					opts[k] = v
+				end
+			end
+
+			-- Устанавливаем конфигурацию сервера
+			lspconfig[server_name].setup(opts)
+		end
+
+		----------------------------------------------------------------------
+		-- НАСТРОЙКА ЯЗЫКОВЫХ СЕРВЕРОВ
+		----------------------------------------------------------------------
+
+		-- Список серверов с базовой конфигурацией
+		local servers = {
+			"html", -- HTML сервер
+			"yamlls", -- YAML сервер
+			"templ", -- Templ сервер (для шаблонов Go)
+			"sqls", -- SQL сервер
+			"ts_ls", -- TypeScript сервер
+			"pylsp", -- Python сервер
+			"cssls", -- CSS сервер
+		}
+
+		-- Настраиваем все стандартные серверы
+		for _, server in ipairs(servers) do
+			setup_server(server)
+		end
+
+		-- SVELTE сервер с особой обработкой изменений TS/JS файлов
+		setup_server("svelte", {
 			on_attach = function(client, bufnr)
+				-- Сначала применяем общие настройки
 				on_attach(client, bufnr)
 
+				-- Добавляем специальную обработку для .js и .ts файлов в проектах Svelte
 				vim.api.nvim_create_autocmd("BufWritePost", {
 					pattern = { "*.js", "*.ts" },
 					callback = function(ctx)
 						if client.name == "svelte" then
+							-- Уведомляем Svelte сервер об изменениях в TS/JS файлах
 							client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
 						end
 					end,
@@ -108,67 +162,51 @@ return {
 			end,
 		})
 
-		-- yaml language server
-		lspconfig["yamlls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure sql server
-		lspconfig["sqls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- Configuring gopls serever fo golang
-		lspconfig["gopls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
+		-- GO сервер (gopls) с дополнительными настройками
+		setup_server("gopls", {
 			cmd = { "gopls" },
 			filetypes = { "go", "gomod", "gowork", "gotmpl" },
+			-- Определение корневого каталога проекта
 			root_dir = util.root_pattern("go.work", "go.mod", ".git"),
 			settings = {
 				gopls = {
+					-- Автоматически добавлять импорты при автодополнении
 					completeUnimported = true,
+					-- Использовать плейсхолдеры в сниппетах
 					usePlaceholders = true,
 					analyses = {
+						-- Находить неиспользуемые параметры
 						unusedparams = true,
 					},
 				},
 			},
 		})
 
-		-- configure typescript server with plugin
-		lspconfig["ts_ls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
+		-- Emmet сервер для HTML/CSS сокращений с указанием поддерживаемых типов файлов
+		setup_server("emmet_ls", {
+			-- Список типов файлов, для которых активировать Emmet
+			filetypes = {
+				"html",
+				"typescriptreact",
+				"javascriptreact",
+				"css",
+				"sass",
+				"scss",
+				"less",
+				"svelte",
+			},
 		})
 
-		-- configure css server
-		lspconfig["cssls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure emmet language server
-		lspconfig["emmet_ls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
-		})
-
-		-- configure lua server (with special settings)
-		lspconfig["lua_ls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			settings = { -- custom settings for lua
+		-- Lua сервер с особыми настройками для Neovim
+		setup_server("lua_ls", {
+			settings = {
 				Lua = {
-					-- make the language server recognize "vim" global
+					-- Распознавать глобальную переменную "vim"
 					diagnostics = {
 						globals = { "vim" },
 					},
 					workspace = {
-						-- make language server aware of runtime files
+						-- Включить runtime-файлы Neovim
 						library = {
 							[vim.fn.expand("$VIMRUNTIME/lua")] = true,
 							[vim.fn.stdpath("config") .. "/lua"] = true,
