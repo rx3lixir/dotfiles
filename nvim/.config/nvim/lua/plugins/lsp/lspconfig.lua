@@ -24,18 +24,11 @@ return {
 		-- НАСТРОЙКА ДИАГНОСТИКИ
 		----------------------------------------------------------------------
 		-- Настройка значков для диагностических сообщений в gutter
-		local diagnostic_signs = {
-			Error = " ", -- Иконка для ошибок
-			Warn = " ", -- Иконка для предупреждений
-			Hint = "󰠠 ", -- Иконка для подсказок
-			Info = " ", -- Иконка для информации
-		}
-
-		-- Регистрация значков диагностики
-		for type, icon in pairs(diagnostic_signs) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-		end
+		local x = vim.diagnostic.severity
+		vim.diagnostic.config({
+			virtual_text = { prefix = "󰌕 " },
+			signs = { text = { [x.ERROR] = " ", [x.WARN] = " ", [x.HINT] = "󰠠 ", [x.INFO] = " " } },
+		})
 
 		----------------------------------------------------------------------
 		-- ОБРАБОТЧИК ПОДКЛЮЧЕНИЯ И СОЧЕТАНИЯ КЛАВИШ
