@@ -30,6 +30,7 @@ return {
 			ensure_installed = {
 				"ts_ls",
 				"svelte",
+				"pyright",
 				"html",
 				"cssls",
 				"lua_ls",
@@ -58,6 +59,8 @@ return {
 
 				"yamllint", -- Linter for yaml
 				"yamlfmt", -- Formatter for yaml
+
+				"black", -- Formatter for python
 			},
 		})
 	end,

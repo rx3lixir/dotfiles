@@ -8,7 +8,7 @@ return {
 
 			-- Цвета
 			local colors = {
-				bg = "#1e1e2e",
+				bg = "#222134",
 				fg = "#cdd6f4",
 				yellow = "#f9e2af",
 				cyan = "#94e2d5",
@@ -123,7 +123,6 @@ return {
 				color = { fg = colors.magenta, gui = "bold" },
 			})
 
-			ins_left({ "location" })
 			ins_left({ "progress", color = { fg = colors.fg, gui = "bold" } })
 
 			ins_left({
@@ -137,13 +136,8 @@ return {
 				},
 			})
 
-			ins_left({
-				function()
-					return "%="
-				end,
-			})
-
-			ins_left({
+			-- Правая часть
+			ins_right({
 				function()
 					local msg = "No Active Lsp"
 					local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
@@ -161,21 +155,6 @@ return {
 				end,
 				icon = " LSP:",
 				color = { fg = "#ffffff", gui = "bold" },
-			})
-
-			-- Правая часть
-			ins_right({
-				"o:encoding",
-				fmt = string.upper,
-				cond = conditions.hide_in_width,
-				color = { fg = colors.green, gui = "bold" },
-			})
-
-			ins_right({
-				"fileformat",
-				fmt = string.upper,
-				icons_enabled = false,
-				color = { fg = colors.green, gui = "bold" },
 			})
 
 			ins_right({

@@ -8,16 +8,16 @@ opt.nu = true
 opt.relativenumber = true
 
 -- Настройки табуляции:
-opt.tabstop = 4 -- Ширина таба в пробелах
-opt.softtabstop = 4 -- Количество пробелов при нажатии Tab
-opt.shiftwidth = 4 -- Количество пробелов для отступа при использовании >> | <<
+opt.tabstop = 2 -- Ширина таба в пробелах
+opt.softtabstop = 2 -- Количество пробелов при нажатии Tab
+opt.shiftwidth = 2 -- Количество пробелов для отступа при использовании >> | <<
 opt.expandtab = true -- Заменяет табы на пробелы
 
 -- Умные отступы: вкл
 opt.smartindent = true
 
--- Перенос строк: вкл
-opt.wrap = true
+-- Перенос строк: откл
+opt.wrap = false
 
 -- Отключает создание свап-файла
 opt.swapfile = false

@@ -26,8 +26,15 @@ return {
 		-- Настройка значков для диагностических сообщений в gutter
 		local x = vim.diagnostic.severity
 		vim.diagnostic.config({
-			virtual_text = { prefix = "󰌕 " },
-			signs = { text = { [x.ERROR] = " ", [x.WARN] = " ", [x.HINT] = "󰠠 ", [x.INFO] = " " } },
+			virtual_text = { prefix = " " },
+			signs = {
+				text = {
+					[x.ERROR] = " ",
+					[x.WARN] = " ",
+					[x.HINT] = "󰠠 ",
+					[x.INFO] = " ",
+				},
+			},
 		})
 
 		----------------------------------------------------------------------
@@ -127,14 +134,29 @@ return {
 			"templ", -- Templ сервер (для шаблонов Go)
 			"sqls", -- SQL сервер
 			"ts_ls", -- TypeScript сервер
-			"pylsp", -- Python сервер
 			"cssls", -- CSS сервер
+			"protols", -- PROTOBUF сервер
 		}
 
 		-- Настраиваем все стандартные серверы
 		for _, server in ipairs(servers) do
 			setup_server(server)
 		end
+
+		-- TypeScript/JavaScript сервер (tsserver, используется как 'ts_ls')
+		-- с расширенными настройками для Next.js и TypeScript проектов.
+		setup_server("ts_ls", {
+			filetypes = {
+				"typescript",
+				"typescriptreact", -- Для .tsx файлов
+				"typescript.tsx", -- Некоторые конфигурации могут ожидать это
+				"javascript",
+				"javascriptreact", -- Для .jsx файлов
+				"javascript.jsx", -- Некоторые конфигурации могут ожидать это
+			},
+			-- Определение корневого каталога проекта. Это важно для tsserver
+			root_dir = util.root_pattern("tsconfig.json", "jsconfig.json", "package.json", ".next", ".git"),
+		})
 
 		-- SVELTE сервер с особой обработкой изменений TS/JS файлов
 		setup_server("svelte", {
@@ -153,6 +175,19 @@ return {
 					end,
 				})
 			end,
+		})
+
+		setup_server("pyright", {
+			settings = {
+				python = {
+					analysis = {
+						autoSearchPaths = true,
+						useLibraryCodeForTypes = true,
+						diagnosticMode = "workspace",
+						typeCheckingMode = "basic",
+					},
+				},
+			},
 		})
 
 		-- GO сервер (gopls) с дополнительными настройками
