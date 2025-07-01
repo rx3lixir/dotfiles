@@ -89,15 +89,23 @@
   "theme.bar.buttons.workspaces.available": "#a6e3a1",
   "theme.bar.buttons.workspaces.occupied": "#3a3b4d",
   "theme.bar.buttons.workspaces.hover": "#585b70",
-  "theme.font.name": "Cantarell",
-  "theme.font.label": "Cantarell",
+  "theme.font.name": "Ubuntu Nerd Font",
+  "theme.font.label": "Ubuntu Nerd Font Light",
   "theme.osd.shadow": "0px 0px 4px 0px #16161e",
-  "theme.osd.radius": "0.2em",
+  "theme.osd.radius": "1.2em",
   "theme.osd.orientation": "horizontal",
   "theme.osd.location": "bottom",
   "theme.osd.margins": "7px 7px 10px 7px",
-  "menus.dashboard.powermenu.avatar.image": "/home/rx3lixir/Downloads/avatar.jpg",
+  "menus.dashboard.powermenu.avatar.image": "/home/rx3lixir/Pictures/spikeavatar.jpg",
   "menus.clock.weather.enabled": false,
   "menus.clock.time.military": true,
-  "menus.clock.time.hideSeconds": true
+  "menus.clock.time.hideSeconds": true,
+  "bar.customModules.storage.paths": [
+    "/"
+  ],
+  "menus.power.lowBatteryNotification": true,
+  "menus.power.lowBatteryNotificationText": "Battery is running low ($POWER_LEVEL %).",
+  "theme.bar.floating": false,
+  "theme.bar.border.location": "none",
+  "theme.bar.enableShadow": false
 }

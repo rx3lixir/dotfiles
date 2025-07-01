@@ -1,11 +1,14 @@
 #!/bin/bash
 
-CONFIG_FILES="$HOME/.config/waybar/config $HOME/.config/waybar/style.css"
+echo "Перезагружаю waybar..."
 
-trap "killall waybar" EXIT
+# Убиваем все процессы waybar
+pkill waybar
 
-while true; do
-    waybar &
-    inotifywait -e create,modify $CONFIG_FILES
-    killall waybar
-done
+# Ждем немного, чтобы процессы точно завершились
+sleep 1
+
+# Запускаем waybar заново в фоновом режиме
+waybar &
+
+echo "Waybar перезагружен!"

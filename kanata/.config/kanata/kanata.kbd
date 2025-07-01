@@ -1,6 +1,7 @@
 (defcfg
   process-unmapped-keys yes
   danger-enable-cmd yes
+  log-layer-changes no
 )
 
 (defsrc
