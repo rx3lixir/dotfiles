@@ -1,0 +1,5 @@
+# Ignore everything inside .config/tmux/plugins
+dotfiles/tmux/.config/tmux/plugins/*
+
+# But keep the folder itself (so Git tracks the empty dir)
+dotfiles/tmux/.config/tmux/plugins/.gitkeep

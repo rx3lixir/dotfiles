@@ -1,0 +1,18 @@
+# Font configuration
+font-family = JetBrainsMono Nerd Font
+font-size = 13
+
+# Window settings
+gtk-single-instance = false
+gtk-titlebar = false
+
+window-decoration = false
+window-padding-x = 6
+window-padding-y = 4
+
+# Shell
+shell-integration = fish
+command = fish
+
+# Theming
+theme = TokyoNight Night

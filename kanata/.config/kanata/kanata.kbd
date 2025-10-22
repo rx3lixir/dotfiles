@@ -1,0 +1,17 @@
+(defcfg
+  process-unmapped-keys yes
+  danger-enable-cmd yes
+  log-layer-changes no
+)
+
+(defsrc
+  rght
+)
+
+(defalias
+  rghtctrl (tap-hold 150 150 rght rctrl)
+)
+
+(deflayer base
+  @rghtctrl
+)

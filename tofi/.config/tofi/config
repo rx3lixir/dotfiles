@@ -1,0 +1,12 @@
+width = 100%
+height = 100%
+border-width = 0
+outline-width = 0
+padding-left = 35%
+padding-top = 25%
+result-spacing = 25
+num-results = 5
+font = Ubuntu Nerd Font 
+background-color = #000A
+selection-color = #c6d0f5
+text-color = #737994

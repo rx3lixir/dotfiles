@@ -1,0 +1,171 @@
+{
+  "layer": "top",
+  "position": "top",
+
+  "modules-left": ["custom/notification", "custom/kb_layout", "group/misc"],
+  "modules-center": ["hyprland/workspaces"],
+  "modules-right": ["bluetooth", "group/volume", "network", "battery", "clock"],
+
+  "group/misc" : {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "misc-modules",
+      "transition-top-to-bottom": false
+    },
+    "modules": [
+      "custom/separator",
+      "cpu",
+      "memory"
+    ]
+  },
+
+  "custom/separator": {
+    "format": "",
+    "tooltip": false
+  },
+
+  "cpu": {
+    "interval": 10,
+    "format": "{}%  ",
+    "max-length": 10
+  },
+
+  "memory": {
+   "interval": 30,
+    "format": "{}%  ",
+    "max-length": 10
+  },
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+		  "1": "",
+		  "2": "",
+		  "3": "",
+		  "4": "",
+		  "5": "",
+		  "active": "",
+		  "default": ""
+	  },
+    "persistent-workspaces": {
+      "*": 4
+    },
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspce e-1",
+    "on-scroll-down": "hyprctl dispatch workspace e+1",
+  },
+
+  "custom/notification": {
+  "tooltip": true,
+  "format": "{icon}",
+  "format-icons": {
+    "notification": "󱅫",
+      "none": "󰂜",
+      "dnd-notification": "󰂠",
+      "dnd-none": "󰪓",
+      "inhibited-notification": "󰂛",
+      "inhibited-none": "󰪑",
+      "dnd-inhibited-notification": "󰂛",
+      "dnd-inhibited-none": "󰪑"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+
+  "custom/kb_layout": {
+    "exec": "~/.config/waybar/scripts/kb_layout.sh",
+    "interval": 1,
+    "return-type": "json",
+    "tooltip": true
+  },
+
+  "group/volume": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-top-to-bottom": true
+    },
+    "modules": ["pulseaudio", "pulseaudio/slider"]
+  },
+
+  "pulseaudio/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal",
+    "max-length": 25
+  },
+
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-bluetooth": "󰂰",
+    "format-muted": "",
+    "scroll-step": 1,
+    "on-click": "kitty --class floating_term -e wiremix",
+    "ignored-sinks": ["Easy Effects Sink"],
+    "format-icons": {
+      "headphone": "",
+      "phone": "",
+      "phone-muted": "",
+      "portable": "",
+      "car": "",
+      "default": ["", ""]
+    },
+    "tooltip-format": "Volume: {volume}%",
+    "max-length": 25
+  },
+  
+  "network": {
+    "interface": "wlan0",
+    "format": "{ifname}",
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰈀",
+    "format-diconnected": "󰖪",
+    "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
+    "tooltip-format": "Connected to {essid}",
+    "max-length": 25,
+    "on-click": "kitty --class floating_term -e impala"
+  },
+
+  "battery": {
+    "bat": "BAT0",
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}",
+    "format-icons": ["", "", "", "", ""],
+    "on-click": "kitty --class floating_term -e btop",
+    "tooltip-format": "{capacity}%",
+    "max-length": 25
+  },
+
+  "bluetooth": {
+	  "format": "",
+	  "format-disabled": "󰂲",
+	  "format-connected": "󰂱",
+	  "tooltip-format": "{controller_alias}\t{controller_address}",
+	  "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+	  "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "kitty --class floating_term -e bluetui"
+  },
+
+  "clock": {
+    "format": "{:%H:%M%d.%m}",
+    "interval": 1,
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "calendar": {
+      "today": "<span><b>{}</b></span>"
+    },
+    "actions": {
+      "on-click-right": "shift_down",
+      "on-click": "shift_up"
+    },
+    "max-length": 25
+  },
+}

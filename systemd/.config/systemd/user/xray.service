@@ -1,0 +1,16 @@
+[Unit]
+Description=Xray proxy client 
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/xray run -config %h/.config/xray/xsn.json
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=5
+StandardOutput=append:%h/.config/xray/xray.log
+StandardError=append:%h/.config/xray/xray.log
+
+[Install]
+WantedBy=default.target

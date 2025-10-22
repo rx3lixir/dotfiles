@@ -1,0 +1,146 @@
+@import "colors/mocha.css";
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+* {
+  border: none;
+  border-radius: 0px;
+  font-family: "Ubuntu Nerd Font";
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+window#waybar {
+  background-color: alpha(@crust, 0.8);
+  padding: 3px 0;
+}
+
+/* ============================================
+   TOOLTIPS
+   ============================================ */
+
+tooltip {
+  background: @base;
+  color: @text;
+  border: 1px solid @border-active;
+  border-radius: 10px;
+}
+
+tooltip label {
+  color: @fg;
+}
+
+/* ============================================
+   WORKSPACES
+   ============================================ */
+
+#workspaces {
+  transition: all 0.4s ease-in-out;
+  padding: 4px 0; /* padding from top */
+}
+
+#workspaces button {
+  color: @surface0;
+  background: transparent;
+  transition: all 0.4s ease-in-out;
+  margin: 0 4px; /* margins between buttons */
+  border-radius: 20%;
+  min-height: 6px;
+  min-width: 10px;
+}
+
+#workspaces button.active {
+  color: @lavender;
+  background: transparent;
+  transition: all 0.4s ease-in-out;
+}
+
+#workspaces button:hover {
+  color: @surface2;
+  background: transparent;
+  background-size: 400% 400%;
+  transition: all 0.3s ease-in-out;
+}
+
+/* ============================================
+   STATUS MODULES (right side)
+   ============================================ */
+
+#battery,
+#network,
+#bluetooth {
+  margin: 0 10px;
+  color: @text;
+}
+
+/* ============================================
+   AUDIO CONTROLS
+   ============================================ */
+
+#pulseaudio {
+  background-color: alpha(@crust, 0.5);
+  border-radius: 5px;
+  margin: 0 10px;
+  color: @text;
+}
+
+/* Wrapper around the slider */
+#pulseaudio-slider {
+  margin: 0 10px;
+  padding: 5px 0;
+}
+
+/* The draggable handle */
+#pulseaudio-slider slider {
+  background-color: @text;
+  border-radius: 4px;
+  min-height: 8px;
+  min-width: 8px;
+}
+
+/* The unfilled part of the bar */
+#pulseaudio-slider trough {
+  color: @text;
+  min-width: 100px;
+  min-height: 4px;
+  border-radius: 10px;
+}
+
+/* The filled part of the bar */
+#pulseaudio-slider highlight {
+  background-color: @lavender;
+  min-height: 4px;
+  border-radius: 10px;
+}
+
+/* ============================================
+   MISC DRAWER MODULES
+   ============================================ */
+
+#custom-kb_layout,
+#custom-separator,
+#misc-modules {
+  color: @text;
+  margin: 0 10px;
+}
+
+#cpu,
+#memory {
+  color: @text;
+  margin: 0 10px;
+}
+
+#custom-notification {
+  color: @text;
+  margin-left: 14px;
+  margin-right: 10px;
+}
+
+#clock {
+  color: @lavender;
+  margin-right: 14px; /* from bar end */
+  margin-left: 10px; /* to next module */
+}
