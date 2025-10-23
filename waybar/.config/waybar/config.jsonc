@@ -138,10 +138,11 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{icon}",
-    "format-icons": ["", "", "", "", ""],
+    "format": "{icon} {capacity}%",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-charging": "󰂄 {capacity}%",
     "on-click": "kitty --class floating_term -e btop",
-    "tooltip-format": "{capacity}%",
+    "tooltip": false,
     "max-length": 25
   },
 

@@ -30,6 +30,8 @@
 @define-color surface2 #585b70;
 @define-color surface1 #45475a;
 @define-color surface0 #313244;
+
+/* Border Colors */
 @define-color border-active #393A4D;
 @define-color border-inactive #2C2C3D;
 
