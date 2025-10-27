@@ -1,14 +1,42 @@
 #!/bin/bash
 
-echo "Перезагружаю waybar..."
+echo "Restarting waybar and swaync..."
 
-# Убиваем все процессы waybar
-pkill waybar
+# Kill waybar
+if pgrep -x waybar > /dev/null; then
+    killall waybar
+    echo "✓ Killed waybar"
+else
+    echo "⚠ Waybar wasn't running"
+fi
 
-# Ждем немного, чтобы процессы точно завершились
-sleep 1
+# Kill swaync (kills both daemon and client)
+if pgrep -x swaync > /dev/null; then
+    killall swaync
+    echo "✓ Killed swaync"
+else
+    echo "⚠ Swaync wasn't running"
+fi
 
-# Запускаем waybar заново в фоновом режиме
+# Kill swayosd (kills both daemon and client)
+if pgrep -x swayosd-server > /dev/null; then
+    killall swayosd-server 
+    echo "✓ Killed swayosd"
+else
+    echo "⚠ Swayosd wasn't running"
+fi
+
+# Give them a moment to fully close
+sleep 0.5
+
+# Start them fresh
 waybar &
+echo "✓ Started waybar"
 
-echo "Waybar перезагружен!"
+swaync &
+echo "✓ Started swaync"
+
+swayosd-server &
+echo "✓ Started swayosd"
+
+echo "All done! Check your bar for changes."

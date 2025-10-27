@@ -1,0 +1,305 @@
+/* ===================================
+   GLOBAL STYLES
+   =================================== */
+
+* {
+  font-family: "Ubuntu Nerd Font Propo", "Apple Color Emoji";
+  font-size: 14px;
+}
+
+scrollbar {
+  opacity: 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+.blank-window {
+  background: transparent;
+}
+
+/* ===================================
+   CONTROL CENTER
+   =================================== */
+
+.control-center {
+  background-color: @bg0;
+  color: @fg;
+  border: 2px solid @border;
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow:
+    0 19px 38px rgba(0, 0, 0, 0.3),
+    0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+/* ===================================
+   NOTIFICATION GROUPS
+   =================================== */
+
+.notification-group {
+  background-color: transparent;
+  margin: 2px 4px;
+  font-size: 14px;
+}
+
+.notification-group-icon {
+  color: @fg;
+}
+
+.notification-group-headers {
+  color: @fg;
+}
+
+.notification-group-collapse-button,
+.notification-group-close-all-button {
+  background: @bg0;
+  color: @fg;
+  margin: 4px;
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.notification-group-collapse-button:hover,
+.notification-group-close-all-button:hover {
+  background: lighter(@accent);
+  color: @bg;
+}
+
+/* ===================================
+   WIDGET TITLE
+   =================================== */
+
+.widget-title {
+  color: @fg;
+}
+
+.widget-title > button {
+  font-size: 1rem;
+  color: @fg;
+  background: @bg2;
+  box-shadow: none;
+}
+
+.widget-title > button:hover {
+  background: @accent;
+  color: @fg;
+}
+
+/* ===================================
+   BASE BUTTON STYLES
+   =================================== */
+
+button {
+  border: none;
+  min-width: 35px;
+  background: lighter(@bg1);
+  box-shadow: none;
+  outline: none;
+}
+
+/* ===================================
+   WIDGET BUTTON GRID
+   =================================== */
+
+.widget-buttons-grid {
+  background: @bg2;
+  padding: 4px;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button {
+  color: @fg;
+  margin: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button:hover {
+  background: alpha(@accent, 0.2);
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked {
+  background: @accent;
+  color: @bg0;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked:hover {
+  background: @accent;
+  color: @fg;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked label {
+  color: @bg0;
+}
+
+/* ===================================
+   DO NOT DISTURB WIDGET
+   =================================== */
+
+.widget-dnd {
+  background: transparent;
+  color: @fg;
+}
+
+.widget-dnd > label {
+  color: @fg;
+}
+
+.widget-dnd > switch {
+  background: @bg1;
+  color: @fg;
+  border-radius: 16px;
+}
+
+.widget-dnd > switch:checked {
+  background: @accent;
+}
+
+.widget-dnd > switch slider {
+  background: @fg;
+  border-radius: 12px;
+}
+
+.widget-dnd > switch:checked slider {
+  background: @bg2;
+  border-radius: 12px;
+}
+
+/* ===================================
+   VOLUME & BRIGHTNESS WIDGETS
+   =================================== */
+
+.widget-volume,
+.widget-backlight {
+  background: @bg2;
+  color: @fg;
+  padding: 8px 12px;
+  margin: 8px;
+  border-radius: 8px;
+}
+
+.widget-volume > box,
+.widget-backlight > box {
+  padding: 0;
+  margin: 0;
+}
+
+.widget-volume label,
+.widget-backlight label {
+  font-size: 16px;
+  min-width: 24px;
+  margin-right: 8px;
+}
+
+/* Sliders for volume and brightness */
+.widget-volume scale,
+.widget-backlight scale {
+  min-height: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+.widget-volume scale trough,
+.widget-backlight scale trough {
+  min-height: 4px;
+  min-width: 100px;
+  border-radius: 2px;
+  /*background: @accent;*/
+  margin: 0;
+  padding: 0;
+}
+
+.widget-volume scale trough slider,
+.widget-backlight scale trough slider {
+  min-height: 12px;
+  min-width: 12px;
+  border-radius: 6px;
+  background: @fg;
+  margin: -4px;
+  box-shadow: none;
+  border: none;
+}
+
+.widget-volume scale trough slider:hover,
+.widget-backlight scale trough slider:hover {
+  background: @fg;
+}
+
+.widget-volume scale trough highlight,
+.widget-backlight scale trough highlight {
+  background: @accent;
+  border-radius: 2px;
+}
+
+/* ===================================
+   MUSIC PLAYER WIDGET
+   =================================== */
+
+.widget-mpris {
+  background-color: @bg2;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 12px;
+  outline: none;
+}
+
+.widget-mpris-player {
+  padding: 8px;
+  margin: 8px;
+}
+
+.widget-mpris-title {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.widget-mpris-subtitle {
+  font-size: 8px;
+}
+
+.widget-mpris button:hover {
+  background-color: @accent;
+  color: @bg;
+}
+
+/* ===================================
+   GLOBAL SLIDER FALLBACK
+   =================================== */
+
+scale {
+  min-height: 4px;
+}
+
+scale trough {
+  background: alpha(@bg0);
+  border-radius: 2px;
+  min-height: 4px;
+}
+
+scale trough slider {
+  background: @fg;
+  border-radius: 6px;
+  min-height: 12px;
+  min-width: 12px;
+  margin: -4px;
+}
+
+scale trough slider:hover {
+  background: @fg;
+}
+
+scale trough highlight {
+  background: @accent;
+  border-radius: 2px;
+}

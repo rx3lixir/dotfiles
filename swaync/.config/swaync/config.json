@@ -1,0 +1,116 @@
+{
+  "$schema": "/etc/xdg/swaync/configSchema.json",
+
+  "positionX": "left",
+  "positionY": "top",
+  "cssPriority": "user",
+
+  "layer": "overlay",
+  "control-center-layer": "top",
+  "layer-shell": true,
+
+  "control-center-width": 200,
+  "control-center-height": 700,
+
+  "control-center-margin-top": 8,
+  "control-center-margin-bottom": 0,
+  "control-center-margin-right": 0,
+  "control-center-margin-left": 8,
+
+  "notification-2fa-action": true,
+  "notification-inline-replies": true,
+  "notification-icon-size": 48,
+
+  "notification-body-image-height": 160,
+  "notification-body-image-width": 200,
+  "notification-window-width": 300,
+
+  "timeout": 6,
+  "timeout-low": 3,
+  "timeout-critical": 0,
+
+  "transition-time": 200,
+
+  "hide-on-action": true,
+  "hide-on-clear": true,
+
+  "fit-to-screen": false,
+  "keyboard-shortcuts": true,
+  "image-visibility": "when-available",
+  "script-fail-notify": true,
+
+  "widgets": [
+    "dnd",
+    "buttons-grid",
+    "mpris",
+    "volume",
+    "backlight",
+    "title",
+    "notifications"
+  ],
+
+  "widget-config": {
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": true,
+      "button-text": ""
+    },
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+    "label": {
+      "max-lines": 1,
+      "text": "Notification"
+    },
+    "mpris": {
+      "image-size": 50,
+      "image-radius": 0
+    },
+    "volume": {
+      "label": ""
+    },
+    "backlight": {
+      "label": "󰃠",
+      "device": "amdgpu_bl1"
+    },
+    "buttons-grid": {
+      "actions": [
+        {
+          "label": "",
+          "command": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+          "type": "toggle"
+        },
+        {
+          "label": "󰍭",
+          "command": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+          "type": "toggle"
+        },
+        {
+          "label": "󰂲",
+          "command": "kitty --class floating_term -e bluetui"
+        },
+        {
+          "label": "󰻂",
+          "command": "~/.config/hypr/scripts/swaync/screen-rec.sh",
+          "type": "toggle"
+        },
+        {
+          "label": "󰤨",
+          "command": "kitty --class floating_term -e impala"
+        },
+        {
+          "label": "",
+          "command": "shutdown now"
+        },
+        {
+          "label": "",
+          "command": "hyprlock"
+        },
+        {
+          "label": "󰈊",
+          "command": "hyprpicker -a"
+        }
+      ]
+    }
+  }
+}

@@ -18,7 +18,6 @@ if not test -f $fisher_path/functions/fisher.fish
     echo "Installing plugins..."
 
     # Install plugins
-    fisher install IlanCosman/tide@v6
     fisher install patrickf1/fzf.fish
     fisher install meaningful-ooo/sponge
     fisher install PatrickF1/fzf.fish

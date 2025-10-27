@@ -21,7 +21,7 @@
   },
 
   "custom/separator": {
-    "format": "",
+    "format": "󰮫",
     "tooltip": false
   },
 
@@ -138,7 +138,7 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{icon} {capacity}%",
+    "format": "{icon}  {capacity}%",
     "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     "format-charging": "󰂄 {capacity}%",
     "on-click": "kitty --class floating_term -e btop",
@@ -147,17 +147,19 @@
   },
 
   "bluetooth": {
-	  "format": "",
-	  "format-disabled": "󰂲",
-	  "format-connected": "󰂱",
-	  "tooltip-format": "{controller_alias}\t{controller_address}",
-	  "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-	  "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "format": "",
+    "format-on": "",
+    "format-off": "󰂲",
+    "format-connected": "󰂱",
+    "format-disabled": "󰂲", 
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
     "on-click": "kitty --class floating_term -e bluetui"
   },
 
   "clock": {
-    "format": "{:%H:%M%d.%m}",
+    "format": "{:%H:%M | %d.%m}",
     "interval": 1,
     "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {

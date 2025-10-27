@@ -33,25 +33,25 @@ fi
 
 # Choose icon based on capacity
 if [ "$capacity" -le 10 ]; then
-    icon="  "  # Critical
+    icon="󰁺"  # Critical
 elif [ "$capacity" -le 20 ]; then
-    icon="  "  # 10%
+    icon="󰁺"  # 10%
 elif [ "$capacity" -le 30 ]; then
-    icon="  "  # 20%
+    icon="󰁻"  # 20%
 elif [ "$capacity" -le 40 ]; then
-    icon="  "  # 30%
+    icon="󰁼"  # 30%
 elif [ "$capacity" -le 50 ]; then
-    icon="  "  # 40%
+    icon="󰁽"  # 40%
 elif [ "$capacity" -le 60 ]; then
-    icon="  "  # 50%
+    icon="󰁾"  # 50%
 elif [ "$capacity" -le 70 ]; then
-    icon="  "  # 60%
+    icon="󰁿"  # 60%
 elif [ "$capacity" -le 80 ]; then
-    icon="  "  # 70%
+    icon="󰂀"  # 70%
 elif [ "$capacity" -le 90 ]; then
-    icon="  "  # 80%
+    icon="󰂁"  # 80%
 else
-    icon="  "  # 90-100%
+    icon="󰁹"  # 90-100%
 fi
 
 # Format output based on charging status
