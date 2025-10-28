@@ -1,0 +1,83 @@
+format = """
+$directory\
+$git_branch\
+$git_status\
+$jobs\
+$fill\
+$lua\
+$nodejs\
+$bun\
+$golang\
+$rust\
+$docker_context\
+$line_break\
+$python\
+$character\
+"""
+
+palette = 'colors'
+
+[palettes.colors]
+accent = '#cccb76'
+accent-fixed = '#e8e78f'
+secondary = '#cac8a4'
+secondary-fixed = '#e7e4bf'
+tertiary = '#a4d0bc'
+tertiary-fixed = '#c0ecd8'
+bg = '#202018'
+bg-dim = '#14140c'
+fg = '#cac7b6'
+fg-strong = '#e6e3d5' 
+fg-muted = '#cac7b6'
+
+[fill]
+symbol = ' '
+
+[git_branch]
+style = 'fg:accent'
+symbol = ' '
+format = '[on](color8) [$symbol$branch ]($style)'
+
+[git_status]
+style = 'fg:fg'
+format = '([\[$all_status$ahead_behind\]]($style) )'
+deleted = ''
+untracked = ''
+modified = ''
+
+[docker_context]
+symbol = '🐋'
+style = 'fg:accent'
+format = '[$symbol] ($style) $context'
+detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
+detect_extensions = ['Dockerfile']
+
+[golang]
+symbol = '🦫'
+style = 'bold fg:accent'
+format = '[$symbol ($version)]($style)'
+
+[lua]
+symbol = '🌙'
+style = 'bold fg:accent'
+format = '[$symbol ($version)]($style)'
+
+[nodejs]
+symbol = '🥬'
+style = 'bold fg:accent'
+format = '[$symbol ($version)]($style)'
+
+[bun]
+symbol = '🥐'
+style = 'bold fg:accent'
+format = '[$symbol ($version)]($style)'
+
+[rust]
+symbol = '🦀'
+style = 'bold fg:accent'
+format = '[$symbol ($version)]($style)'
+
+[python]
+symbol = '🐍'
+style = 'bold fg:accent'
+format = '[$symbol ($version) ($virtualenv)]($style)'
