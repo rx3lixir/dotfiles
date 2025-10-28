@@ -24,7 +24,7 @@ fi
 # Using --font from config and additional performance args
 selected=$(cat "$EMOJI_FILE" | tofi \
     --font "Ubuntu Nerd Font" \
-    --prompt-text "Emoji: ")
+    --prompt-text " Emoji: ")
 
 # Exit if nothing was selected (user pressed Escape)
 if [[ -z "$selected" ]]; then

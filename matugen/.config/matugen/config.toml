@@ -1,5 +1,4 @@
 [config]
-# Where matugen will look for templates
 templates_dir = "~/.config/matugen/templates"
 
 # --- Waybar ---
@@ -16,32 +15,32 @@ post_hook = 'pkill -SIGUSR1 kitty'
 # --- GTK theming ---
 [templates.gtk3]
 input_path = '~/.config/matugen/templates/gtk/gtk-colors.css'
-output_path = '~/.config/gtk-3.0/colors/matugen.css'
-post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
+output_path = '~/.config/gtk-3.0/colors/colors.css'
+post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark"'
 
 [templates.gtk4]
 input_path = '~/.config/matugen/templates/gtk/gtk-colors.css'
-output_path = '~/.config/gtk-4.0/colors/matugen.css'
-
-# --- Rofi ---
-[templates.rofi]
-input_path = '~/.config/matugen/templates/rofi/rofi-colors.rasi'
-output_path = '~/.local/share/rofi/themes/matugen.rasi'
+output_path = '~/.config/gtk-4.0/colors/colors.css'
 
 # --- Hyprland ---
 [templates.hyprland]
 input_path = "~/.config/matugen/templates/hyprland/hyprland.conf"
-output_path = "~/.config/hypr/conf/colors.conf"
+output_path = "~/.config/hypr/colors.conf"
+
+# --- Hyprlock ---
+[templates.hyprlock]
+input_path = "~/.config/matugen/templates/hyprlock/hyprlock.conf"
+output_path = "~/.config/hypr/hyprlock.conf"
 
 # --- Swaync ---
 [templates.swaync]
 input_path = "~/.config/matugen/templates/swaync/colors.css"
-output_path = "~/.config/swaync/colors/matugen.css"
+output_path = "~/.config/swaync/colors/colors.css"
 
 # --- Swayosd ---
 [templates.swayosd]
 input_path = "~/.config/matugen/templates/swayosd/colors.css"
-output_path = "~/.config/swayosd/colors/matugen.css"
+output_path = "~/.config/swayosd/colors/colors.css"
 
 # --- Starship ---
 [templates.starship]

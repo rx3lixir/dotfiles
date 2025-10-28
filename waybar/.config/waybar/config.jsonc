@@ -32,7 +32,7 @@
   },
 
   "memory": {
-   "interval": 30,
+    "interval": 30,
     "format": "{}%  ",
     "max-length": 10
   },
@@ -159,7 +159,7 @@
   },
 
   "clock": {
-    "format": "{:%H:%M | %d.%m}",
+    "format": "{:%H:%M  %d.%m}",
     "interval": 1,
     "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {

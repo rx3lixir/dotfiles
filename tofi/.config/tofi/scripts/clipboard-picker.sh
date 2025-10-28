@@ -27,8 +27,8 @@ mapfile -t full_lines < <(cliphist list | head -n "$MAX_ITEMS")
 # Create truncated display version
 display_lines=()
 for line in "${full_lines[@]}"; do
-    if [[ ${#line} -gt 50 ]]; then
-        display_lines+=("${line:0:50}...")
+    if [[ ${#line} -gt 30 ]]; then
+        display_lines+=("${line:0:30}...")
     else
         display_lines+=("$line")
     fi
@@ -37,7 +37,7 @@ done
 # Show truncated version in tofi
 selected_display=$(printf '%s\n' "${display_lines[@]}" | tofi \
     --font "Ubuntu Nerd Font, Apple Color Emoji" \
-    --prompt-text "Clipboard: ")
+    --prompt-text " Clipboard: ")
 
 # Exit if nothing was selected (user pressed Escape)
 if [[ -z "$selected_display" ]]; then

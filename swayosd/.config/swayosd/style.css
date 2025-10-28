@@ -1,9 +1,11 @@
-@import "colors/matugen.css";
+@import "colors/colors.css";
 
 window#osd {
-  border-radius: 20px;
-  border: 2px solid @bg1;
-  background: @bg0;
+  box-shadow:
+    0 19px 38px rgba(0, 0, 0, 0.3),
+    0 15px 12px rgba(0, 0, 0, 0.22);
+  border-radius: 12px;
+  background: lighter(@bg0);
   font-size: 13px;
 }
 
@@ -22,7 +24,7 @@ window#osd image {
 }
 
 window#osd label {
-  color: @accent;
+  color: @fg;
 }
 
 window#osd progressbar:disabled,
@@ -41,12 +43,12 @@ window#osd trough {
   min-height: inherit;
   border-radius: inherit;
   border: none;
-  background: @surface;
+  background: @bg-bright;
 }
 
 window#osd progress {
   min-height: inherit;
   border-radius: inherit;
   border: none;
-  background: @accent;
+  background: @accent-fixed;
 }
