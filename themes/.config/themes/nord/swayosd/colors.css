@@ -1,0 +1,38 @@
+/* Nord Colorsheme For Waybar */
+
+/* Primary accent - main highlight color */
+@define-color accent #88c0d0;
+@define-color accent-fixed #81a1c1;
+
+/* Secondary accent - supporting highlight */
+@define-color secondary #8fbcbb;
+@define-color secondary-fixed #5e81ac;
+
+/* Tertiary accent - subtle emphasis / less prominent highlights */
+@define-color tertiary #a3be8c;
+@define-color tertiary-fixed #d08770;
+
+/* Background layers */
+@define-color bg0 #2e3440;
+@define-color bg1 #434c5e;
+@define-color bg2 #3b4252;
+@define-color bg-bright #4c566a;
+@define-color bg-dim #0E1115;
+
+/* Error colors */
+@define-color error #bf616a;
+@define-color on-error #4c566a;
+
+/* Text colors */
+@define-color fg #d8dee9;
+@define-color fg-strong #eceff4;
+@define-color fg-muted #e5e9f0;
+
+/* Borders */
+@define-color border #42474E;
+@define-color border-strong #8D9199;
+@define-color border-dim #2E3135;
+
+/* Overlays / shadows (optional, useful for UI layering) */
+@define-color overlay #000000;
+@define-color scrim #000000;
