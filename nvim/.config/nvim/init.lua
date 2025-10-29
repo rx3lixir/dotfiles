@@ -16,7 +16,7 @@ vim.o.background = "light" -- or "light" for light mode
 -- Setting up vim options
 require("vim-options")
 
--- Подгрузка биндов
+-- Loading binds
 require("keymaps")
 
 -- Setting up LazyVim plugin manager

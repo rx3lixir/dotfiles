@@ -17,6 +17,6 @@ font-size=24
 
 background-color = #000000CC
 
-selection-color = #cccb76
-text-color = #e6e3d5
-prompt-color = #cccb76
+selection-color = #a3c9fe
+text-color = #e1e2e8
+prompt-color = #a3c9fe

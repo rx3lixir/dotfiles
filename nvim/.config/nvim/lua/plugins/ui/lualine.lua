@@ -1,189 +1,217 @@
 return {
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		event = "VeryLazy",
-		config = function()
-			local lualine = require("lualine")
+	"nvim-lualine/lualine.nvim",
+	opts = function(_, opts)
+		local auto = require("lualine.themes.auto")
 
-			-- Цвета
-			local colors = {
-				bg = "#181825",
-				fg = "#bac2de",
-				yellow = "#f9e2af",
-				cyan = "#94e2d5",
-				darkblue = "#565f89",
-				green = "#a6e3a1",
-				orange = "#ff9e64",
-				violet = "#cba6f7",
-				magenta = "#b4befe",
-				blue = "#89b4fa",
-				red = "#eba0ac",
-			}
+		-- Matugen color palette
+		local colors = {
+			-- Primary accent - main highlight color
+			accent = "#a3c9fe",
+			accent_fixed = "#d3e3ff",
+			-- Secondary accent - supporting highlight
+			secondary = "#bcc7db",
+			secondary_fixed = "#d8e3f8",
+			-- Tertiary accent - subtle emphasis
+			tertiary = "#d9bde3",
+			tertiary_fixed = "#f5d9ff",
+			-- Background layers
+			bg0 = "#111318",
+			bg1 = "#1d2024",
+			bg2 = "#191c20",
+			bg_bright = "#37393e",
+			bg_dim = "#111318",
+			-- Error colors
+			error = "#ffb4ab",
+			on_error = "#690005",
+			-- Text colors
+			fg = "#c3c6cf",
+			fg_strong = "#e1e2e8",
+			fg_muted = "#c3c6cf",
+			-- Borders
+			border = "#43474e",
+			border_strong = "#8d9199",
+			border_dim = "#2e3035",
+			-- Overlays / shadows
+			overlay = "#000000",
+			scrim = "#000000",
+		}
 
-			-- Условия отображения компонентов
-			local conditions = {
-				buffer_not_empty = function()
-					return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
+		local function separator()
+			return {
+				function()
+					return "│"
 				end,
-				hide_in_width = function()
-					return vim.fn.winwidth(0) > 80
-				end,
-				check_git_workspace = function()
-					local filepath = vim.fn.expand("%:p:h")
-					local gitdir = vim.fn.finddir(".git", filepath .. ";")
-					return gitdir and #gitdir > 0 and #gitdir < #filepath
-				end,
+				color = { fg = colors.border, bg = "NONE", gui = "bold" },
+				padding = { left = 1, right = 1 },
 			}
+		end
 
-			-- Конфиг
-			local config = {
-				options = {
-					icons_enabled = true,
-					component_separators = "",
-					section_separators = "",
-					theme = {
-						normal = { c = { fg = colors.fg, bg = colors.bg } },
-						inactive = { c = { fg = colors.fg, bg = colors.bg } },
-					},
-				},
-				sections = {
-					lualine_a = {},
-					lualine_b = {},
-					lualine_y = {},
-					lualine_z = {},
-					lualine_c = {},
-					lualine_x = {},
-				},
-				inactive_sections = {
-					lualine_a = {},
-					lualine_b = {},
-					lualine_y = {},
-					lualine_z = {},
-					lualine_c = {},
-					lualine_x = {},
-				},
-			}
-
-			-- Вставка в секции
-			local function ins_left(component)
-				table.insert(config.sections.lualine_c, component)
+		local function custom_branch()
+			local gitsigns = vim.b.gitsigns_head
+			local fugitive = vim.fn.exists("*FugitiveHead") == 1 and vim.fn.FugitiveHead() or ""
+			local branch = gitsigns or fugitive
+			if branch == nil or branch == "" then
+				return ""
+			else
+				return " " .. branch
 			end
+		end
 
-			local function ins_right(component)
-				table.insert(config.sections.lualine_x, component)
+		local modes = { "normal", "insert", "visual", "replace", "command", "inactive", "terminal" }
+		for _, mode in ipairs(modes) do
+			if auto[mode] and auto[mode].c then
+				auto[mode].c.bg = "NONE"
 			end
+		end
 
-			-- Левая часть
-			ins_left({
-				function()
-					return "▊"
-				end,
-				color = { fg = colors.blue },
-				padding = { left = 0, right = 1 },
-			})
+		opts.options = vim.tbl_deep_extend("force", opts.options or {}, {
+			theme = auto,
+			component_separators = "",
+			section_separators = "",
+			globalstatus = true,
+			disabled_filetypes = { statusline = {}, winbar = {} },
+		})
 
-			ins_left({
-				function()
-					return "󱨥"
-				end,
-				color = function()
-					local mode_color = {
-						n = colors.red,
-						i = colors.green,
-						v = colors.blue,
-						["␖"] = colors.blue,
-						V = colors.blue,
-						c = colors.magenta,
-						no = colors.red,
-						s = colors.orange,
-						S = colors.orange,
-						["␓"] = colors.orange,
-						ic = colors.yellow,
-						R = colors.violet,
-						Rv = colors.violet,
-						cv = colors.red,
-						ce = colors.red,
-						r = colors.cyan,
-						rm = colors.cyan,
-						["r?"] = colors.cyan,
-						["!"] = colors.red,
-						t = colors.red,
-					}
-					return { fg = mode_color[vim.fn.mode()] }
-				end,
-				padding = { right = 1 },
-			})
-
-			ins_left({ "filesize", cond = conditions.buffer_not_empty })
-
-			ins_left({
-				"filename",
-				cond = conditions.buffer_not_empty,
-				color = { fg = colors.fg, gui = "bold" },
-			})
-
-			ins_left({ "progress", color = { fg = colors.fg, gui = "bold" } })
-
-			ins_left({
-				"diagnostics",
-				sources = { "nvim_diagnostic" },
-				symbols = { error = " ", warn = " ", info = " " },
-				diagnostics_color = {
-					error = { fg = colors.red },
-					warn = { fg = colors.yellow },
-					info = { fg = colors.cyan },
-				},
-			})
-
-			-- Правая часть
-			ins_right({
-				function()
-					local msg = "No Active Lsp"
-					local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
-					local clients = vim.lsp.get_clients()
-					if next(clients) == nil then
-						return msg
-					end
-					for _, client in ipairs(clients) do
-						local filetypes = client.config.filetypes
-						if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-							return client.name
+		opts.sections = {
+			lualine_a = {
+				{
+					"mode",
+					fmt = function(str)
+						return str:sub(1, 1)
+					end,
+					color = function()
+						local mode = vim.fn.mode()
+						if mode == "\22" then
+							return { fg = "none", bg = colors.accent, gui = "bold" }
+						elseif mode == "V" then
+							return { fg = colors.accent, bg = "none", gui = "underline,bold" }
+						else
+							return { fg = colors.accent, bg = "none", gui = "bold" }
 						end
-					end
-					return msg
-				end,
-				icon = " LSP:",
-				color = { fg = colors.fg, gui = "bold" },
-			})
-
-			ins_right({
-				"branch",
-				icon = "",
-				color = { fg = colors.cyan, gui = "bold" },
-			})
-
-			ins_right({
-				"diff",
-				symbols = { added = " ", modified = "󰝤 ", removed = " " },
-				diff_color = {
-					added = { fg = colors.green },
-					modified = { fg = colors.orange },
-					removed = { fg = colors.red },
+					end,
+					padding = { left = 0, right = 0 },
 				},
-				cond = conditions.hide_in_width,
-			})
+			},
+			lualine_b = {
+				separator(),
+				{
+					custom_branch,
+					color = { fg = colors.secondary, bg = "none", gui = "bold" },
+					padding = { left = 0, right = 0 },
+				},
+				{
+					"diff",
+					colored = true,
+					diff_color = {
+						added = { fg = colors.secondary, bg = "none", gui = "bold" },
+						modified = { fg = colors.tertiary, bg = "none", gui = "bold" },
+						removed = { fg = colors.error, bg = "none", gui = "bold" },
+					},
+					symbols = { added = "+", modified = "~", removed = "-" },
+					source = nil,
+					padding = { left = 1, right = 0 },
+				},
+			},
+			lualine_c = {
+				separator(),
+				{
+					"filetype",
+					icon_only = true,
+					colored = false,
+					color = { fg = colors.accent, bg = "none", gui = "bold" },
+					padding = { left = 0, right = 1 },
+				},
+				{
+					"filename",
+					file_status = true,
+					path = 0,
+					shorting_target = 20,
+					symbols = {
+						modified = "[+]",
+						readonly = "[-]",
+						unnamed = "[?]",
+						newfile = "[!]",
+					},
+					color = { fg = colors.accent, bg = "none", gui = "bold" },
+					padding = { left = 0, right = 0 },
+				},
+			},
+			lualine_x = {
+				{
+					function()
+						local size = vim.fn.getfsize(vim.api.nvim_buf_get_name(0))
+						if size < 0 then
+							return "-"
+						else
+							if size < 1024 then
+								return size .. "B"
+							elseif size < 1024 * 1024 then
+								return string.format("%.1fK", size / 1024)
+							elseif size < 1024 * 1024 * 1024 then
+								return string.format("%.1fM", size / (1024 * 1024))
+							else
+								return string.format("%.1fG", size / (1024 * 1024 * 1024))
+							end
+						end
+					end,
+					color = { fg = colors.accent, bg = "none", gui = "bold" },
+					padding = { left = 0, right = 0 },
+				},
+			},
+			lualine_y = {
+				separator(),
+				{
+					"diagnostics",
+					sources = { "nvim_diagnostic", "coc" },
+					sections = { "error", "warn", "info", "hint" },
+					diagnostics_color = {
+						error = function()
+							local count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+							return { fg = (count == 0) and colors.secondary or colors.error, bg = "none", gui = "bold" }
+						end,
+						warn = function()
+							local count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+							return {
+								fg = (count == 0) and colors.secondary or colors.tertiary,
+								bg = "none",
+								gui = "bold",
+							}
+						end,
+						info = function()
+							local count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+							return { fg = (count == 0) and colors.secondary or colors.accent, bg = "none", gui = "bold" }
+						end,
+						hint = function()
+							local count = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+							return {
+								fg = (count == 0) and colors.secondary or colors.secondary_fixed,
+								bg = "none",
+								gui = "bold",
+							}
+						end,
+					},
+					symbols = {
+						error = "󰅚 ",
+						warn = "󰀪 ",
+						info = "󰋽 ",
+						hint = "󰌶 ",
+					},
+					colored = true,
+					update_in_insert = false,
+					always_visible = true,
+					padding = { left = 0, right = 0 },
+				},
+			},
+			lualine_z = {
+				separator(),
+				{
+					"progress",
+					color = { fg = colors.accent, bg = "none", gui = "bold" },
+					padding = { left = 0, right = 0 },
+				},
+			},
+		}
 
-			ins_right({
-				function()
-					return "▊"
-				end,
-				color = { fg = colors.blue },
-				padding = { left = 1 },
-			})
-
-			-- Активируем lualine
-			lualine.setup(config)
-		end,
-	},
+		return opts
+	end,
 }
