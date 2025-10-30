@@ -1,44 +1,33 @@
 {
   "$schema": "/etc/xdg/swaync/configSchema.json",
-
   "positionX": "left",
   "positionY": "top",
   "cssPriority": "user",
-
   "layer": "overlay",
   "control-center-layer": "top",
   "layer-shell": true,
-
   "control-center-width": 200,
   "control-center-height": 700,
-
   "control-center-margin-top": 8,
   "control-center-margin-bottom": 0,
   "control-center-margin-right": 0,
   "control-center-margin-left": 8,
-
   "notification-2fa-action": true,
   "notification-inline-replies": true,
   "notification-icon-size": 48,
-
   "notification-body-image-height": 160,
   "notification-body-image-width": 200,
   "notification-window-width": 300,
-
   "timeout": 6,
   "timeout-low": 3,
   "timeout-critical": 0,
-
   "transition-time": 200,
-
   "hide-on-action": true,
   "hide-on-clear": true,
-
   "fit-to-screen": false,
   "keyboard-shortcuts": true,
   "image-visibility": "when-available",
   "script-fail-notify": true,
-
   "widgets": [
     "dnd",
     "buttons-grid",
@@ -48,12 +37,11 @@
     "title",
     "notifications"
   ],
-
   "widget-config": {
     "title": {
       "text": "Notifications",
       "clear-all-button": true,
-      "button-text": ""
+      "button-text": ""
     },
     "dnd": {
       "text": "Do Not Disturb"
@@ -67,7 +55,7 @@
       "image-radius": 0
     },
     "volume": {
-      "label": ""
+      "label": ""
     },
     "backlight": {
       "label": "󰃠",
@@ -77,29 +65,36 @@
       "actions": [
         {
           "label": "",
-          "command": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-          "type": "toggle"
+          "type": "toggle",
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == false ]] && wpctl set-mute @DEFAULT_AUDIO_SINK@ 0 || wpctl set-mute @DEFAULT_AUDIO_SINK@ 1'",
+          "update-command": "sh -c '[[ $(wpctl get-volume @DEFAULT_AUDIO_SINK@) == *\"[MUTED]\"* ]] && echo false || echo true'"
         },
         {
           "label": "󰍭",
-          "command": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
-          "type": "toggle"
+          "type": "toggle",
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == false ]] && wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0 || wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1'",
+          "update-command": "sh -c '[[ $(wpctl get-volume @DEFAULT_AUDIO_SOURCE@) == *\"[MUTED]\"* ]] && echo false || echo true'"
         },
         {
           "label": "󰂲",
-          "command": "kitty --class floating_term -e bluetui"
+          "type": "toggle",
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == false ]] && bluetoothctl power on || bluetoothctl power off'",
+          "update-command": "sh -c '[[ $(bluetoothctl show | grep \"Powered:\") == *\"yes\"* ]] && echo true || echo false'"
         },
         {
           "label": "󰻂",
+          "type": "toggle",
           "command": "~/.config/hypr/scripts/swaync/screen-rec.sh",
-          "type": "toggle"
+          "update-command": "sh -c '[[ -f /tmp/wf-recorder.pid ]] && echo true || echo false'"
         },
         {
-          "label": "󰤨",
-          "command": "kitty --class floating_term -e impala"
+          "label": "󰤭",
+          "type": "toggle",
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == false ]] && nmcli radio wifi on || nmcli radio wifi off'",
+          "update-command": "sh -c '[[ $(nmcli radio wifi) == \"enabled\" ]] && echo true || echo false'"
         },
         {
-          "label": "",
+          "label": "⏻",
           "command": "shutdown now"
         },
         {

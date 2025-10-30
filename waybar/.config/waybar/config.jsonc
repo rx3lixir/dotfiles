@@ -4,7 +4,7 @@
 
   "modules-left": ["custom/notification", "custom/kb_layout", "group/misc"],
   "modules-center": ["hyprland/workspaces"],
-  "modules-right": ["bluetooth", "group/volume", "network", "battery", "clock"],
+  "modules-right": ["bluetooth", "pulseaudio", "network", "battery", "clock"],
 
   "group/misc" : {
     "orientation": "inherit",
@@ -84,28 +84,12 @@
     "tooltip": true
   },
 
-  "group/volume": {
-    "orientation": "horizontal",
-    "drawer": {
-      "transition-duration": 500,
-      "transition-top-to-bottom": true
-    },
-    "modules": ["pulseaudio", "pulseaudio/slider"]
-  },
-
-  "pulseaudio/slider": {
-    "min": 0,
-    "max": 100,
-    "orientation": "horizontal",
-    "max-length": 25
-  },
-
   "pulseaudio": {
     "format": "{icon}",
     "format-bluetooth": "󰂰",
     "format-muted": "",
     "scroll-step": 1,
-    "on-click": "kitty --class floating_term -e wiremix",
+    "on-click": "kitty --class wiremix -e wiremix",
     "ignored-sinks": ["Easy Effects Sink"],
     "format-icons": {
       "headphone": "",
@@ -128,7 +112,7 @@
     "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
     "tooltip-format": "Connected to {essid}",
     "max-length": 25,
-    "on-click": "kitty --class floating_term -e impala"
+    "on-click": "kitty --class impala -e impala"
   },
 
   "battery": {
@@ -141,7 +125,7 @@
     "format": "{icon}  {capacity}%",
     "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     "format-charging": "󰂄 {capacity}%",
-    "on-click": "kitty --class floating_term -e btop",
+    "on-click": "kitty --class btop -e btop",
     "tooltip": false,
     "max-length": 25
   },
@@ -155,7 +139,7 @@
     "tooltip-format": "{controller_alias}\t{controller_address}",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    "on-click": "kitty --class floating_term -e bluetui"
+    "on-click": "kitty --class bluetui -e bluetui"
   },
 
   "clock": {
