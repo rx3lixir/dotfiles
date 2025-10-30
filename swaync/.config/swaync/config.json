@@ -66,20 +66,20 @@
         {
           "label": "",
           "type": "toggle",
-          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == false ]] && wpctl set-mute @DEFAULT_AUDIO_SINK@ 0 || wpctl set-mute @DEFAULT_AUDIO_SINK@ 1'",
-          "update-command": "sh -c '[[ $(wpctl get-volume @DEFAULT_AUDIO_SINK@) == *\"[MUTED]\"* ]] && echo false || echo true'"
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && wpctl set-mute @DEFAULT_AUDIO_SINK@ 1 || wpctl set-mute @DEFAULT_AUDIO_SINK@ 0'",
+          "update-command": "sh -c '[[ $(wpctl get-volume @DEFAULT_AUDIO_SINK@) == *\"[MUTED]\"* ]] && echo true || echo false'"
         },
         {
           "label": "󰍭",
           "type": "toggle",
-          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == false ]] && wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0 || wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1'",
-          "update-command": "sh -c '[[ $(wpctl get-volume @DEFAULT_AUDIO_SOURCE@) == *\"[MUTED]\"* ]] && echo false || echo true'"
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1 || wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0'",
+          "update-command": "sh -c '[[ $(wpctl get-volume @DEFAULT_AUDIO_SOURCE@) == *\"[MUTED]\"* ]] && echo true || echo false'"
         },
         {
           "label": "󰂲",
           "type": "toggle",
-          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == false ]] && bluetoothctl power on || bluetoothctl power off'",
-          "update-command": "sh -c '[[ $(bluetoothctl show | grep \"Powered:\") == *\"yes\"* ]] && echo true || echo false'"
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && bluetoothctl power off || bluetoothctl power on'",
+          "update-command": "sh -c '[[ $(bluetoothctl show | grep \"Powered:\") == *\"yes\"* ]] && echo false || echo true'"
         },
         {
           "label": "󰻂",
@@ -90,8 +90,8 @@
         {
           "label": "󰤭",
           "type": "toggle",
-          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == false ]] && nmcli radio wifi on || nmcli radio wifi off'",
-          "update-command": "sh -c '[[ $(nmcli radio wifi) == \"enabled\" ]] && echo true || echo false'"
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && nmcli radio wifi off || nmcli radio wifi on'",
+          "update-command": "sh -c '[[ $(nmcli radio wifi) == \"enabled\" ]] && echo false || echo true'"
         },
         {
           "label": "⏻",
