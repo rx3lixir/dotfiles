@@ -1,3 +1,4 @@
+
 format = """
 $directory\
 $git_branch\
@@ -18,17 +19,17 @@ $character\
 palette = 'colors'
 
 [palettes.colors]
-accent = '#c4c0ff'
-accent-fixed = '#e3dfff'
-secondary = '#c7c4dc'
-secondary-fixed = '#e4dff9'
-tertiary = '#ebb9d0'
-tertiary-fixed = '#ffd8e9'
-bg = '#201f25'
-bg-dim = '#131318'
-fg = '#c8c5d0'
-fg-strong = '#e5e1e9' 
-fg-muted = '#c8c5d0'
+accent = '#b4befe'
+accent-fixed = '#89b4fa'
+secondary = '#a6e3a1'
+secondary-fixed = '#94e2d5'
+tertiary = '#f38ba8'
+tertiary-fixed = '#eba0ac'
+bg = '#11111b'
+bg-dim = '#181825'
+fg = '#cdd6f4'
+fg-strong = '#bac2de' 
+fg-muted = '#111318'
 
 [fill]
 symbol = ' '

@@ -1,8 +1,8 @@
 .notification {
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-  background: alpha(@bg0, 0.5);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+  background: alpha(@bg0, 0.7);
   color: @bg0;
-  border: 0px solid @bg0;
+  border: 2px solid alpha(@bg0, 0.1);
   border-radius: 8px;
   padding: 10px;
 }
@@ -21,20 +21,20 @@
 }
 
 .time {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 200;
   background: transparent;
   color: @fg;
   text-shadow: none;
-  margin-right: 18px;
+  margin-right: 0.5px;
+  margin-top: 22px;
 }
 
 .close-button {
   background-color: transparent;
   color: @fg;
-  margin-top: 5px;
-  margin-right: 3px;
-  border-radius: 6px;
+  margin-bottom: 8px;
+  margin-right: 0.5px;
 }
 
 .notification-default-action:hover,
