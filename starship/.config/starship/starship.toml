@@ -18,17 +18,17 @@ $character\
 palette = 'colors'
 
 [palettes.colors]
-accent = '#a2c9fe'
-accent-fixed = '#d2e4ff'
-secondary = '#bbc7db'
-secondary-fixed = '#d7e3f8'
-tertiary = '#d8bde4'
-tertiary-fixed = '#f4d9ff'
-bg = '#1d2024'
-bg-dim = '#111418'
-fg = '#c3c6cf'
-fg-strong = '#e1e2e8' 
-fg-muted = '#c3c6cf'
+accent = '#c4c0ff'
+accent-fixed = '#e3dfff'
+secondary = '#c7c4dc'
+secondary-fixed = '#e4dff9'
+tertiary = '#ebb9d0'
+tertiary-fixed = '#ffd8e9'
+bg = '#201f25'
+bg-dim = '#131318'
+fg = '#c8c5d0'
+fg-strong = '#e5e1e9' 
+fg-muted = '#c8c5d0'
 
 [fill]
 symbol = ' '

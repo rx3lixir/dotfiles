@@ -41,7 +41,7 @@
     "title": {
       "text": "Notifications",
       "clear-all-button": true,
-      "button-text": ""
+      "button-text": "Clear all"
     },
     "dnd": {
       "text": "Do Not Disturb"

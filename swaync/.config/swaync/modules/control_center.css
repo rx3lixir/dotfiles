@@ -17,24 +17,18 @@ scrollbar {
   background: transparent;
 }
 
-/* ===================================
-   CONTROL CENTER
-   =================================== */
+/* ---- CONTROL CENTER ---- */
 
 .control-center {
   background-color: alpha(@bg0, 0.5);
   color: @fg;
-  border: 2px solid @border;
-  border-radius: 14px;
+  border: 2px solid alpha(@bg0, 0.9);
+  border-radius: 10px;
   padding: 10px;
-  box-shadow:
-    0 19px 38px rgba(0, 0, 0, 0.3),
-    0 15px 12px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3);
 }
 
-/* ===================================
-   NOTIFICATION GROUPS
-   =================================== */
+/* ---- NOTIFICATION GROUPS ---- */
 
 .notification-group {
   background-color: transparent;
@@ -61,33 +55,29 @@ scrollbar {
 
 .notification-group-collapse-button:hover,
 .notification-group-close-all-button:hover {
-  background: lighter(@accent);
+  background: @accent;
   color: @bg;
 }
 
-/* ===================================
-   WIDGET TITLE
-   =================================== */
+/* ---- WIDGET TITLE ---- */
 
 .widget-title {
   color: @fg;
 }
 
 .widget-title > button {
-  font-size: 1rem;
+  font-size: 20px;
   color: @fg;
-  background: @bg2;
-  box-shadow: none;
+  background: lighter(@bg1);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .widget-title > button:hover {
-  background: @accent;
+  background: alpha(@accent, 0.2);
   color: @fg;
 }
 
-/* ===================================
-   BASE BUTTON STYLES
-   =================================== */
+/* ---- BASE BUTTON STYLES ---- */
 
 button {
   border: none;
@@ -97,12 +87,11 @@ button {
   outline: none;
 }
 
-/* ===================================
-   WIDGET BUTTON GRID
-   =================================== */
+/* ---- WIDGET BUTTON GRID ---- */
 
 .widget-buttons-grid {
-  background: @bg2;
+  background: alpha(@bg2, 0.2);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
   padding: 4px;
 }
 
@@ -143,9 +132,7 @@ button {
   color: @bg0;
 }
 
-/* ===================================
-   DO NOT DISTURB WIDGET
-   =================================== */
+/* ---- DO NOT DISTURB WIDGET ----- */
 
 .widget-dnd {
   background: transparent;
@@ -157,7 +144,8 @@ button {
 }
 
 .widget-dnd > switch {
-  background: @bg1;
+  background: lighter(@bg2);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
   color: @fg;
   border-radius: 16px;
 }
@@ -172,17 +160,16 @@ button {
 }
 
 .widget-dnd > switch:checked slider {
-  background: @bg2;
+  background: alpha(@bg2, 0.9);
   border-radius: 12px;
 }
 
-/* ===================================
-   VOLUME & BRIGHTNESS WIDGETS
-   =================================== */
+/* ---- VOLUME & BRIGHTNESS WIDGETS ---- */
 
 .widget-volume,
 .widget-backlight {
-  background: @bg2;
+  background: alpha(@bg2, 0.2);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
   color: @fg;
   padding: 8px 12px;
   margin: 8px;
@@ -215,7 +202,6 @@ button {
   min-height: 4px;
   min-width: 100px;
   border-radius: 2px;
-  /*background: @accent;*/
   margin: 0;
   padding: 0;
 }
