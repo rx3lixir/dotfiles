@@ -2,7 +2,7 @@
 
 window#osd {
   border-radius: 12px;
-  background: lighter(@bg0);
+  background: alpha(@bg0, 0.5);
   font-size: 13px;
 }
 
@@ -17,7 +17,7 @@ window#osd image {
 }
 
 window#osd image {
-  color: @accent;
+  color: @fg;
 }
 
 window#osd label {

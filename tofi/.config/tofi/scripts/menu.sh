@@ -11,7 +11,7 @@ menu_items=(
     "󰀻 Applications|tofi-drun --drun-launch=true --font 'Ubuntu Nerd Font' --prompt-text '> Run: '"
     "󰸉 Wallpapers|$SCRIPT_DIR/wallpaper-picker.sh"
     " Emojis|$SCRIPT_DIR/emoji-picker.sh"
-    " Clipboard|$SCRIPT_DIR/clipboard-picker.sh"
+    " Themes|$SCRIPT_DIR/theme-switcher.sh"
 )
 
 # Extract display names for tofi

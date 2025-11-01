@@ -29,8 +29,9 @@ return {
 				end,
 			},
 			window = {
-				completion = cmp.config.window.bordered(),
-				documentation = cmp.config.window.bordered(),
+				-- Options for borders: double, rounded, single, none, solid, shadow
+				--completion = cmp.config.window.none(),
+				--documentation = cmp.config.window.none(),
 			},
 			mapping = cmp.mapping.preset.insert({
 				["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion

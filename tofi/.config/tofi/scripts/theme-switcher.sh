@@ -200,7 +200,7 @@ show_menu() {
     # Build menu with checkmarks
     while IFS= read -r theme; do
         if [ "$theme" = "$current_theme" ]; then
-            themes+=("$theme ✓")
+            themes+=("$theme ")
         else
             themes+=("$theme")
         fi
@@ -212,7 +212,7 @@ show_menu() {
     fi
     
     # Show tofi menu
-    local selected=$(printf '%s\n' "${themes[@]}" | tofi --prompt-text "Theme: ")
+    local selected=$(printf '%s\n' "${themes[@]}" | tofi --prompt-text " Themes: ")
     
     if [ -z "$selected" ]; then
         echo "No theme selected, exiting."

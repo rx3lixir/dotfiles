@@ -1,6 +1,6 @@
 .notification {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
-  background: alpha(@bg0, 0.7);
+  background: alpha(@bg0, 0.5);
   color: @bg0;
   border: 2px solid alpha(@bg0, 0.1);
   border-radius: 8px;

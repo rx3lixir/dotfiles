@@ -21,11 +21,28 @@ return {
 		local keymap = vim.keymap -- Для краткости
 
 		----------------------------------------------------------------------
+		-- НАСТРОЙКА ГРАНИЦ ПЛАВАЮЩИХ ОКОН LSP
+		----------------------------------------------------------------------
+		--- Явно включаем заметные границы для всех LSP окон
+		local border_style = "double"
+
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+			border = border_style,
+		})
+
+		vim.lsp.handlers["textDocument/signaturehelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+			border = border_style,
+		})
+
+		----------------------------------------------------------------------
 		-- НАСТРОЙКА ДИАГНОСТИКИ
 		----------------------------------------------------------------------
 		-- Настройка значков для диагностических сообщений в gutter
 		local x = vim.diagnostic.severity
 		vim.diagnostic.config({
+			float = {
+				border = border_style,
+			},
 			virtual_text = { prefix = " " },
 			signs = {
 				text = {
@@ -157,35 +174,6 @@ return {
 			},
 			-- Определение корневого каталога проекта. Это важно для tsserver
 			root_dir = util.root_pattern("tsconfig.json", "jsconfig.json", "package.json", ".next", ".git"),
-		})
-
-		setup_server("qmlls", {
-			cmd_env = {
-				QML_IMPORT_PATH = "/usr/lib/qt6/qml",
-				QML2_IMPORT_PATH = "/usr/lib/qt6/qml",
-			},
-			filetypes = { "qml" },
-			handlers = {
-				["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-					-- Filter out the annoying diagnostics before processing
-					if result and result.diagnostics then
-						result.diagnostics = vim.tbl_filter(function(diagnostic)
-							-- Keep only diagnostics that aren't about lineNumber
-							if diagnostic.message:match("lineNumber") then
-								return false
-							end
-							if diagnostic.message:match("Warnings occurred while importing") then
-								return false
-							end
-							return true
-						end, result.diagnostics)
-					end
-
-					-- Call the default handler with filtered diagnostics
-					vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
-				end,
-			},
-			on_attach = on_attach,
 		})
 
 		-- SVELTE сервер с особой обработкой изменений TS/JS файлов

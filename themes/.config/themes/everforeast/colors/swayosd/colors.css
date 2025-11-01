@@ -1,0 +1,38 @@
+/* Everforeast Colorsheme For Waybar */
+
+/* Primary accent - main highlight color */
+@define-color accent #A7C080;
+@define-color accent-fixed #83C092;
+
+/* Secondary accent - supporting highlight */
+@define-color secondary #7FBBB3;
+@define-color secondary-fixed #7FBBB3;
+
+/* Tertiary accent - subtle emphasis / less prominent highlights */
+@define-color tertiary #E69875;
+@define-color tertiary-fixed #DBBC7F;
+
+/* Background layers */
+@define-color bg0 #272E33;
+@define-color bg1 #374145;
+@define-color bg2 #2E383C;
+@define-color bg-bright #414B50;
+@define-color bg-dim #1E2326;
+
+/* Error colors */
+@define-color error #E67E80;
+@define-color on-error #374145;
+
+/* Text colors */
+@define-color fg #D3C6AA;
+@define-color fg-strong #F2EFDF;
+@define-color fg-muted #5C6A72;
+
+/* Borders */
+@define-color border #4B5753;
+@define-color border-strong #8D9199;
+@define-color border-dim #2E3135;
+
+/* Overlays / shadows (optional, useful for UI layering) */
+@define-color overlay #000000;
+@define-color scrim #000000;
