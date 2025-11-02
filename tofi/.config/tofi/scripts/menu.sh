@@ -12,6 +12,10 @@ menu_items=(
     "󰸉 Wallpapers|$SCRIPT_DIR/wallpaper-picker.sh"
     " Emojis|$SCRIPT_DIR/emoji-picker.sh"
     " Themes|$SCRIPT_DIR/theme-switcher.sh"
+    "󰂯 Bluetooth|$SCRIPT_DIR/apps/launch-bluetui.sh"
+    "󰤥 Wifi|$SCRIPT_DIR/apps/launch-impala.sh"
+    "󱡫 Audio|$SCRIPT_DIR/apps/launch-wiremix.sh"
+    " System monitor|$SCRIPT_DIR/apps/launch-btop.sh"
 )
 
 # Extract display names for tofi

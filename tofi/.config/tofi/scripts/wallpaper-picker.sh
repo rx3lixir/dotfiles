@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-
-# Wallpaper picker script for tofi + hyprpaper
+# Wallpaper picker script for tofi + hyprpaper + hyprlock
 
 WALLPAPER_DIR="$HOME/.config/hypr/wpapers"
 HYPRPAPER_CONFIG="$HOME/.config/hypr/hyprpaper.conf"
+HYPRLOCK_CONFIG="$HOME/.config/hypr/hyprlock.conf"
 
 # Check if wallpaper directory exists
 if [[ ! -d "$WALLPAPER_DIR" ]]; then
@@ -91,9 +91,30 @@ if [[ -f "$HYPRPAPER_CONFIG" ]]; then
     
     # Replace old config with new one
     mv "$temp_config" "$HYPRPAPER_CONFIG"
-    
-    notify-send "Wallpaper Changed" "Set to: $selected"
 else
     notify-send "Wallpaper Picker" "Config file not found: $HYPRPAPER_CONFIG" -u critical
     exit 1
 fi
+
+# Update hyprlock config for persistence
+if [[ -f "$HYPRLOCK_CONFIG" ]]; then
+    # Create a temporary file
+    temp_lock_config=$(mktemp)
+    
+    # Read the config and update $wallpaper line
+    while IFS= read -r line; do
+        if [[ $line =~ ^\$wallpaper[[:space:]]*= ]]; then
+            echo "\$wallpaper      = $actual_file" >> "$temp_lock_config"
+        else
+            echo "$line" >> "$temp_lock_config"
+        fi
+    done < "$HYPRLOCK_CONFIG"
+    
+    # Replace old config with new one
+    mv "$temp_lock_config" "$HYPRLOCK_CONFIG"
+else
+    notify-send "Wallpaper Picker" "Config file not found: $HYPRLOCK_CONFIG" -u critical
+    exit 1
+fi
+
+notify-send "Wallpaper Changed" "Set to: $selected"

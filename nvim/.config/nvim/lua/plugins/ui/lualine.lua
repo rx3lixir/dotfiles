@@ -51,9 +51,9 @@ return {
 			local fugitive = vim.fn.exists("*FugitiveHead") == 1 and vim.fn.FugitiveHead() or ""
 			local branch = gitsigns or fugitive
 			if branch == nil or branch == "" then
-				return ""
+				return ""
 			else
-				return " " .. branch
+				return " " .. branch
 			end
 		end
 
