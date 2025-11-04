@@ -3,15 +3,17 @@ return {
 	branch = "v3.x",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
-		"nvim-tree/nvim-web-devicons", -- Добавляем иконки
+		"nvim-tree/nvim-web-devicons",
 		"MunifTanjim/nui.nvim",
 	},
 	lazy = false,
-	opts = {},
+	keys = {
+		{ "<leader>e", ":Neotree toggle left<CR>", silent = true, desc = "Float file explorer" },
+	},
 	config = function()
 		require("neo-tree").setup({
 			close_if_last_window = true, -- Закрываем дерево, если оно — последнее окно
-			popup_border_style = "rounded",
+			popup_border_style = "",
 			enable_git_status = true,
 			enable_diagnostics = true,
 			default_component_configs = {
@@ -66,10 +68,10 @@ return {
 					hide_gitignored = false,
 				},
 				follow_current_file = {
-					enabled = true, -- автофокус на открытом файле
+					enabled = true, -- autoficues
 				},
-				hijack_netrw_behavior = "open_default", -- заменяет netrw
-				use_libuv_file_watcher = true, -- живые обновления
+				hijack_netrw_behavior = "disabled", -- replaces netrw
+				use_libuv_file_watcher = true,
 				components = {
 					harpoon_index = function(config, node, _)
 						local Marked = require("harpoon.mark")
@@ -105,8 +107,5 @@ return {
 				},
 			},
 		})
-
-		-- Клавиша открытия Neo-tree
-		vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle Neo-tree" })
 	end,
 }

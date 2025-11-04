@@ -1,40 +1,38 @@
 return {
-	-- Основной плагин Telescope
 	"nvim-telescope/telescope.nvim",
-	branch = "0.1.x", -- Используем стабильную ветку 0.1.x
+	branch = "0.1.x", -- Use stable branch 0.1.x
 
-	-- Зависимости
 	dependencies = {
-		"nvim-lua/plenary.nvim", -- Библиотека утилит для Lua в Neovim
-		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" }, -- Быстрый нативный алгоритм поиска fzf
-		"nvim-tree/nvim-web-devicons", -- Иконки для файлов
-		"nvim-telescope/telescope-file-browser.nvim", -- Файловый браузер
-		"nvim-telescope/telescope-ui-select.nvim", -- Замена vim.ui.select
+		"nvim-lua/plenary.nvim", -- Utility library for Lua in Neovim
+		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" }, -- Fast native fzf search algorithm
+		"nvim-tree/nvim-web-devicons", -- File icons
+		"nvim-telescope/telescope-file-browser.nvim", -- File browser
+		"nvim-telescope/telescope-ui-select.nvim", -- Replacement for vim.ui.select
 	},
 
-	-- Функция конфигурации, запускается после загрузки плагина
+	-- Configuration function, runs after plugin is loaded
 	config = function()
-		-- Импортируем необходимые модули
+		-- Import required modules
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
 
-		-- Настройка Telescope
+		-- Telescope setup
 		telescope.setup({
 			defaults = {
-				-- Настройки внешнего вида
-				border = {}, -- Пустой аргумент border использует стиль по умолчанию
-				borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }, -- Символы для рамки
-				path_display = { "truncate" }, -- Обрезает длинные пути для лучшей читаемости
-				color_devicons = true, -- Цветные иконки файлов
+				-- UI settings
+				border = {}, -- Empty border uses default style
+				borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+				path_display = { "truncate" }, -- Shorten long file paths
+				color_devicons = true, -- Colored file icons
 
-				-- Настройки окружения
-				set_env = { ["COLORTERM"] = "truecolor" }, -- Обеспечивает поддержку true color
+				-- Environment settings
+				set_env = { ["COLORTERM"] = "truecolor" }, -- Ensure true color support
 
-				-- Улучшенный предпросмотр файлов
+				-- Enhanced file preview
 				file_previewer = require("telescope.previewers").vim_buffer_cat.new,
 				grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
 
-				-- Игнорирование некоторых файлов при поиске
+				-- Ignore specific files and folders
 				file_ignore_patterns = {
 					"node_modules",
 					".git",
@@ -43,9 +41,9 @@ return {
 					"dist",
 				},
 
-				-- Выбор сортировки для результатов
-				sorting_strategy = "ascending", -- Показывать результаты сверху вниз
-				layout_strategy = "horizontal", -- Горизонтальное расположение
+				-- Sorting strategy
+				sorting_strategy = "ascending", -- Show results from top to bottom
+				layout_strategy = "horizontal", -- Horizontal layout
 				layout_config = {
 					horizontal = {
 						prompt_position = "top",
@@ -56,50 +54,51 @@ return {
 					height = 0.80,
 					preview_cutoff = 120,
 				},
-				-- Горячие клавиши для режима ввода (insert mode)
+
+				-- Key mappings for insert mode
 				mappings = {
 					i = {
-						["<C-k>"] = actions.move_selection_previous, -- Переход к предыдущему результату
-						["<C-j>"] = actions.move_selection_next, -- Переход к следующему результату
-						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- Отправить выбранные файлы в quickfix и открыть его
+						["<C-k>"] = actions.move_selection_previous, -- Move to previous result
+						["<C-j>"] = actions.move_selection_next, -- Move to next result
+						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- Send selected files to quickfix and open it
 					},
 				},
 			},
 		})
 
-		-- Загружаем расширения
-		telescope.load_extension("fzf") -- Быстрый поиск с fzf
-		telescope.load_extension("file_browser") -- Файловый браузер
-		telescope.load_extension("ui-select") -- Улучшенное UI для выбора
+		-- Load extensions
+		telescope.load_extension("fzf") -- Fast fzf search
+		telescope.load_extension("file_browser") -- File browser
+		telescope.load_extension("ui-select") -- Enhanced selection UI
 
-		-- Настройка горячих клавиш для быстрого доступа к функциям Telescope
-		local keymap = vim.keymap -- Для краткости
+		-- Key mappings for quick Telescope access
+		local keymap = vim.keymap -- Shortcut alias
 
-		-- Поиск файлов
-		keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" }) -- Поиск файлов в текущей директории
+		-- Find files
+		keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" }) -- Search files in current directory
 
-		-- Поиск недавно открытых файлов
-		keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" }) -- Поиск среди недавно открытых файлов
+		-- Find recently opened files
+		keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" }) -- Search recently opened files
 
-		-- Поиск текста в файлах
-		keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" }) -- Поиск строки во всех файлах директории (требует ripgrep)
+		-- Search text in files
+		keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" }) -- Search for a string across files (requires ripgrep)
 
-		-- Поиск слова под курсором
-		keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" }) -- Поиск слова под курсором
+		-- Search word under cursor
+		keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" }) -- Search for word under cursor
 
-		-- Поиск буферов
+		-- Find open buffers
 		keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find open buffers" })
 
-		-- Поиск в справке Vim
+		-- Find in help tags
 		keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Find help" })
 
-		-- Показать диагностику текущего файла
+		-- Show diagnostics for current file
 		keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics bufnr=0<cr>", { desc = "Document diagnostics" })
 
-		-- Показать диагностику всего проекта
+		-- Show diagnostics for entire workspace
 		keymap.set("n", "<leader>fD", "<cmd>Telescope diagnostics<cr>", { desc = "Workspace diagnostics" })
 
-		-- Открыть файловый браузер
+		-- Open file browser
 		keymap.set("n", "<leader>fe", "<cmd>Telescope file_browser<cr>", { desc = "Open file browser" })
 	end,
 }

@@ -1,0 +1,12 @@
+[Unit]
+Description=Battery notification checker
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/hypr/scripts/system/battery-notification.sh
+Environment=DISPLAY=:0
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
+
+[Install]
+WantedBy=default.target

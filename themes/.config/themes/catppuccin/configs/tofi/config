@@ -6,7 +6,7 @@ height = 100%
 border-width = 0
 outline-width = 0
 
-padding-left = 20%
+padding-left = 35%
 padding-top = 25%
 
 num-results = 5
@@ -19,6 +19,6 @@ font-size=24
 
 background-color = #000000CC
 
-text-color = #cdd6f4
-prompt-color = #f38ba8
-selection-color = #f9e2af
+text-color = #6c7086
+prompt-color = #b4befe
+selection-color = #b4befe
