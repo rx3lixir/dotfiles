@@ -5,27 +5,23 @@ return {
 	config = function()
 		require("catppuccin").setup({
 			flavour = "mocha", -- latte, frappe, macchiato, mocha
-			background = { -- :h background
+			background = {
 				light = "latte",
 				dark = "mocha",
 			},
-			transparent_background = true, -- disables setting the background color.
-			float = {
-				transparent = true, -- enable transparent floating windows
-				solid = false, -- use solid styling for floating windows, see |winborder|
-			},
-			show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-			term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
+			transparent_background = true, -- transparent background
+			show_end_of_buffer = false,
+			term_colors = true,
 			dim_inactive = {
-				enabled = false, -- dims the background color of inactive window
+				enabled = false,
 				shade = "dark",
-				percentage = 0.15, -- percentage of the shade to apply to the inactive window
+				percentage = 0.15,
 			},
-			no_italic = false, -- Force no italic
-			no_bold = false, -- Force no bold
-			no_underline = false, -- Force no underline
-			styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-				comments = { "italic" }, -- Change the style of comments
+			no_italic = false,
+			no_bold = false,
+			no_underline = false,
+			styles = {
+				comments = { "italic" },
 				conditionals = { "italic" },
 				loops = {},
 				functions = {},
@@ -37,44 +33,102 @@ return {
 				properties = {},
 				types = {},
 				operators = {},
-				-- miscs = {}, -- Uncomment to turn off hard-coded styles
 			},
-			lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
-				virtual_text = {
-					errors = { "italic" },
-					hints = { "italic" },
-					warnings = { "italic" },
-					information = { "italic" },
-					ok = { "italic" },
-				},
-				underlines = {
-					errors = { "underline" },
-					hints = { "underline" },
-					warnings = { "underline" },
-					information = { "underline" },
-					ok = { "underline" },
-				},
-				inlay_hints = {
-					background = true,
-				},
-			},
-			color_overrides = {},
-			custom_highlights = {},
-			default_integrations = true,
-			auto_integrations = false,
+
+			custom_highlights = function(colors)
+				return {
+					-- Telescope borderless styling
+					TelescopeNormal = { bg = colors.mantle },
+					TelescopeBorder = { bg = colors.mantle, fg = colors.none },
+					-- Telescope Prompt
+					TelescopePromptNormal = { bg = colors.surface0 },
+					TelescopePromptBorder = { bg = colors.surface0, fg = colors.none },
+					TelescopePromptTitle = { bg = colors.mauve, fg = colors.base, bold = true },
+					TelescopePromptPrefix = { bg = colors.surface0, fg = colors.mauve },
+					-- Telescope Results
+					TelescopeResultsNormal = { bg = colors.none },
+					TelescopeResultsBorder = { bg = colors.none, fg = colors.none },
+					TelescopeResultsTitle = { bg = colors.blue, fg = colors.base, bold = true },
+					-- Telescope Preview
+					TelescopePreviewNormal = { bg = colors.mantle },
+					TelescopePreviewBorder = { bg = colors.mantle, fg = colors.none },
+					TelescopePreviewTitle = { bg = colors.green, fg = colors.base, bold = true },
+					-- Telescope Selection
+					TelescopeSelection = { bg = colors.mantle, fg = colors.green, bold = true },
+					TelescopeSelectionCaret = { bg = colors.mantle, fg = colors.green, bold = true },
+
+					-- LSP floating windows with borders
+					NormalFloat = { bg = colors.none },
+					FloatBorder = { bg = colors.none, fg = colors.surface1 },
+					FloatTitle = { bg = colors.none, fg = colors.lavender, bold = true },
+
+					-- Blink.cmp completion menu with borders
+					BlinkCmpMenu = { bg = colors.none },
+					BlinkCmpMenuBorder = { bg = colors.none, fg = colors.surface1 },
+					BlinkCmpMenuSelection = { bg = colors.surface0, bold = true },
+					BlinkCmpDoc = { bg = colors.none },
+					BlinkCmpDocBorder = { bg = colors.none, fg = colors.surface1 },
+					BlinkCmpSignatureHelp = { bg = colors.none },
+					BlinkCmpSignatureHelpBorder = { bg = colors.none, fg = colors.surface1 },
+
+					-- Neo-tree borderless
+					NeoTreeNormal = { bg = colors.none },
+					NeoTreeNormalNC = { bg = colors.none },
+					NeoTreeWinSeparator = { bg = colors.none, fg = colors.none },
+					NeoTreeBorder = { bg = colors.none, fg = colors.none },
+					NeoTreeEndOfBuffer = { bg = colors.none },
+
+					-- Mason with borders
+					MasonNormal = { bg = colors.base },
+					MasonHeader = { bg = colors.mauve, fg = colors.base, bold = true },
+					MasonHeaderSecondary = { bg = colors.blue, fg = colors.base, bold = true },
+					MasonHighlight = { fg = colors.blue },
+					MasonHighlightBlock = { bg = colors.blue, fg = colors.base },
+					MasonHighlightBlockBold = { bg = colors.blue, fg = colors.base, bold = true },
+					MasonMuted = { fg = colors.overlay0 },
+					MasonMutedBlock = { bg = colors.surface0 },
+				}
+			end,
+
+			-- Integration settings
 			integrations = {
-				cmp = true,
+				cmp = false, -- We use blink.cmp
 				gitsigns = true,
-				nvimtree = true,
+				nvimtree = false, -- We use neo-tree
+				neotree = true,
+				treesitter = true,
 				notify = false,
 				mini = {
 					enabled = true,
 					indentscope_color = "",
 				},
-				-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+				telescope = {
+					enabled = true,
+				},
+				native_lsp = {
+					enabled = true,
+					virtual_text = {
+						errors = { "italic" },
+						hints = { "italic" },
+						warnings = { "italic" },
+						information = { "italic" },
+					},
+					underlines = {
+						errors = { "underline" },
+						hints = { "underline" },
+						warnings = { "underline" },
+						information = { "underline" },
+					},
+					inlay_hints = {
+						background = true,
+					},
+				},
+				mason = true,
+				which_key = false,
 			},
 		})
-		-- setup must be called before loading
+
+		-- Apply the colorscheme
 		vim.cmd.colorscheme("catppuccin")
 	end,
 }

@@ -7,6 +7,10 @@
   padding: 12px;
 }
 
+.notification image {
+  margin-right: 14px;
+}
+
 .body {
   color: @fg;
 }

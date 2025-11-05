@@ -20,7 +20,7 @@ return {
 		telescope.setup({
 			defaults = {
 				-- UI settings
-				border = {}, -- Empty border uses default style
+				--border = {}, -- Empty border uses default style
 				borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
 				path_display = { "truncate" }, -- Shorten long file paths
 				color_devicons = true, -- Colored file icons

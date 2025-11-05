@@ -1,131 +1,81 @@
 return {
-	"catppuccin/nvim",
+	"neanias/everforest-nvim",
+	version = false,
 	lazy = false,
 	priority = 1000,
 	config = function()
-		require("catppuccin").setup({
-			flavour = "mocha", -- latte, frappe, macchiato, mocha
-			background = {
-				light = "latte",
-				dark = "mocha",
-			},
-			transparent_background = true, -- transparent background
-			show_end_of_buffer = false,
-			term_colors = true,
-			dim_inactive = {
-				enabled = false,
-				shade = "dark",
-				percentage = 0.15,
-			},
-			no_italic = false,
-			no_bold = false,
-			no_underline = false,
-			styles = {
-				comments = { "italic" },
-				conditionals = { "italic" },
-				loops = {},
-				functions = {},
-				keywords = {},
-				strings = {},
-				variables = {},
-				numbers = {},
-				booleans = {},
-				properties = {},
-				types = {},
-				operators = {},
-			},
+		vim.o.background = "dark"
+		require("everforest").setup({
+			background = "medium",
+			transparent_background_level = 2,
+			italics = false,
+			disable_italic_comments = false,
+			sign_column_background = "none",
+			ui_contrast = "low",
+			dim_inactive_windows = false,
+			diagnostic_text_highlight = false,
+			diagnostic_virtual_text = "coloured",
+			diagnostic_line_highlight = false,
+			spell_foreground = false,
+			show_eob = true,
+			float_style = "bright",
+			inlay_hints_background = "dimmed",
 
-			-- This is the key part - custom highlight overrides
-			custom_highlights = function(colors)
-				return {
-					-- Telescope borderless styling
-					TelescopeNormal = { bg = colors.mantle },
-					TelescopeBorder = { bg = colors.none, fg = colors.none },
-					TelescopePromptNormal = { bg = colors.surface0 },
-					TelescopePromptBorder = { bg = colors.surface0, fg = colors.surface0 },
-					TelescopePromptTitle = { bg = colors.mauve, fg = colors.base, bold = true },
-					TelescopePromptPrefix = { bg = colors.surface0, fg = colors.mauve },
-					TelescopeResultsNormal = { bg = colors.none },
-					TelescopeResultsBorder = { bg = colors.none, fg = colors.none },
-					TelescopeResultsTitle = { bg = colors.blue, fg = colors.base, bold = true },
-					TelescopePreviewNormal = { bg = colors.mantle },
-					TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
-					TelescopePreviewTitle = { bg = colors.green, fg = colors.base, bold = true },
-					TelescopeSelection = { bg = colors.surface0, fg = colors.text, bold = true },
-					TelescopeSelectionCaret = { bg = colors.surface0, fg = colors.mauve, bold = true },
+			-- Custom highlights - this is where the magic happens
+			on_highlights = function(hl, palette)
+				-- Telescope borderless styling
+				hl.TelescopeNormal = { bg = palette.bg1 }
+				hl.TelescopeBorder = { bg = palette.bg1, fg = palette.bg1 }
+				-- Telescope Prompt
+				hl.TelescopePromptNormal = { bg = palette.bg3 }
+				hl.TelescopePromptBorder = { bg = palette.bg3, fg = palette.bg3 }
+				hl.TelescopePromptTitle = { bg = palette.purple, fg = palette.bg0, bold = true }
+				hl.TelescopePromptPrefix = { bg = palette.bg3, fg = palette.purple }
+				-- Telescope Results
+				hl.TelescopeResultsNormal = { bg = palette.none }
+				hl.TelescopeResultsBorder = { bg = palette.none, fg = palette.none }
+				hl.TelescopeResultsTitle = { bg = palette.blue, fg = palette.bg0, bold = true }
+				-- Telescope Preview
+				hl.TelescopePreviewNormal = { bg = palette.bg1 }
+				hl.TelescopePreviewBorder = { bg = palette.bg1, fg = palette.bg1 }
+				hl.TelescopePreviewTitle = { bg = palette.green, fg = palette.bg0, bold = true }
+				-- Telescope Selection
+				hl.TelescopeSelection = { bg = palette.bg1, fg = palette.green, bold = true }
+				hl.TelescopeSelectionCaret = { bg = palette.bg1, fg = palette.green, bold = true }
 
-					-- LSP floating windows with borders
-					NormalFloat = { bg = colors.none },
-					FloatBorder = { bg = colors.none, fg = colors.surface1 },
-					FloatTitle = { bg = colors.none, fg = colors.lavender, bold = true },
+				-- LSP floating windows with borders
+				hl.NormalFloat = { bg = palette.none }
+				hl.FloatBorder = { bg = palette.none, fg = palette.bg4 }
+				hl.FloatTitle = { bg = palette.none, fg = palette.aqua, bold = true }
 
-					-- Blink.cmp completion menu with borders
-					BlinkCmpMenu = { bg = colors.none },
-					BlinkCmpMenuBorder = { bg = colors.none, fg = colors.surface1 },
-					BlinkCmpMenuSelection = { bg = colors.surface0, bold = true },
-					BlinkCmpDoc = { bg = colors.none },
-					BlinkCmpDocBorder = { bg = colors.none, fg = colors.surface1 },
-					BlinkCmpSignatureHelp = { bg = colors.none },
-					BlinkCmpSignatureHelpBorder = { bg = colors.none, fg = colors.surface1 },
+				-- Blink.cmp completion menu with borders
+				hl.BlinkCmpMenu = { bg = palette.none, fg = palette.none }
+				hl.BlinkCmpMenuBorder = { bg = palette.none, fg = palette.bg4 }
+				hl.BlinkCmpMenuSelection = { bg = palette.bg3, bold = true }
+				hl.BlinkCmpDoc = { bg = palette.none }
+				hl.BlinkCmpDocBorder = { bg = palette.none, fg = palette.bg4 }
+				hl.BlinkCmpSignatureHelp = { bg = palette.none }
+				hl.BlinkCmpSignatureHelpBorder = { bg = palette.none, fg = palette.bg4 }
 
-					-- Neo-tree borderless
-					NeoTreeNormal = { bg = colors.none },
-					NeoTreeNormalNC = { bg = colors.none },
-					NeoTreeWinSeparator = { bg = colors.none, fg = colors.none },
-					NeoTreeBorder = { bg = colors.none, fg = colors.none },
-					NeoTreeEndOfBuffer = { bg = colors.none },
+				-- Neo-tree borderless
+				hl.NeoTreeNormal = { bg = palette.none }
+				hl.NeoTreeNormalNC = { bg = palette.none }
+				hl.NeoTreeWinSeparator = { bg = palette.none, fg = palette.none }
+				hl.NeoTreeBorder = { bg = palette.none, fg = palette.none }
+				hl.NeoTreeEndOfBuffer = { bg = palette.none }
 
-					-- Mason with borders
-					MasonNormal = { bg = colors.mantle },
-					MasonHeader = { bg = colors.mauve, fg = colors.base, bold = true },
-					MasonHeaderSecondary = { bg = colors.blue, fg = colors.base, bold = true },
-					MasonHighlight = { fg = colors.blue },
-					MasonHighlightBlock = { bg = colors.blue, fg = colors.base },
-					MasonHighlightBlockBold = { bg = colors.blue, fg = colors.base, bold = true },
-					MasonMuted = { fg = colors.overlay0 },
-					MasonMutedBlock = { bg = colors.surface0 },
-				}
+				-- Mason with borders
+				hl.MasonNormal = { bg = palette.bg0 }
+				hl.MasonHeader = { bg = palette.purple, fg = palette.bg0, bold = true }
+				hl.MasonHeaderSecondary = { bg = palette.blue, fg = palette.bg0, bold = true }
+				hl.MasonHighlight = { fg = palette.blue }
+				hl.MasonHighlightBlock = { bg = palette.blue, fg = palette.bg0 }
+				hl.MasonHighlightBlockBold = { bg = palette.blue, fg = palette.bg0, bold = true }
+				hl.MasonMuted = { fg = palette.grey1 }
+				hl.MasonMutedBlock = { bg = palette.bg3 }
 			end,
-
-			-- Integration settings
-			integrations = {
-				cmp = false, -- We use blink.cmp
-				gitsigns = true,
-				nvimtree = false, -- We use neo-tree
-				neotree = true,
-				treesitter = true,
-				notify = false,
-				mini = {
-					enabled = true,
-					indentscope_color = "",
-				},
-				telescope = {
-					enabled = true,
-				},
-				native_lsp = {
-					enabled = true,
-					virtual_text = {
-						errors = { "italic" },
-						hints = { "italic" },
-						warnings = { "italic" },
-						information = { "italic" },
-					},
-					underlines = {
-						errors = { "underline" },
-						hints = { "underline" },
-						warnings = { "underline" },
-						information = { "underline" },
-					},
-					inlay_hints = {
-						background = true,
-					},
-				},
-				mason = true,
-				which_key = false,
-			},
 		})
 
-		-- Apply the colorscheme
-		vim.cmd.colorscheme("catppuccin")
+		vim.cmd.colorscheme("everforest")
 	end,
 }
