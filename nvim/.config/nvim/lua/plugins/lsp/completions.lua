@@ -35,8 +35,17 @@ return {
 
 		-- (Default) Only show the documentation popup when manually triggered
 		completion = {
-			menu = { border = "single" },
-			documentation = { auto_show = false, window = { border = "single" } },
+			menu = {
+				border = "rounded",
+				winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
+			},
+			documentation = {
+				auto_show = false,
+				window = {
+					border = "rounded",
+					winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder",
+				},
+			},
 		},
 
 		-- Default list of enabled providers defined so that you can extend it

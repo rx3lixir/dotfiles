@@ -38,24 +38,25 @@ return {
 			custom_highlights = function(colors)
 				return {
 					-- Telescope borderless styling
-					TelescopeNormal = { bg = colors.mantle },
-					TelescopeBorder = { bg = colors.mantle, fg = colors.none },
+					TelescopeNormal = { bg = colors.none },
+					TelescopeBorder = { bg = colors.none, fg = colors.surface0 },
 					-- Telescope Prompt
-					TelescopePromptNormal = { bg = colors.surface0 },
-					TelescopePromptBorder = { bg = colors.surface0, fg = colors.none },
+					TelescopePromptNormal = { bg = colors.none },
+					TelescopePromptBorder = { bg = colors.none, fg = colors.surface0 },
 					TelescopePromptTitle = { bg = colors.mauve, fg = colors.base, bold = true },
-					TelescopePromptPrefix = { bg = colors.surface0, fg = colors.mauve },
+					TelescopePromptPrefix = { bg = colors.none, fg = colors.mauve },
 					-- Telescope Results
 					TelescopeResultsNormal = { bg = colors.none },
 					TelescopeResultsBorder = { bg = colors.none, fg = colors.none },
 					TelescopeResultsTitle = { bg = colors.blue, fg = colors.base, bold = true },
 					-- Telescope Preview
-					TelescopePreviewNormal = { bg = colors.mantle },
-					TelescopePreviewBorder = { bg = colors.mantle, fg = colors.none },
+					TelescopePreviewNormal = { bg = colors.none },
+					TelescopePreviewBorder = { bg = colors.none, fg = colors.surface0 },
 					TelescopePreviewTitle = { bg = colors.green, fg = colors.base, bold = true },
 					-- Telescope Selection
-					TelescopeSelection = { bg = colors.mantle, fg = colors.green, bold = true },
-					TelescopeSelectionCaret = { bg = colors.mantle, fg = colors.green, bold = true },
+					TelescopeSelection = { bg = colors.none, fg = colors.lavender, bold = true },
+					TelescopeSelectionCaret = { bg = colors.none, fg = colors.green, bold = true },
+					TelescopeMatching = { bg = colors.none, fg = colors.blue },
 
 					-- LSP floating windows with borders
 					NormalFloat = { bg = colors.none },
@@ -87,6 +88,9 @@ return {
 					MasonHighlightBlockBold = { bg = colors.blue, fg = colors.base, bold = true },
 					MasonMuted = { fg = colors.overlay0 },
 					MasonMutedBlock = { bg = colors.surface0 },
+
+					-- Lazy
+					LazyNormal = { bg = colors.mantle },
 				}
 			end,
 
@@ -98,6 +102,11 @@ return {
 				neotree = true,
 				treesitter = true,
 				notify = false,
+				indent_blankline = {
+					enabled = true,
+					scope_color = "overlay1",
+					colored_indent_levels = true,
+				},
 				mini = {
 					enabled = true,
 					indentscope_color = "",

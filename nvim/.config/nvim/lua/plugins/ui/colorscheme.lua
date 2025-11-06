@@ -1,81 +1,119 @@
 return {
-	"neanias/everforest-nvim",
-	version = false,
+	"rebelot/kanagawa.nvim",
 	lazy = false,
 	priority = 1000,
 	config = function()
-		vim.o.background = "dark"
-		require("everforest").setup({
-			background = "medium",
-			transparent_background_level = 2,
-			italics = false,
-			disable_italic_comments = false,
-			sign_column_background = "none",
-			ui_contrast = "low",
-			dim_inactive_windows = false,
-			diagnostic_text_highlight = false,
-			diagnostic_virtual_text = "coloured",
-			diagnostic_line_highlight = false,
-			spell_foreground = false,
-			show_eob = true,
-			float_style = "bright",
-			inlay_hints_background = "dimmed",
+		require("kanagawa").setup({
+			-- ============================================================
+			-- BASIC SETTINGS
+			-- ============================================================
+			compile = false,
+			undercurl = true,
+			transparent = true,
+			dimInactive = false,
+			terminalColors = true,
 
-			-- Custom highlights - this is where the magic happens
-			on_highlights = function(hl, palette)
-				-- Telescope borderless styling
-				hl.TelescopeNormal = { bg = palette.bg1 }
-				hl.TelescopeBorder = { bg = palette.bg1, fg = palette.bg1 }
-				-- Telescope Prompt
-				hl.TelescopePromptNormal = { bg = palette.bg3 }
-				hl.TelescopePromptBorder = { bg = palette.bg3, fg = palette.bg3 }
-				hl.TelescopePromptTitle = { bg = palette.purple, fg = palette.bg0, bold = true }
-				hl.TelescopePromptPrefix = { bg = palette.bg3, fg = palette.purple }
-				-- Telescope Results
-				hl.TelescopeResultsNormal = { bg = palette.none }
-				hl.TelescopeResultsBorder = { bg = palette.none, fg = palette.none }
-				hl.TelescopeResultsTitle = { bg = palette.blue, fg = palette.bg0, bold = true }
-				-- Telescope Preview
-				hl.TelescopePreviewNormal = { bg = palette.bg1 }
-				hl.TelescopePreviewBorder = { bg = palette.bg1, fg = palette.bg1 }
-				hl.TelescopePreviewTitle = { bg = palette.green, fg = palette.bg0, bold = true }
-				-- Telescope Selection
-				hl.TelescopeSelection = { bg = palette.bg1, fg = palette.green, bold = true }
-				hl.TelescopeSelectionCaret = { bg = palette.bg1, fg = palette.green, bold = true }
+			-- ============================================================
+			-- STYLES
+			-- ============================================================
+			commentStyle = { italic = true },
+			functionStyle = {},
+			keywordStyle = { italic = true },
+			statementStyle = { bold = true },
+			typeStyle = {},
 
-				-- LSP floating windows with borders
-				hl.NormalFloat = { bg = palette.none }
-				hl.FloatBorder = { bg = palette.none, fg = palette.bg4 }
-				hl.FloatTitle = { bg = palette.none, fg = palette.aqua, bold = true }
+			-- ============================================================
+			-- COLORS
+			-- ============================================================
+			colors = {
+				palette = {},
+				theme = {
+					wave = {},
+					lotus = {},
+					dragon = {},
+					all = {
+						ui = {
+							bg_gutter = "none",
+						},
+					},
+				},
+			},
 
-				-- Blink.cmp completion menu with borders
-				hl.BlinkCmpMenu = { bg = palette.none, fg = palette.none }
-				hl.BlinkCmpMenuBorder = { bg = palette.none, fg = palette.bg4 }
-				hl.BlinkCmpMenuSelection = { bg = palette.bg3, bold = true }
-				hl.BlinkCmpDoc = { bg = palette.none }
-				hl.BlinkCmpDocBorder = { bg = palette.none, fg = palette.bg4 }
-				hl.BlinkCmpSignatureHelp = { bg = palette.none }
-				hl.BlinkCmpSignatureHelpBorder = { bg = palette.none, fg = palette.bg4 }
+			-- ============================================================
+			-- HIGHLIGHT OVERRIDES
+			-- ============================================================
+			overrides = function(colors)
+				local theme = colors.theme
 
-				-- Neo-tree borderless
-				hl.NeoTreeNormal = { bg = palette.none }
-				hl.NeoTreeNormalNC = { bg = palette.none }
-				hl.NeoTreeWinSeparator = { bg = palette.none, fg = palette.none }
-				hl.NeoTreeBorder = { bg = palette.none, fg = palette.none }
-				hl.NeoTreeEndOfBuffer = { bg = palette.none }
+				-- Helper function for diagnostic colors
+				local function makeDiagnosticColor(color)
+					local c = require("kanagawa.lib.color")
+					return {
+						fg = color,
+						bg = c(color):blend(theme.ui.bg, 0.95):to_hex(),
+					}
+				end
 
-				-- Mason with borders
-				hl.MasonNormal = { bg = palette.bg0 }
-				hl.MasonHeader = { bg = palette.purple, fg = palette.bg0, bold = true }
-				hl.MasonHeaderSecondary = { bg = palette.blue, fg = palette.bg0, bold = true }
-				hl.MasonHighlight = { fg = palette.blue }
-				hl.MasonHighlightBlock = { bg = palette.blue, fg = palette.bg0 }
-				hl.MasonHighlightBlockBold = { bg = palette.blue, fg = palette.bg0, bold = true }
-				hl.MasonMuted = { fg = palette.grey1 }
-				hl.MasonMutedBlock = { bg = palette.bg3 }
+				return {
+					-- ------------------------------------------------
+					-- FLOATING WINDOWS
+					-- ------------------------------------------------
+					NormalFloat = { bg = "none" },
+					FloatBorder = { bg = "none" },
+					FloatTitle = { bg = "none" },
+					NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
+
+					-- ------------------------------------------------
+					-- PLUGIN WINDOWS
+					-- ------------------------------------------------
+					LazyNormal = { bg = theme.ui.bg_p1, fg = theme.ui.fg_dim },
+					MasonNormal = { bg = "none", fg = theme.ui.fg_dim },
+
+					TelescopeSelection = { bg = theme.ui.none, fg = theme.diag.info, bold = true },
+					TelescopeSelectionCaret = { bg = theme.ui.none, fg = theme.ui.special, bold = true },
+					--TelescopeMatching = { bg = theme.ui.none, fg = colors.blue },
+
+					-- ------------------------------------------------
+					-- DIAGNOSTICS
+					-- ------------------------------------------------
+					DiagnosticVirtualTextHint = makeDiagnosticColor(theme.diag.hint),
+					DiagnosticVirtualTextInfo = makeDiagnosticColor(theme.diag.info),
+					DiagnosticVirtualTextWarn = makeDiagnosticColor(theme.diag.warning),
+					DiagnosticVirtualTextError = makeDiagnosticColor(theme.diag.error),
+
+					-- ------------------------------------------------
+					-- BLINK.CMP (COMPLETION)
+					-- ------------------------------------------------
+					BlinkCmpMenu = { bg = theme.ui.none, fg = theme.ui.fg_dim },
+					BlinkCmpMenuBorder = { bg = "none", fg = theme.ui.bg_p2 },
+					BlinkCmpMenuSelection = { bg = theme.ui.bg_p2 },
+					BlinkCmpDoc = { bg = "none" },
+					BlinkCmpDocBorder = { bg = "none", fg = theme.ui.bg_p1 },
+					BlinkCmpSignatureHelp = { bg = "none" },
+					BlinkCmpSignatureHelpBorder = { bg = "none", fg = theme.ui.bg_p1 },
+
+					Visual = { bg = theme.ui.bg_p2, fg = theme.ui.none },
+					VisualNOS = { bg = theme.ui.bg_p2, fg = theme.ui.none },
+
+					-- ------------------------------------------------
+					-- STATUSLINE (LUALINE TRANSPARENCY)
+					-- ------------------------------------------------
+					StatusLine = { bg = "none" },
+					StatusLineNC = { bg = "none" },
+				}
 			end,
+
+			-- ============================================================
+			-- THEME SELECTION
+			-- ============================================================
+			theme = "wave",
+			background = {
+				dark = "wave",
+				light = "lotus",
+			},
 		})
 
-		vim.cmd.colorscheme("everforest")
+		-- Apply the colorscheme
+		vim.cmd.colorscheme("kanagawa")
 	end,
 }

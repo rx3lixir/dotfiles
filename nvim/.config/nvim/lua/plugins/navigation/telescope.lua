@@ -20,8 +20,7 @@ return {
 		telescope.setup({
 			defaults = {
 				-- UI settings
-				--border = {}, -- Empty border uses default style
-				borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+				borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }, -- Characters for window border
 				path_display = { "truncate" }, -- Shorten long file paths
 				color_devicons = true, -- Colored file icons
 

@@ -4,46 +4,48 @@ return {
 		local auto = require("lualine.themes.auto")
 
 		-- ============================================================================
-		-- Everforest color pallete
+		-- KANAGAWA COLOR PALETTE
 		-- ============================================================================
+
 		local colors = {
 			-- Primary accent - main highlight color
-			accent = "#A7C080",
-			accent_fixed = "#83C092",
+			accent = "#7E9CD8",
+			accent_fixed = "#658594",
 			-- Secondary accent - supporting highlight
-			secondary = "#7FBBB3",
-			secondary_fixed = "#7FBBB3",
+			secondary = "#98BB6C",
+			secondary_fixed = "#76946A",
 			-- Tertiary accent - subtle emphasis
-			tertiary = "#E69875",
-			tertiary_fixed = "#DBBC7F",
+			tertiary = "#7FB4CA",
+			tertiary_fixed = "#7AA89F",
 			-- Background layers
-			bg0 = "#272E33",
-			bg1 = "#374145",
-			bg2 = "#2E383C",
-			bg_bright = "#414B50",
-			bg_dim = "#1E2326",
+			bg0 = "#16161D",
+			bg1 = "#1F1F28",
+			bg2 = "#2A2A37",
+			bg_bright = "#54546D",
+			bg_dim = "#16161D",
 			-- Error colors
-			error = "#E67E80",
-			on_error = "#374145",
+			error = "#E82424",
+			on_error = "#1F1F28",
 			-- Text colors
-			fg = "#D3C6AA",
-			fg_strong = "#F2EFDF",
-			fg_muted = "#5C6A72",
+			fg = "#DCD7BA",
+			fg_strong = "#DCD7BA",
+			fg_muted = "#727169",
 			-- Borders
-			border = "#4a4d45",
-			border_strong = "#8D9199",
-			border_dim = "#353831",
+			border = "#54546D",
+			border_strong = "#957FB8",
+			border_dim = "#363646",
 			-- Overlays / shadows
 			overlay = "#000000",
 			scrim = "#000000",
-			-- Mode-specific colors (using Everforest palette)
-			mode_normal = "#A7C080",
-			mode_insert = "#7FBBB3",
-			mode_visual = "#DBBC7F",
-			mode_replace = "#E67E80",
-			mode_command = "#E69875",
-			mode_terminal = "#83C092",
+			-- Mode-specific colors (using Kanagawa palette)
+			mode_normal = "#7E9CD8", -- crystalBlue
+			mode_insert = "#98BB6C", -- springGreen
+			mode_visual = "#957FB8", -- oniViolet
+			mode_replace = "#E82424", -- samuraiRed
+			mode_command = "#DCA561", -- autumnYellow
+			mode_terminal = "#7AA89F", -- waveAqua2
 		}
+
 		-- ============================================================================
 		-- HELPER FUNCTIONS
 		-- ============================================================================
@@ -181,7 +183,7 @@ return {
 						unnamed = "[?]",
 						newfile = "[!]",
 					},
-					color = { fg = colors.fg, bg = "NONE" }, -- Dimmed text
+					color = { fg = colors.fg_muted, bg = "NONE" }, -- Dimmed text
 					padding = { left = 0, right = 0 },
 				},
 			},

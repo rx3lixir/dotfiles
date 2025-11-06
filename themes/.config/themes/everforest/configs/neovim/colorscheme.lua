@@ -4,7 +4,6 @@ return {
 	lazy = false,
 	priority = 1000,
 	config = function()
-		vim.o.background = "dark"
 		require("everforest").setup({
 			background = "medium",
 			transparent_background_level = 2,
@@ -21,23 +20,23 @@ return {
 			float_style = "bright",
 			inlay_hints_background = "dimmed",
 
-			-- Custom highlights - this is where the magic happens
+			-- Custom highlights
 			on_highlights = function(hl, palette)
 				-- Telescope borderless styling
-				hl.TelescopeNormal = { bg = palette.bg1 }
-				hl.TelescopeBorder = { bg = palette.bg1, fg = palette.bg1 }
+				hl.TelescopeNormal = { bg = palette.none }
+				hl.TelescopeBorder = { bg = palette.none, fg = palette.bg1 }
 				-- Telescope Prompt
-				hl.TelescopePromptNormal = { bg = palette.bg3 }
-				hl.TelescopePromptBorder = { bg = palette.bg3, fg = palette.bg3 }
+				hl.TelescopePromptNormal = { bg = palette.none }
+				hl.TelescopePromptBorder = { bg = palette.none, fg = palette.bg3 }
 				hl.TelescopePromptTitle = { bg = palette.purple, fg = palette.bg0, bold = true }
-				hl.TelescopePromptPrefix = { bg = palette.bg3, fg = palette.purple }
+				hl.TelescopePromptPrefix = { bg = palette.none, fg = palette.purple }
 				-- Telescope Results
 				hl.TelescopeResultsNormal = { bg = palette.none }
 				hl.TelescopeResultsBorder = { bg = palette.none, fg = palette.none }
 				hl.TelescopeResultsTitle = { bg = palette.blue, fg = palette.bg0, bold = true }
 				-- Telescope Preview
-				hl.TelescopePreviewNormal = { bg = palette.bg1 }
-				hl.TelescopePreviewBorder = { bg = palette.bg1, fg = palette.bg1 }
+				hl.TelescopePreviewNormal = { bg = palette.none }
+				hl.TelescopePreviewBorder = { bg = palette.none, fg = palette.bg1 }
 				hl.TelescopePreviewTitle = { bg = palette.green, fg = palette.bg0, bold = true }
 				-- Telescope Selection
 				hl.TelescopeSelection = { bg = palette.bg1, fg = palette.green, bold = true }
@@ -64,15 +63,17 @@ return {
 				hl.NeoTreeBorder = { bg = palette.none, fg = palette.none }
 				hl.NeoTreeEndOfBuffer = { bg = palette.none }
 
-				-- Mason with borders
-				hl.MasonNormal = { bg = palette.bg0 }
-				hl.MasonHeader = { bg = palette.purple, fg = palette.bg0, bold = true }
-				hl.MasonHeaderSecondary = { bg = palette.blue, fg = palette.bg0, bold = true }
-				hl.MasonHighlight = { fg = palette.blue }
-				hl.MasonHighlightBlock = { bg = palette.blue, fg = palette.bg0 }
-				hl.MasonHighlightBlockBold = { bg = palette.blue, fg = palette.bg0, bold = true }
-				hl.MasonMuted = { fg = palette.grey1 }
-				hl.MasonMutedBlock = { bg = palette.bg3 }
+				-- Plugins window
+				hl.MasonNormal = { bg = palette.none, fg = palette.bg1 }
+				hl.LazyNormal = { bg = palette.none, fg = palette.bg1 }
+
+				-- Statusline
+				hl.StatusLine = { bg = palette.none }
+				hl.StatusLineNC = { bg = palette.none }
+
+				-- Selection in visual mode
+				hl.Visual = { bg = palette.bg1, fg = palette.none }
+				hl.VisualNOS = { bg = palette.bg1, fg = palette.none }
 			end,
 		})
 
