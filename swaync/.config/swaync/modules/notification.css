@@ -8,7 +8,7 @@
 }
 
 .notification image {
-  margin-right: 14px;
+  margin-right: 22px;
 }
 
 .body {
@@ -25,11 +25,13 @@
 }
 
 .time {
-  font-size: 10px;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 200;
   background: transparent;
   color: @fg;
   text-shadow: none;
+  margin-top: 4px; /* vertical centering for smaller font */
+  margin-left: 8px; /* spacing from summary */
 }
 
 .close-button {
