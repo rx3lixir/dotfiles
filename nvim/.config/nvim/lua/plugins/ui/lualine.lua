@@ -4,95 +4,134 @@ return {
 		local auto = require("lualine.themes.auto")
 
 		-- ============================================================================
-		-- KANAGAWA COLOR PALETTE
+		-- EVERFOREST COLOR PALETTE
 		-- ============================================================================
-
 		local colors = {
-			-- Primary accent - main highlight color
-			accent = "#7E9CD8",
-			accent_fixed = "#658594",
-			-- Secondary accent - supporting highlight
-			secondary = "#98BB6C",
-			secondary_fixed = "#76946A",
-			-- Tertiary accent - subtle emphasis
-			tertiary = "#7FB4CA",
-			tertiary_fixed = "#7AA89F",
-			-- Background layers
-			bg0 = "#16161D",
-			bg1 = "#1F1F28",
-			bg2 = "#2A2A37",
-			bg_bright = "#54546D",
-			bg_dim = "#16161D",
-			-- Error colors
-			error = "#E82424",
-			on_error = "#1F1F28",
-			-- Text colors
-			fg = "#DCD7BA",
-			fg_strong = "#DCD7BA",
-			fg_muted = "#727169",
-			-- Borders
-			border = "#54546D",
-			border_strong = "#957FB8",
-			border_dim = "#363646",
-			-- Overlays / shadows
+			accent = "#A7C080",
+			accent_fixed = "#83C092",
+			secondary = "#7FBBB3",
+			secondary_fixed = "#7FBBB3",
+			tertiary = "#E69875",
+			tertiary_fixed = "#DBBC7F",
+			bg0 = "#272E33",
+			bg1 = "#374145",
+			bg2 = "#2E383C",
+			bg_bright = "#414B50",
+			bg_dim = "#1E2326",
+			error = "#E67E80",
+			on_error = "#374145",
+			fg = "#D3C6AA",
+			fg_strong = "#F2EFDF",
+			fg_muted = "#5C6A72",
+			border = "#4a4d45",
+			border_strong = "#8D9199",
+			border_dim = "#353831",
 			overlay = "#000000",
 			scrim = "#000000",
-			-- Mode-specific colors (using Kanagawa palette)
-			mode_normal = "#7E9CD8", -- crystalBlue
-			mode_insert = "#98BB6C", -- springGreen
-			mode_visual = "#957FB8", -- oniViolet
-			mode_replace = "#E82424", -- samuraiRed
-			mode_command = "#DCA561", -- autumnYellow
-			mode_terminal = "#7AA89F", -- waveAqua2
+			mode_normal = "#A7C080",
+			mode_insert = "#7FBBB3",
+			mode_visual = "#DBBC7F",
+			mode_replace = "#E67E80",
+			mode_command = "#E69875",
+			mode_terminal = "#83C092",
 		}
 
 		-- ============================================================================
-		-- HELPER FUNCTIONS
+		-- COMPONENT DEFINITIONS
 		-- ============================================================================
-
-		-- Separator component (the vertical bar between sections)
-		local function separator()
-			return {
+		local components = {
+			-- SEPARATOR
+			separator = {
 				function()
 					return "│"
 				end,
 				color = { fg = colors.border, bg = "NONE" },
 				padding = { left = 1, right = 1 },
-			}
-		end
+			},
 
-		-- Custom git branch display (tries gitsigns first, falls back to fugitive)
-		local function custom_branch()
-			local gitsigns = vim.b.gitsigns_head
-			local fugitive = vim.fn.exists("*FugitiveHead") == 1 and vim.fn.FugitiveHead() or ""
-			local branch = gitsigns or fugitive
+			-- MODE - current vim mode (N/I/V/etc)
+			mode = {
+				"mode",
+				fmt = function(str)
+					return str:sub(1, 1)
+				end,
+				color = function()
+					local mode = vim.fn.mode()
+					local mode_colors = {
+						n = colors.mode_normal,
+						i = colors.mode_insert,
+						v = colors.mode_visual,
+						V = colors.mode_visual,
+						["\22"] = colors.mode_visual,
+						c = colors.mode_command,
+						R = colors.mode_replace,
+						t = colors.mode_terminal,
+					}
+					local fg_color = mode_colors[mode] or colors.mode_normal
+					return { fg = fg_color, bg = "NONE", gui = "bold" }
+				end,
+				padding = { left = 1, right = 0 },
+			},
 
-			if branch == nil or branch == "" then
-				return ""
-			else
-				return " " .. branch
-			end
-		end
+			-- GIT BRANCH - current branch name
+			git_branch = {
+				"branch",
+				color = { fg = colors.fg, bg = "NONE" },
+				padding = { left = 0, right = 0 },
+			},
 
-		-- Active LSP clients display
-		local function lsp_clients()
-			local clients = vim.lsp.get_clients({ bufnr = 0 })
-			if next(clients) == nil then
-				return ""
-			end
+			-- FILETYPE ICON - just the icon
+			filetype_icon = {
+				"filetype",
+				icon_only = true,
+				colored = false,
+				color = { fg = colors.fg, bg = "NONE" },
+				padding = { left = 0, right = 1 },
+			},
 
-			local client_names = {}
-			for _, client in pairs(clients) do
-				table.insert(client_names, client.name)
-			end
+			-- FILENAME - with status symbols
+			filename = {
+				"filename",
+				file_status = true,
+				path = 0,
+				shorting_target = 20,
+				symbols = {
+					modified = "[+]",
+					readonly = "[-]",
+					unnamed = "[?]",
+					newfile = "[!]",
+				},
+				color = { fg = colors.fg, bg = "NONE" },
+				padding = { left = 0, right = 0 },
+			},
 
-			return "󰒓 " .. table.concat(client_names, ", ")
-		end
+			-- DIAGNOSTICS - errors/warnings/info/hints (only when present)
+			diagnostics = {
+				"diagnostics",
+				sources = { "nvim_diagnostic", "coc" },
+				sections = { "error", "warn", "info", "hint" },
+				diagnostics_color = {
+					error = { fg = colors.error, bg = "NONE" },
+					warn = { fg = "#fab387", bg = "NONE" },
+					info = { fg = colors.tertiary, bg = "NONE" },
+					hint = { fg = colors.secondary_fixed, bg = "NONE" },
+				},
+				symbols = {
+					error = "󰅚 ",
+					warn = "󰀪 ",
+					info = "󰋽 ",
+					hint = "󰌶 ",
+				},
+				colored = true,
+				update_in_insert = false,
+				always_visible = false,
+				padding = { left = 0, right = 1 },
+			},
+		}
 
 		-- ============================================================================
 		-- THEME SETUP
 		-- ============================================================================
-		-- Make the middle section (lualine_c) transparent
 		local modes = { "normal", "insert", "visual", "replace", "command", "inactive", "terminal" }
 		for _, mode in ipairs(modes) do
 			if auto[mode] and auto[mode].c then
@@ -112,126 +151,15 @@ return {
 		})
 
 		-- ============================================================================
-		-- STATUSLINE SECTIONS
+		-- STATUSLINE LAYOUT: mode | branch | filename | diagnostics
 		-- ============================================================================
 		opts.sections = {
-			-- LEFT: Mode indicator (bright and distinct per mode)
-			lualine_a = {
-				{
-					"mode",
-					fmt = function(str)
-						return str:sub(1, 1) -- Just first letter (N, I, V, etc.)
-					end,
-					color = function()
-						local mode = vim.fn.mode()
-						local mode_colors = {
-							n = colors.mode_normal, -- Normal mode - blue
-							i = colors.mode_insert, -- Insert mode - green
-							v = colors.mode_visual, -- Visual mode - lavender
-							V = colors.mode_visual, -- Visual Line - lavender
-							["\22"] = colors.mode_visual, -- Visual Block - lavender
-							c = colors.mode_command, -- Command mode - yellow
-							R = colors.mode_replace, -- Replace mode - red
-							t = colors.mode_terminal, -- Terminal mode - teal
-						}
-						local fg_color = mode_colors[mode] or colors.mode_normal
-						return { fg = fg_color, bg = "NONE", gui = "bold" }
-					end,
-					padding = { left = 1, right = 1 },
-				},
-			},
-
-			-- LEFT-CENTER: Git branch and diff stats (using dimmed colors)
-			lualine_b = {
-				separator(),
-				{
-					custom_branch,
-					color = { fg = colors.fg_muted, bg = "NONE" }, -- Dimmed text
-					padding = { left = 0, right = 1 },
-				},
-				{
-					"diff",
-					colored = true,
-					diff_color = {
-						added = { fg = colors.secondary, bg = "NONE" }, -- Green but will be dimmed by context
-						modified = { fg = colors.tertiary, bg = "NONE" }, -- Blue
-						removed = { fg = colors.error, bg = "NONE" }, -- Red
-					},
-					symbols = { added = "+", modified = "~", removed = "-" },
-					padding = { left = 0, right = 0 },
-				},
-			},
-
-			-- CENTER: File info (dimmed)
-			lualine_c = {
-				separator(),
-				{
-					"filetype",
-					icon_only = true,
-					colored = false, -- Don't color the icon
-					color = { fg = colors.fg, bg = "NONE" },
-					padding = { left = 0, right = 1 },
-				},
-				{
-					"filename",
-					file_status = true,
-					path = 0, -- Just filename
-					shorting_target = 20,
-					symbols = {
-						modified = "[+]",
-						readonly = "[-]",
-						unnamed = "[?]",
-						newfile = "[!]",
-					},
-					color = { fg = colors.fg_muted, bg = "NONE" }, -- Dimmed text
-					padding = { left = 0, right = 0 },
-				},
-			},
-
-			-- RIGHT-CENTER: Active LSP clients
-			lualine_x = {
-				{
-					lsp_clients,
-					color = { fg = colors.fg_muted, bg = "NONE" }, -- Dimmed text
-					padding = { left = 0, right = 0 },
-				},
-			},
-
-			-- RIGHT: Diagnostics (only show if count > 0, using proper colors)
-			lualine_y = {
-				separator(),
-				{
-					"diagnostics",
-					sources = { "nvim_diagnostic", "coc" },
-					sections = { "error", "warn", "info", "hint" },
-					diagnostics_color = {
-						error = { fg = colors.error, bg = "NONE" }, -- Red
-						warn = { fg = "#fab387", bg = "NONE" }, -- Orange
-						info = { fg = colors.tertiary, bg = "NONE" }, -- Blue
-						hint = { fg = colors.secondary_fixed, bg = "NONE" }, -- Teal
-					},
-					symbols = {
-						error = "󰅚 ",
-						warn = "󰀪 ",
-						info = "󰋽 ",
-						hint = "󰌶 ",
-					},
-					colored = true,
-					update_in_insert = false,
-					always_visible = false, -- KEY: Only show when there are actual diagnostics
-					padding = { left = 0, right = 0 },
-				},
-			},
-
-			-- FAR RIGHT: Position in file (dimmed)
-			lualine_z = {
-				separator(),
-				{
-					"progress",
-					color = { fg = colors.fg_muted, bg = "NONE" }, -- Dimmed text
-					padding = { left = 0, right = 1 },
-				},
-			},
+			lualine_a = { components.mode },
+			lualine_b = { components.separator, components.git_branch },
+			lualine_c = { components.separator, components.filetype_icon, components.filename },
+			lualine_x = {},
+			lualine_y = { components.diagnostics },
+			lualine_z = {},
 		}
 
 		return opts

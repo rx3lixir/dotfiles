@@ -39,8 +39,8 @@ return {
 				hl.TelescopePreviewBorder = { bg = palette.none, fg = palette.bg1 }
 				hl.TelescopePreviewTitle = { bg = palette.green, fg = palette.bg0, bold = true }
 				-- Telescope Selection
-				hl.TelescopeSelection = { bg = palette.bg1, fg = palette.green, bold = true }
-				hl.TelescopeSelectionCaret = { bg = palette.bg1, fg = palette.green, bold = true }
+				hl.TelescopeSelection = { bg = palette.none, fg = palette.blue, bold = true }
+				hl.TelescopeSelectionCaret = { bg = palette.none, fg = palette.green, bold = true }
 
 				-- LSP floating windows with borders
 				hl.NormalFloat = { bg = palette.none }
@@ -64,7 +64,7 @@ return {
 				hl.NeoTreeEndOfBuffer = { bg = palette.none }
 
 				-- Plugins window
-				hl.MasonNormal = { bg = palette.none, fg = palette.bg1 }
+				hl.MasonNormal = { bg = palette.none, fg = palette.fg }
 				hl.LazyNormal = { bg = palette.none, fg = palette.bg1 }
 
 				-- Statusline

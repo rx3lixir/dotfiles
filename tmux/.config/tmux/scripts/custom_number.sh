@@ -8,6 +8,9 @@ format_dsquare="󰎢󰎥󰎨󰎫󰎲󰎯󰎴󰎷󰎺󰎽"
 format_msquare="󰼎󰼏󰼐󰼑󰼒󰼓󰼔󰼕󰼖󰼗"
 format_super="⁰¹²³⁴⁵⁶⁷⁸⁹"
 format_sub="₀₁₂₃₄₅₆₇₈₉"
+format_hcircle="⓪①②③④⑤⑥⑦⑧⑨"
+format_fcrircle="⓿➊➋➌➍➎➏➐➑➒"
+format_num="󰬺󰬻󰬼󰬽󰬾󰬿󰭀󰭁󰭂"
 
 ID=$1
 FORMAT=${2:-none}

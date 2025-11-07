@@ -39,10 +39,10 @@ return {
 				return {
 					-- Telescope borderless styling
 					TelescopeNormal = { bg = colors.none },
-					TelescopeBorder = { bg = colors.none, fg = colors.surface0 },
+					TelescopeBorder = { bg = colors.none, fg = colors.surface1 },
 					-- Telescope Prompt
 					TelescopePromptNormal = { bg = colors.none },
-					TelescopePromptBorder = { bg = colors.none, fg = colors.surface0 },
+					TelescopePromptBorder = { bg = colors.none, fg = colors.surface1 },
 					TelescopePromptTitle = { bg = colors.mauve, fg = colors.base, bold = true },
 					TelescopePromptPrefix = { bg = colors.none, fg = colors.mauve },
 					-- Telescope Results
@@ -51,7 +51,7 @@ return {
 					TelescopeResultsTitle = { bg = colors.blue, fg = colors.base, bold = true },
 					-- Telescope Preview
 					TelescopePreviewNormal = { bg = colors.none },
-					TelescopePreviewBorder = { bg = colors.none, fg = colors.surface0 },
+					TelescopePreviewBorder = { bg = colors.none, fg = colors.surface1 },
 					TelescopePreviewTitle = { bg = colors.green, fg = colors.base, bold = true },
 					-- Telescope Selection
 					TelescopeSelection = { bg = colors.none, fg = colors.lavender, bold = true },
@@ -91,6 +91,10 @@ return {
 
 					-- Lazy
 					LazyNormal = { bg = colors.mantle },
+
+					-- Selection in visual mode
+					Visual = { bg = colors.surface0, fg = colors.none },
+					VisualNOS = { bg = colors.surface0, fg = colors.none },
 				}
 			end,
 

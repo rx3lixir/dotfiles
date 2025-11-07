@@ -33,6 +33,7 @@ return {
 				"emmet_ls",
 				"tailwindcss",
 				"gopls",
+				"rust_analyzer",
 				"sqls",
 				"yamlls",
 			},

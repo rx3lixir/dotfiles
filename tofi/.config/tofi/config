@@ -1,5 +1,3 @@
-# --- Kanagawa Tofi Config ---
-
 width = 100%
 height = 100%
 
@@ -15,11 +13,10 @@ result-spacing = 25
 font = Ubuntu Nerd Font 
 font-size=24
 
-# --- Colors ---
+# --- Colors
 
 background-color = #000000CC
 
-text-color = #DCD7BA
-prompt-color = #957FB8
-selection-color = #957FB8
-
+text-color = #D3C6AA 
+prompt-color = #7FBBB3 
+selection-color = #7FBBB3 
