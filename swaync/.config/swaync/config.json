@@ -59,8 +59,9 @@
     },
     "backlight": {
       "label": "󰃠",
-      "device": "brightnessctl g",
-      "device": "amdgpu_bl1"
+      "device": "amdgpu_bl1",
+      "subsystem": "backlight",
+      "min": 5
     },
     "buttons-grid": {
       "actions": [

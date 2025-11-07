@@ -16,8 +16,9 @@ menu_items=(
     "󰤥 Wifi|$SCRIPT_DIR/apps/launch-impala.sh"
     "󱡫 Audio|$SCRIPT_DIR/apps/launch-wiremix.sh"
     " System monitor|$SCRIPT_DIR/apps/launch-btop.sh"
-    "󰅩 Code|$SCRIPT_DIR/apps/launch-code.sh"
     "⏻ Power|$SCRIPT_DIR/apps/launch-wlogout.sh"
+    "󰖐 Weather|$SCRIPT_DIR/apps/launch-weather.sh"
+    "󰗊 Translate|$SCRIPT_DIR/apps/launch-translate.sh"
 )
 
 # Extract display names for tofi
