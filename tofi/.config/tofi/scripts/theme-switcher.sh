@@ -9,6 +9,7 @@ set -euo pipefail
 THEMES_DIR="$HOME/.config/themes"
 CURRENT_THEME_FILE="$THEMES_DIR/.current"
 HYPRPAPER_CONF="$HOME/.config/hypr/hyprpaper.conf"
+RESTART_SCRIPT="$HOME/.config/hypr/scripts/system/restart-graph-env.sh"
 
 # Colors for output
 RED='\033[0;31m'
@@ -81,6 +82,38 @@ get_theme_dir() {
     return 1
 }
 
+# Reload graphical environment (waybar, swaync, swayosd)
+reload_environment() {
+    echo -e "${YELLOW}Reloading graphical environment...${NC}"
+    
+    # Check if restart script exists
+    if [ ! -f "$RESTART_SCRIPT" ]; then
+        echo -e "${YELLOW}Warning: Restart script not found at $RESTART_SCRIPT${NC}" >&2
+        echo -e "${YELLOW}Skipping environment reload${NC}" >&2
+        return 1
+    fi
+    
+    # Check if script is executable
+    if [ ! -x "$RESTART_SCRIPT" ]; then
+        echo -e "${YELLOW}Warning: Restart script is not executable${NC}" >&2
+        echo -e "${YELLOW}Attempting to make it executable...${NC}"
+        chmod +x "$RESTART_SCRIPT" || {
+            echo -e "${RED}Failed to make script executable${NC}" >&2
+            return 1
+        }
+    fi
+    
+    # Execute the restart script
+    if "$RESTART_SCRIPT"; then
+        echo -e "${GREEN}✓ Environment reloaded successfully${NC}"
+        notify-send -u normal "Theme Switcher" "Reloading waybar, swaync, and swayosd..."
+        return 0
+    else
+        echo -e "${RED}Warning: Environment reload script failed${NC}" >&2
+        return 1
+    fi
+}
+
 # Apply matugen theme
 apply_matugen() {
     echo -e "${GREEN}Applying Matugen theme...${NC}"
@@ -110,6 +143,13 @@ apply_matugen() {
         echo -e "${GREEN}Matugen applied successfully!${NC}"
         echo "Matugen" > "$CURRENT_THEME_FILE"
         notify-send -u normal "Theme Switcher" "Matugen theme applied"
+        
+        # Give notification time to display before restarting notification daemon
+        sleep 1.5
+        
+        # Reload environment
+        reload_environment
+        
         return 0
     else
         echo -e "${RED}Error: matugen command failed${NC}" >&2
@@ -183,11 +223,25 @@ apply_static_theme() {
         echo -e "${GREEN}Theme '$theme_name' applied successfully!${NC}"
         echo "$theme_name" > "$CURRENT_THEME_FILE"
         notify-send -u normal "Theme Switcher" "Theme '$theme_name' applied"
+        
+        # Give notification time to display before restarting notification daemon
+        sleep 1.5
+        
+        # Reload environment
+        reload_environment
+        
         return 0
     else
         echo -e "${YELLOW}Theme applied with $errors warning(s)${NC}"
         echo "$theme_name" > "$CURRENT_THEME_FILE"
         notify-send -u normal "Theme Switcher" "Theme '$theme_name' applied with warnings"
+        
+        # Give notification time to display before restarting notification daemon
+        sleep 1.5
+        
+        # Reload environment even with warnings
+        reload_environment
+        
         return 0
     fi
 }
@@ -200,7 +254,7 @@ show_menu() {
     # Build menu with checkmarks
     while IFS= read -r theme; do
         if [ "$theme" = "$current_theme" ]; then
-            themes+=("$theme ")
+            themes+=("$theme ✓")
         else
             themes+=("$theme")
         fi
@@ -212,7 +266,7 @@ show_menu() {
     fi
     
     # Show tofi menu
-    local selected=$(printf '%s\n' "${themes[@]}" | tofi --prompt-text " Themes: ")
+    local selected=$(printf '%s\n' "${themes[@]}" | tofi --prompt-text "🎨 Themes: ")
     
     if [ -z "$selected" ]; then
         echo "No theme selected, exiting."

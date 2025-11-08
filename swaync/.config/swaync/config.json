@@ -86,8 +86,8 @@
         {
           "label": "󰻂",
           "type": "toggle",
-          "command": "~/.config/hypr/scripts/swaync/screen-rec.sh",
-          "update-command": "sh -c '[[ -f /tmp/wf-recorder.pid ]] && echo true || echo false'"
+          "command": "~/.config/hypr/scripts/system/screen-rec.sh",
+          "update-command": "sh -c '[[ -f /tmp/wl-recorder.pid ]] && echo true || echo false'"
         },
         {
           "label": "󰤭",

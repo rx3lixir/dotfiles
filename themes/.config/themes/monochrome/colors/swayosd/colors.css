@@ -1,0 +1,29 @@
+/* Primary accent - main highlight color */
+@define-color accent #e0e0e0;
+@define-color accent-fixed #d0d0d0;
+/* Secondary accent - supporting highlight */
+@define-color secondary #C03E35;
+@define-color secondary-fixed #a83329;
+/* Tertiary accent - subtle emphasis / less prominent highlights */
+@define-color tertiary #768D21;
+@define-color tertiary-fixed #657a1c;
+/* Background layers */
+@define-color bg0 #0a0a0a;
+@define-color bg1 #1a1a1a;
+@define-color bg2 #121212;
+@define-color bg-bright #404040;
+@define-color bg-dim #0d0d0d;
+/* Error colors */
+@define-color error #C03E35;
+@define-color on-error #1a1a1a;
+/* Text colors */
+@define-color fg #b0b0b0;
+@define-color fg-strong #d4d4d4;
+@define-color fg-muted #707070;
+/* Borders */
+@define-color border #2a2a2a;
+@define-color border-strong #505050;
+@define-color border-dim #1e1e1e;
+/* Overlays / shadows (optional, useful for UI layering) */
+@define-color overlay #000000;
+@define-color scrim #000000;
