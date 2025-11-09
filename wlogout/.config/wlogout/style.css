@@ -1,0 +1,46 @@
+window {
+  font-family: Ubuntu Nerd Font;
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20%;
+  margin: 10px;
+  transition: background-size 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+button:focus {
+  background-size: 40%;
+  outline: none;
+}
+
+#shutdown {
+  background-image: image(url("./icons/power.png"));
+}
+
+#suspend {
+  background-image: image(url("./icons/pause.png"));
+}
+
+#logout {
+  background-image: image(url("./icons/logout.png"));
+}
+
+#reboot {
+  background-image: image(url("./icons/restart.png"));
+}
+
+#lock {
+  background-image: image(url("./icons/lock.png"));
+}
+
+#hibernate {
+  background-image: image(url("./icons/hibernate.png"));
+}
