@@ -1,38 +1,29 @@
-/* Kanagawa Colorscheme For Waybar */
-
 /* Primary accent - main highlight color */
-@define-color accent #7E9CD8; /* crystalBlue - functions/titles, bright and noticeable */
-@define-color accent-fixed #658594; /* dragonBlue - slightly muted blue for consistency */
-
+@define-color accent #e0e0e0;
+@define-color accent-fixed #d0d0d0;
 /* Secondary accent - supporting highlight */
-@define-color secondary #98BB6C; /* springGreen - strings, nice complement to blue */
-@define-color secondary-fixed #76946A; /* autumnGreen - muted green, less intense */
-
+@define-color secondary #C03E35;
+@define-color secondary-fixed #a83329;
 /* Tertiary accent - subtle emphasis / less prominent highlights */
-@define-color tertiary #7FB4CA; /* springBlue - specials/builtins, softer blue */
-@define-color tertiary-fixed #7AA89F; /* waveAqua2 - types, aqua tone */
-
+@define-color tertiary #768D21;
+@define-color tertiary-fixed #657a1c;
 /* Background layers */
-@define-color bg0 #16161D; /* sumiInk0 - darkest, for statuslines/floating */
-@define-color bg1 #1F1F28; /* sumiInk1 - default background */
-@define-color bg2 #2A2A37; /* sumiInk2 - lighter bg for depth */
-@define-color bg-bright #54546D; /* sumiInk4 - brightest bg element */
-@define-color bg-dim #16161D; /* sumiInk0 again - dimmest option */
-
+@define-color bg0 #0a0a0a;
+@define-color bg1 #1a1a1a;
+@define-color bg2 #121212;
+@define-color bg-bright #404040;
+@define-color bg-dim #0d0d0d;
 /* Error colors */
-@define-color error #E82424; /* samuraiRed - diagnostic error, very visible */
-@define-color on-error #1F1F28; /* sumiInk1 - text on error bg */
-
+@define-color error #C03E35;
+@define-color on-error #1a1a1a;
 /* Text colors */
-@define-color fg #DCD7BA; /* fujiWhite - default foreground */
-@define-color fg-strong #DCD7BA; /* fujiWhite - keeping it same, Kanagawa doesn't go brighter */
-@define-color fg-muted #727169; /* fujiGray - comments, perfect for muted text */
-
+@define-color fg #b0b0b0;
+@define-color fg-strong #d4d4d4;
+@define-color fg-muted #707070;
 /* Borders */
-@define-color border #54546D; /* sumiInk4 - float borders work well here */
-@define-color border-strong #957FB8; /* oniViolet - statements/keywords, stands out */
-@define-color border-dim #363646; /* sumiInk3 - subtle border */
-
-/* Overlays / shadows */
-@define-color overlay #000000; /* keeping black, makes sense */
-@define-color scrim #000000; /* same here */
+@define-color border #2a2a2a;
+@define-color border-strong #505050;
+@define-color border-dim #1e1e1e;
+/* Overlays / shadows (optional, useful for UI layering) */
+@define-color overlay #000000;
+@define-color scrim #000000;

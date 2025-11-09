@@ -1,3 +1,48 @@
+# Dotfiles
+
+Here are my dotfiles. They are managed using GNU stow utility. In order to view all packages needed consider view `install-pkg.sh` script. In order to install Archlinux moder proper way I also recommend my complete Arch installation guide provided below. It covers a lot of things: btrfs, partitioning, snapshots, lucks encryption, essential modern tools setup and more.
+
+#### Stack
+
+- Window manager: hyprland
+- Notification daemon and control center: swaync
+- Bar: waybar
+- OSD: swayosd
+- Display manager: ly
+- Wifi: impala (tui to manage iwd)
+- Bluetooth: bluetui (tui for bluetoothctl)
+- Audio: wiremix (tui for managing audio inputs/outputs)
+- System monitor: btop++
+- Launcher: tofi
+- Lockscreen: hyprlock
+- Wallpaper daemon: hyprpaper
+- Screenshots / Screen video recording: hyprshot / wl-screenrec
+- Terminal: kitty
+- Editor: neovim
+- Files: yazi (tui file manager)
+
+#### Features
+
+- Custom Tofi-based scripts for: Theme & wallpaper switching - Application launcher - Battery notifications & warnings - Hyprlock status display (battery, layout, media). They are easy to read, maintain and extend.
+- Unified blur effect across the system. Notifications, bar, terminal, floating windows
+- Theme swithcer with supported: Kanagawa, Everforest, Nord, Catppuccin, Monochrome and dynamic theme using matugen.
+- Wallpaper switcher
+- TUI apps
+
+#### Screenshots:
+
+![Dev_env](dont_stow_this/assets/1.png)
+![Dev_env](dont_stow_this/assets/2.png)
+![Dev_env](dont_stow_this/assets/3.png)
+![Dev_env](dont_stow_this/assets/4.png)
+![Dev_env](dont_stow_this/assets/5.png)
+![Dev_env](dont_stow_this/assets/6.png)
+![Dev_env](dont_stow_this/assets/7.png)
+![Dev_env](dont_stow_this/assets/8.png)
+![Dev_env](dont_stow_this/assets/9.png)
+![Dev_env](dont_stow_this/assets/10.png)
+![Dev_env](dont_stow_this/assets/11.png)
+
 # Arch Linux Installation Guide
 
 ## Full Disk Encryption (LUKS) + Btrfs + Snapper
@@ -20,7 +65,6 @@
 10. [Performance Optimization](#performance-optimization)
 11. [Development Environment](#development-environment)
 12. [Additional Services](#additional-services)
-13. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -82,6 +126,7 @@ fdisk -l
 ```
 
 **IMPORTANT**: Throughout this guide, we use `/dev/[YOUR_DISK]` as a placeholder. Common disk names:
+
 - NVMe SSD: `/dev/nvme0n1`
 - SATA SSD/HDD: `/dev/sda`
 - Additional drives: `/dev/nvme1n1`, `/dev/sdb`, etc.
@@ -100,9 +145,9 @@ cfdisk /dev/[YOUR_DISK]
 
 **Create these partitions:**
 
-| Partition | Size | Type |
-| --- | --- | --- |
-| `/dev/[YOUR_DISK]p1` or `/dev/[YOUR_DISK]1` | 512MB | EFI System |
+| Partition                                   | Size            | Type             |
+| ------------------------------------------- | --------------- | ---------------- |
+| `/dev/[YOUR_DISK]p1` or `/dev/[YOUR_DISK]1` | 512MB           | EFI System       |
 | `/dev/[YOUR_DISK]p2` or `/dev/[YOUR_DISK]2` | Remaining space | Linux filesystem |
 
 **Note**: NVMe drives use `p1`, `p2` (e.g., `nvme0n1p1`). SATA drives use `1`, `2` (e.g., `sda1`).
@@ -343,16 +388,16 @@ GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet cryptdevice=UUID=YOUR-UUID-HERE:cry
 **Also in `/etc/default/grub`, uncomment this line:**
 
 ```bash
+# Enables crypto stuff for grub
 GRUB_ENABLE_CRYPTODISK=y
 ```
 
 **And make sure this is uncommented:**
 
 ```bash
+# That allows os-prober to find windows or whatever for other boot option
 GRUB_DISABLE_OS_PROBER=false
 ```
-
-Save and exit (in vim: press `Esc`, type `:wq`, press `Enter`)
 
 ### 19. Configure Initramfs for Encryption
 
@@ -420,10 +465,10 @@ EOF
 
 ```bash
 # Create your user (replace USERNAME with your desired username)
-useradd -m -G wheel,audio,video,optical,storage,input -s /bin/bash USERNAME
+useradd -m -G wheel,audio,video,optical,storage,input [USERNAME]
 
 # Set password for your user
-passwd USERNAME
+passwd [USERNAME]
 
 # Give your user sudo privileges
 EDITOR=vim visudo
@@ -469,7 +514,7 @@ reboot
 
 ## First Boot & Package Installation
 
-Congratulations! You've installed Arch with encryption. Now let's set up everything else.
+Congratulations! You've installed Arch with encryption. Now let's set up everything else.kj
 
 ### 26. Connect to WiFi (if needed)
 
@@ -535,60 +580,18 @@ chmod +x install-packages.sh
 ```
 
 **This will:**
+
 1. Install paru (AUR helper)
 2. Install ALL your packages using paru (both official repos and AUR)
 3. Show you progress as it goes
 
-**Note**: This will take a while! Go grab a coffee. The script will ask for your password and might ask for confirmation on some AUR packages.
-
-### 30. Configure Bash Aliases
-
-```bash
-# Edit your bash config
-nano ~/.bashrc
-```
-
-**Add these useful aliases at the end:**
-
-```bash
-# Snapshot management aliases
-alias snaplist='sudo snapper -c root list'
-alias snapspace='btrfs filesystem usage / | grep -E "Used|Free"'
-alias snapclean='sudo snapper -c root cleanup timeline && sudo snapper -c root cleanup number'
-
-# Create manual snapshot with timestamp
-snapnow() {
-    sudo snapper -c root create --description "$1 - $(date '+%Y-%m-%d %H:%M')"
-}
-
-# Safe system update with snapshot
-safe-update() {
-    echo "Creating pre-update snapshot..."
-    sudo snapper -c root create --description "Pre-update $(date '+%Y-%m-%d %H:%M')"
-    echo "Updating system..."
-    sudo paru -Syu
-    echo "Update complete!"
-}
-
-# Better ls with eza
-alias ls='eza --icons'
-alias ll='eza -lah --icons'
-alias lt='eza --tree --icons'
-```
-
-**Reload your shell:**
-
-```bash
-source ~/.bashrc
-```
-
----
+**Note**: This will take a while.
 
 ## Snapshot Management with Snapper
 
 **This is where the magic happens - automated system snapshots!**
 
-### 31. Initial Snapper Setup
+### 30. Initial Snapper Setup
 
 ```bash
 # Verify your btrfs subvolumes
@@ -597,7 +600,7 @@ btrfs subvolume list /
 
 You should see your subvolumes including `@snapshots`.
 
-### 32. Create Snapper Config
+### 31. Create Snapper Config
 
 **This is tricky because .snapshots already exists. Here's the fix:**
 
@@ -624,7 +627,7 @@ sudo mount /.snapshots
 sudo snapper -c root list
 ```
 
-### 33. Configure Snapper Settings
+### 32. Configure Snapper Settings
 
 ```bash
 # Edit snapper configuration
@@ -660,7 +663,7 @@ BACKGROUND_COMPARISON="yes"
 SYNC_ACL="yes"
 ```
 
-### 34. Configure GRUB-Btrfs
+### 33. Configure GRUB-Btrfs
 
 ```bash
 # Edit grub-btrfs config
@@ -674,7 +677,7 @@ GRUB_BTRFS_SUBMENUNAME="Arch Snapshots"
 GRUB_BTRFS_LIMIT="30"
 ```
 
-### 35. Enable Snapshot Services
+### 34. Enable Snapshot Services
 
 ```bash
 # Enable automatic snapshots
@@ -695,7 +698,7 @@ sudo snapper -c root list
 
 ## Performance Optimization
 
-### 36. Setup Zram (Compressed RAM Swap)
+### 35. Setup Zram (Compressed RAM Swap)
 
 ```bash
 # Configure zram
@@ -710,21 +713,21 @@ sudo systemctl daemon-reload
 sudo systemctl start systemd-zram-setup@zram0.service
 ```
 
-### 37. Enable EarlyOOM (Prevents System Freezes)
+### 36. Enable EarlyOOM (Prevents System Freezes)
 
 ```bash
 # Enable EarlyOOM (already installed from script)
 sudo systemctl enable --now earlyoom
 ```
 
-### 38. Enable Auto-CPUFreq (Battery Life)
+### 37. Enable Auto-CPUFreq (Battery Life)
 
 ```bash
 # Enable auto-cpufreq (already installed from script)
 sudo systemctl enable --now auto-cpufreq
 ```
 
-### 39. Check Boot Performance
+### 38. Check Boot Performance
 
 ```bash
 # See how long your system takes to boot
@@ -738,7 +741,7 @@ systemd-analyze blame
 
 ## Development Environment
 
-### 40. Setup SSH Key
+### 39. Setup SSH Key
 
 ```bash
 # Generate SSH key
@@ -756,7 +759,7 @@ cat ~/.ssh/id_ed25519.pub
 
 **Add the key to GitHub:** https://github.com/settings/keys
 
-### 41. Configure Git
+### 40. Configure Git
 
 ```bash
 # Set your name and email
@@ -768,7 +771,7 @@ git config --global color.ui auto
 git config --global init.defaultBranch main
 ```
 
-### 42. Setup Dotfiles (if you have them)
+### 41. Setup Dotfiles (if you have them)
 
 ```bash
 # Clone your dotfiles
@@ -784,7 +787,7 @@ stow */
 
 ## Additional Services
 
-### 43. Enable Docker
+### 42. Enable Docker
 
 ```bash
 # Enable Docker service
@@ -796,14 +799,14 @@ sudo usermod -aG docker $USER
 # You'll need to log out and back in for this to take effect
 ```
 
-### 44. Setup Display Manager (LY)
+### 43. Setup Display Manager (LY)
 
 ```bash
 # Enable LY display manager
 sudo systemctl enable ly.service
 ```
 
-### 45. Configure Kanata (Keyboard Remapping)
+### 44. Configure Kanata (Keyboard Remapping)
 
 ```bash
 # Create necessary groups
@@ -835,14 +838,14 @@ systemctl --user enable kanata
 
 **IMPORTANT**: Your system is encrypted, which is great, but we need to add more layers of security.
 
-### 46. Install Security Essentials
+### 45. Install Security Essentials
 
 ```bash
 # Install security packages
-sudo pacman -S ufw fail2ban arch-audit apparmor
+sudo pacman -S ufw fail2ban arch-audit
 ```
 
-### 47. Setup Firewall (UFW)
+### 46. Setup Firewall (UFW)
 
 UFW (Uncomplicated Firewall) is the easiest way to manage iptables.
 
@@ -872,6 +875,7 @@ sudo ufw status verbose
 ```
 
 **Testing UFW:**
+
 ```bash
 # List all rules
 sudo ufw status numbered
@@ -883,7 +887,7 @@ sudo ufw delete [number]
 sudo ufw disable
 ```
 
-### 48. Harden SSH Configuration
+### 47. Harden SSH Configuration
 
 If you use SSH (especially if exposed to the internet):
 
@@ -939,7 +943,7 @@ sudo sshd -t
 
 **CRITICAL**: Test SSH access in a new terminal before closing your current session!
 
-### 49. Setup Fail2Ban
+### 48. Setup Fail2Ban
 
 Fail2Ban automatically bans IPs that show malicious signs (too many password failures, etc.)
 
@@ -991,210 +995,19 @@ sudo fail2ban-client status sshd
 sudo fail2ban-client set sshd unbanip [IP_ADDRESS]
 ```
 
-### 50. Enable AppArmor
-
-AppArmor provides Mandatory Access Control (MAC) security.
-
-```bash
-# Enable AppArmor in GRUB
-sudo vim /etc/default/grub
-```
-
-**Add `apparmor=1 security=apparmor` to the kernel parameters:**
-
-```bash
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet cryptdevice=UUID=YOUR-UUID-HERE:cryptroot root=/dev/mapper/cryptroot apparmor=1 security=apparmor"
-```
-
-**Rebuild GRUB and reboot:**
-
-```bash
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-sudo reboot
-```
-
-**After reboot, verify AppArmor is working:**
-
-```bash
-sudo aa-enabled
-# Should return: "Yes"
-
-# Check status
-sudo systemctl status apparmor
-
-# List loaded profiles
-sudo aa-status
-```
-
-**Enable more AppArmor profiles:**
-
-```bash
-# Enable all available profiles in enforce mode
-sudo aa-enforce /etc/apparmor.d/*
-
-# Or enable specific profiles
-sudo aa-enforce /etc/apparmor.d/usr.bin.firefox
-
-# Set a profile to complain mode (logs violations but doesn't block)
-sudo aa-complain /etc/apparmor.d/usr.bin.firefox
-```
-
-### 51. Configure Automatic Security Updates Check
-
-```bash
-# Install audit tool (already installed in step 46)
-# Run security audit
-arch-audit
-
-# Create a weekly check timer
-sudo tee /etc/systemd/system/arch-audit.timer << 'EOF'
-[Unit]
-Description=Weekly Arch Linux security audit
-
-[Timer]
-OnCalendar=weekly
-Persistent=true
-
-[Install]
-WantedBy=timers.target
-EOF
-
-# Create the service
-sudo tee /etc/systemd/system/arch-audit.service << 'EOF'
-[Unit]
-Description=Check for security updates
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/arch-audit
-EOF
-
-# Enable the timer
-sudo systemctl enable --now arch-audit.timer
-```
-
-### 52. Additional Security Hardening
-
-**Secure shared memory:**
-
-```bash
-# Edit fstab
-sudo vim /etc/fstab
-
-# Add this line at the end:
-tmpfs /dev/shm tmpfs defaults,noexec,nodev,nosuid 0 0
-
-# Remount without rebooting
-sudo mount -o remount /dev/shm
-```
-
-**Restrict access to kernel logs:**
-
-```bash
-# Add to sysctl config
-sudo tee /etc/sysctl.d/50-dmesg-restrict.conf << 'EOF'
-kernel.dmesg_restrict = 1
-EOF
-
-# Apply immediately
-sudo sysctl -p /etc/sysctl.d/50-dmesg-restrict.conf
-```
-
-**Protect against IP spoofing:**
-
-```bash
-sudo tee /etc/sysctl.d/50-ip-spoof-protect.conf << 'EOF'
-net.ipv4.conf.default.rp_filter = 1
-net.ipv4.conf.all.rp_filter = 1
-EOF
-
-sudo sysctl -p /etc/sysctl.d/50-ip-spoof-protect.conf
-```
-
-**Disable uncommon network protocols:**
-
-```bash
-sudo tee /etc/modprobe.d/uncommon-network-protocols.conf << 'EOF'
-install dccp /bin/true
-install sctp /bin/true
-install rds /bin/true
-install tipc /bin/true
-EOF
-```
-
-### 53. USB Security (Optional but Recommended)
-
-If you're concerned about malicious USB devices:
-
-```bash
-# Install USBGuard
-sudo pacman -S usbguard
-
-# Generate initial policy based on current devices
-sudo usbguard generate-policy > /tmp/rules.conf
-sudo install -m 0600 /tmp/rules.conf /etc/usbguard/rules.conf
-
-# Enable and start
-sudo systemctl enable --now usbguard
-sudo systemctl enable --now usbguard-dbus
-
-# Check status
-sudo usbguard list-devices
-```
-
-**USBGuard usage:**
-
-```bash
-# Allow a device permanently
-sudo usbguard allow-device [device-id]
-
-# Block a device
-sudo usbguard block-device [device-id]
-
-# Reject and remove device
-sudo usbguard reject-device [device-id]
-```
-
-### 54. Security Checklist
-
-After completing security setup, verify:
-
-```bash
-# ✓ Firewall is active
-sudo ufw status
-
-# ✓ Fail2Ban is running
-sudo systemctl status fail2ban
-
-# ✓ AppArmor is enabled
-sudo aa-enabled
-
-# ✓ SSH is hardened (if you use it)
-sudo sshd -t
-
-# ✓ No known vulnerabilities
-arch-audit
-
-# ✓ Check listening ports
-sudo ss -tulpn
-
-# ✓ Review recent login attempts
-sudo journalctl -u sshd | tail -50
-```
-
 ---
 
 ## System Maintenance
 
 Proper maintenance keeps your system running smoothly and prevents issues.
 
-### 55. Install Maintenance Tools
+### 49. Install Maintenance Tools
 
 ```bash
 sudo pacman -S pacman-contrib pkgfile man-db man-pages tldr
 ```
 
-### 56. Setup Automatic Pacman Cache Cleaning
+### 50. Setup Automatic Pacman Cache Cleaning
 
 The package cache in `/var/cache/pacman/pkg/` can grow huge over time.
 
@@ -1219,37 +1032,7 @@ sudo systemctl enable --now paccache.timer
 systemctl list-timers paccache.timer
 ```
 
-**Alternative: More aggressive cleaning:**
-
-```bash
-# Create a more aggressive cleanup service
-sudo tee /etc/systemd/system/paccache-aggressive.service << 'EOF'
-[Unit]
-Description=Clean pacman cache aggressively
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/paccache -rk1
-ExecStart=/usr/bin/paccache -ruk0
-EOF
-
-# Create timer for monthly execution
-sudo tee /etc/systemd/system/paccache-aggressive.timer << 'EOF'
-[Unit]
-Description=Monthly aggressive pacman cache cleanup
-
-[Timer]
-OnCalendar=monthly
-Persistent=true
-
-[Install]
-WantedBy=timers.target
-EOF
-
-sudo systemctl enable --now paccache-aggressive.timer
-```
-
-### 57. Setup Journal Log Rotation
+### 51. Setup Journal Log Rotation
 
 Systemd journals can consume a lot of space.
 
@@ -1280,190 +1063,7 @@ sudo journalctl --vacuum-size=500M
 sudo journalctl --vacuum-time=2weeks
 ```
 
-### 58. Setup Automatic TRIM for SSD
-
-TRIM keeps your SSD healthy and performant.
-
-```bash
-# Check if TRIM is supported
-sudo hdparm -I /dev/[YOUR_DISK] | grep TRIM
-
-# Enable weekly TRIM timer
-sudo systemctl enable --now fstrim.timer
-
-# Check when it runs next
-systemctl list-timers fstrim.timer
-
-# Manually run TRIM now
-sudo fstrim -av
-```
-
-**Verify TRIM is working:**
-
-```bash
-# Check TRIM status on btrfs
-sudo btrfs filesystem usage /
-
-# After running fstrim, check logs
-sudo journalctl -u fstrim
-```
-
-### 59. Monitor System Health
-
-**Create a system health check script:**
-
-```bash
-# Create the script
-sudo tee /usr/local/bin/system-health-check << 'EOF'
-#!/bin/bash
-
-echo "=== System Health Check ==="
-echo
-
-echo "=== Disk Usage ==="
-df -h | grep -E '^/dev/|Filesystem'
-echo
-
-echo "=== Btrfs Usage ==="
-sudo btrfs filesystem usage / 2>/dev/null || echo "Not available"
-echo
-
-echo "=== Memory Usage ==="
-free -h
-echo
-
-echo "=== Failed Services ==="
-systemctl --failed
-echo
-
-echo "=== Recent Errors in Journal ==="
-journalctl -p err -b --no-pager | tail -20
-echo
-
-echo "=== Security Vulnerabilities ==="
-arch-audit
-echo
-
-echo "=== Package Updates Available ==="
-checkupdates
-echo
-
-echo "=== Snapshot Count ==="
-sudo snapper -c root list | wc -l
-echo
-
-echo "Health check complete!"
-EOF
-
-# Make executable
-sudo chmod +x /usr/local/bin/system-health-check
-
-# Run it
-sudo system-health-check
-```
-
-**Create an alias for easy access:**
-
-```bash
-echo "alias health='sudo system-health-check'" >> ~/.bashrc
-source ~/.bashrc
-```
-
-### 60. Setup Weekly Maintenance Timer
-
-```bash
-# Create maintenance script
-sudo tee /usr/local/bin/weekly-maintenance << 'EOF'
-#!/bin/bash
-
-echo "=== Starting Weekly Maintenance ==="
-date
-
-# Clean package cache (keep last version)
-echo "Cleaning package cache..."
-paccache -rk1
-paccache -ruk0
-
-# Clean journal logs
-echo "Cleaning journal logs..."
-journalctl --vacuum-time=2weeks
-
-# Run TRIM
-echo "Running TRIM..."
-fstrim -av
-
-# Check for failed services
-echo "Checking for failed services..."
-systemctl --failed
-
-# Security audit
-echo "Running security audit..."
-arch-audit
-
-echo "=== Maintenance Complete ==="
-EOF
-
-sudo chmod +x /usr/local/bin/weekly-maintenance
-
-# Create systemd service
-sudo tee /etc/systemd/system/weekly-maintenance.service << 'EOF'
-[Unit]
-Description=Weekly system maintenance
-
-[Service]
-Type=oneshot
-ExecStart=/usr/local/bin/weekly-maintenance
-EOF
-
-# Create timer
-sudo tee /etc/systemd/system/weekly-maintenance.timer << 'EOF'
-[Unit]
-Description=Run weekly system maintenance
-
-[Timer]
-OnCalendar=Sun 03:00
-Persistent=true
-
-[Install]
-WantedBy=timers.target
-EOF
-
-# Enable timer
-sudo systemctl enable --now weekly-maintenance.timer
-```
-
-### 61. Monitor Disk SMART Status
-
-Keep an eye on your disk health:
-
-```bash
-# Install smartmontools
-sudo pacman -S smartmontools
-
-# Check disk health
-sudo smartctl -a /dev/[YOUR_DISK]
-
-# Look for these important values:
-# - Reallocated_Sector_Ct (should be 0 or very low)
-# - Current_Pending_Sector (should be 0)
-# - Offline_Uncorrectable (should be 0)
-
-# Enable SMART monitoring
-sudo systemctl enable --now smartd
-
-# Configure email alerts (optional)
-sudo vim /etc/smartd.conf
-```
-
-**Add this line for your disk:**
-
-```bash
-/dev/[YOUR_DISK] -a -o on -S on -s (S/../.././02|L/../../6/03)
-```
-
-This runs short self-test daily at 2 AM, long test weekly on Saturday at 3 AM.
-
-### 62. Setup Orphaned Package Cleanup
+### 52. Setup Orphaned Package Cleanup
 
 Remove packages that were installed as dependencies but are no longer needed:
 
@@ -1475,61 +1075,7 @@ pacman -Qtdq
 sudo pacman -Rns $(pacman -Qtdq)
 ```
 
-**Automate this:**
-
-```bash
-# Add to weekly maintenance script
-sudo vim /usr/local/bin/weekly-maintenance
-
-# Add before the final "Maintenance Complete" line:
-echo "Removing orphaned packages..."
-orphans=$(pacman -Qtdq)
-if [ -n "$orphans" ]; then
-    pacman -Rns --noconfirm $orphans
-else
-    echo "No orphaned packages found"
-fi
-```
-
-### 63. File System Check Schedule
-
-Btrfs has built-in scrubbing to detect and fix errors:
-
-```bash
-# Create btrfs scrub service
-sudo tee /etc/systemd/system/btrfs-scrub@.service << 'EOF'
-[Unit]
-Description=Btrfs scrub on %f
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/btrfs scrub start -B %f
-EOF
-
-# Create monthly timer
-sudo tee /etc/systemd/system/btrfs-scrub@-.timer << 'EOF'
-[Unit]
-Description=Monthly Btrfs scrub on /
-
-[Timer]
-OnCalendar=monthly
-Persistent=true
-
-[Install]
-WantedBy=timers.target
-EOF
-
-# Enable the timer
-sudo systemctl enable --now btrfs-scrub@-.timer
-
-# Manually run scrub
-sudo btrfs scrub start /
-
-# Check scrub status
-sudo btrfs scrub status /
-```
-
-### 64. Update Mirrorlist Regularly
+### 53. Update Mirrorlist Regularly
 
 Keep your mirrors fast and up to date:
 
@@ -1545,83 +1091,40 @@ systemctl list-timers reflector.timer
 sudo reflector --country Germany,France,Netherlands --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 ```
 
-### 65. Monitor System Logs
+### 54. Maintenance Checklist
 
-Create shortcuts for common log checks:
+**Daily:**
 
-```bash
-# Add to ~/.bashrc
-cat >> ~/.bashrc << 'EOF'
-
-# Log monitoring aliases
-alias logboot='journalctl -b'                    # Current boot logs
-alias logerr='journalctl -p err -b'              # Only errors this boot
-alias logfail='systemctl --failed'               # Failed services
-alias logssh='sudo journalctl -u sshd -n 50'     # Last 50 SSH logs
-alias logfw='sudo journalctl -u ufw -n 50'       # Last 50 firewall logs
-
-# System maintenance aliases
-alias cleanup='sudo paccache -r && sudo paccache -ruk0 && journalctl --vacuum-time=2weeks'
-alias orphans='pacman -Qtdq'
-alias syshealth='sudo system-health-check'
-EOF
-
-source ~/.bashrc
-```
-
-### 66. Maintenance Checklist
-
-**Daily (automatic):**
 - ✓ Btrfs snapshots (snapper)
 - ✓ Security audit check
 
-**Weekly (automatic):**
+**Weekly:**
+
 - ✓ Package cache cleanup
 - ✓ Journal log rotation
 - ✓ TRIM operation
 - ✓ Orphaned package removal
 
-**Monthly (automatic):**
-- ✓ Btrfs scrub
+**Monthly:**
+
 - ✓ Mirror list update
-
-**Manual (as needed):**
-```bash
-# Check system health
-health
-
-# Update system with snapshot
-safe-update
-
-# Check for errors
-logerr
-
-# Clean up disk space
-cleanup
-
-# Check SMART status
-sudo smartctl -a /dev/[YOUR_DISK]
-
-# Review security
-arch-audit
-sudo ufw status
-sudo fail2ban-client status
-```
 
 ---
 
-## Backup Strategy
+## 55. Backup Strategy
 
 **CRITICAL**: Snapshots are NOT backups! They protect against mistakes but not hardware failure, theft, or catastrophic damage.
 
-### 67. Why You Need Backups
+### Why You Need Backups
 
 Btrfs snapshots protect you from:
+
 - ✓ Accidental file deletion
 - ✓ Bad system updates
 - ✓ Configuration mistakes
 
 Snapshots do NOT protect you from:
+
 - ✗ Disk failure
 - ✗ Filesystem corruption
 - ✗ Physical damage (fire, water, theft)
@@ -1632,6 +1135,7 @@ Snapshots do NOT protect you from:
 **That's it! You now have a fully encrypted Arch Linux system with automatic snapshots and all your development tools ready to go.**
 
 Remember to:
+
 - Create regular snapshots before major changes
 - Keep your system updated with `safe-update`
 - Back up your encryption password somewhere safe

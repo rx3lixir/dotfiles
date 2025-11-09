@@ -1,119 +1,175 @@
 return {
-	"rebelot/kanagawa.nvim",
+	"nuvic/flexoki-nvim",
+	name = "flexoki",
 	lazy = false,
 	priority = 1000,
 	config = function()
-		require("kanagawa").setup({
+		require("flexoki").setup({
 			-- ============================================================
 			-- BASIC SETTINGS
 			-- ============================================================
-			compile = false,
-			undercurl = true,
-			transparent = true,
-			dimInactive = false,
-			terminalColors = true,
+			variant = "moon", -- auto, moon, or dawn
+			dim_inactive_windows = false,
+			extend_background_behind_borders = true,
+			transparent = true, -- Enable transparency like kanagawa
+
+			-- ============================================================
+			-- TERMINAL
+			-- ============================================================
+			enable = {
+				terminal = true,
+			},
 
 			-- ============================================================
 			-- STYLES
 			-- ============================================================
-			commentStyle = { italic = true },
-			functionStyle = {},
-			keywordStyle = { italic = true },
-			statementStyle = { bold = true },
-			typeStyle = {},
+			styles = {
+				bold = true,
+				italic = true, -- Enable italics for comments/keywords
+				transparency = true, -- Additional transparency flag
+			},
 
 			-- ============================================================
-			-- COLORS
+			-- SEMANTIC GROUPS (FLEXOKI SPECIFIC)
 			-- ============================================================
-			colors = {
-				palette = {},
-				theme = {
-					wave = {},
-					lotus = {},
-					dragon = {},
-					all = {
-						ui = {
-							bg_gutter = "none",
-						},
-					},
-				},
+			groups = {
+				-- UI Elements
+				border = "muted",
+				panel = "surface",
+				link = "purple_two",
+
+				-- Diagnostics
+				error = "red_one",
+				hint = "purple_one",
+				info = "cyan_one",
+				ok = "green_one",
+				warn = "orange_one",
+				note = "blue_one",
+				todo = "magenta_one",
+
+				-- Git
+				git_add = "green_one",
+				git_change = "yellow_one",
+				git_delete = "red_one",
+				git_dirty = "yellow_one",
+				git_ignore = "muted",
+				git_merge = "purple_one",
+				git_rename = "blue_one",
+				git_stage = "purple_one",
+				git_text = "magenta_one",
+				git_untracked = "subtle",
+
+				-- Markdown Headings
+				h1 = "purple_two",
+				h2 = "cyan_two",
+				h3 = "magenta_two",
+				h4 = "orange_two",
+				h5 = "blue_two",
+				h6 = "cyan_two",
 			},
 
 			-- ============================================================
 			-- HIGHLIGHT OVERRIDES
 			-- ============================================================
-			overrides = function(colors)
-				local theme = colors.theme
+			highlight_groups = {
+				-- ------------------------------------------------
+				-- BASIC TRANSPARENCY
+				-- ------------------------------------------------
+				Normal = { bg = "none" },
+				NormalFloat = { bg = "none" },
+				FloatBorder = { bg = "none" },
+				FloatTitle = { bg = "none" },
+				SignColumn = { bg = "none" },
 
-				-- Helper function for diagnostic colors
-				local function makeDiagnosticColor(color)
-					local c = require("kanagawa.lib.color")
-					return {
-						fg = color,
-						bg = c(color):blend(theme.ui.bg, 0.95):to_hex(),
-					}
-				end
+				-- ------------------------------------------------
+				-- SYNTAX STYLES
+				-- ------------------------------------------------
+				Comment = { fg = "subtle", italic = true },
+				Keyword = { italic = true },
+				Statement = { bold = true },
+				Function = {},
+				Type = {},
 
-				return {
-					-- ------------------------------------------------
-					-- FLOATING WINDOWS
-					-- ------------------------------------------------
-					NormalFloat = { bg = "none" },
-					FloatBorder = { bg = "none" },
-					FloatTitle = { bg = "none" },
-					NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
+				-- ------------------------------------------------
+				-- UI ELEMENTS
+				-- ------------------------------------------------
+				VertSplit = { fg = "muted", bg = "none" },
+				StatusLine = { bg = "none" },
+				StatusLineNC = { bg = "none" },
+				Visual = { bg = "surface" },
+				VisualNOS = { bg = "surface" },
 
-					-- ------------------------------------------------
-					-- PLUGIN WINDOWS
-					-- ------------------------------------------------
-					LazyNormal = { bg = theme.ui.bg_p1, fg = theme.ui.fg_dim },
-					MasonNormal = { bg = "none", fg = theme.ui.fg_dim },
+				-- ------------------------------------------------
+				-- PLUGIN WINDOWS (TELESCOPE)
+				-- ------------------------------------------------
+				TelescopeNormal = { bg = "none" },
+				TelescopeBorder = { bg = "none", fg = "muted" },
+				TelescopeSelection = { bg = "none", fg = "cyan_one", bold = true },
+				TelescopeSelectionCaret = { bg = "none", fg = "purple_one", bold = true },
 
-					TelescopeSelection = { bg = theme.ui.none, fg = theme.diag.info, bold = true },
-					TelescopeSelectionCaret = { bg = theme.ui.none, fg = theme.ui.special, bold = true },
-					--TelescopeMatching = { bg = theme.ui.none, fg = colors.blue },
+				-- ------------------------------------------------
+				-- PLUGIN WINDOWS (LAZY & MASON)
+				-- ------------------------------------------------
+				LazyNormal = { bg = "none" },
+				MasonNormal = { bg = "none" },
 
-					-- ------------------------------------------------
-					-- DIAGNOSTICS
-					-- ------------------------------------------------
-					DiagnosticVirtualTextHint = makeDiagnosticColor(theme.diag.hint),
-					DiagnosticVirtualTextInfo = makeDiagnosticColor(theme.diag.info),
-					DiagnosticVirtualTextWarn = makeDiagnosticColor(theme.diag.warning),
-					DiagnosticVirtualTextError = makeDiagnosticColor(theme.diag.error),
+				-- ------------------------------------------------
+				-- COMPLETION (BLINK.CMP / NVIM-CMP)
+				-- ------------------------------------------------
+				-- Blink.cmp
+				BlinkCmpMenu = { bg = "none" },
+				BlinkCmpMenuBorder = { bg = "none", fg = "muted" },
+				BlinkCmpMenuSelection = { bg = "surface" },
+				BlinkCmpDoc = { bg = "none" },
+				BlinkCmpDocBorder = { bg = "none", fg = "muted" },
+				BlinkCmpSignatureHelp = { bg = "none" },
+				BlinkCmpSignatureHelpBorder = { bg = "none", fg = "muted" },
 
-					-- ------------------------------------------------
-					-- BLINK.CMP (COMPLETION)
-					-- ------------------------------------------------
-					BlinkCmpMenu = { bg = theme.ui.none, fg = theme.ui.fg_dim },
-					BlinkCmpMenuBorder = { bg = "none", fg = theme.ui.bg_p2 },
-					BlinkCmpMenuSelection = { bg = theme.ui.bg_p2 },
-					BlinkCmpDoc = { bg = "none" },
-					BlinkCmpDocBorder = { bg = "none", fg = theme.ui.bg_p1 },
-					BlinkCmpSignatureHelp = { bg = "none" },
-					BlinkCmpSignatureHelpBorder = { bg = "none", fg = theme.ui.bg_p1 },
+				-- Nvim-cmp (fallback)
+				Pmenu = { bg = "none" },
+				PmenuSel = { bg = "surface" },
+				PmenuBorder = { bg = "none", fg = "muted" },
 
-					Visual = { bg = theme.ui.bg_p2, fg = theme.ui.none },
-					VisualNOS = { bg = theme.ui.bg_p2, fg = theme.ui.none },
+				-- ------------------------------------------------
+				-- DIAGNOSTICS
+				-- ------------------------------------------------
+				DiagnosticVirtualTextHint = { fg = "purple_one", bg = "none" },
+				DiagnosticVirtualTextInfo = { fg = "cyan_one", bg = "none" },
+				DiagnosticVirtualTextWarn = { fg = "orange_one", bg = "none" },
+				DiagnosticVirtualTextError = { fg = "red_one", bg = "none" },
 
-					-- ------------------------------------------------
-					-- STATUSLINE (LUALINE TRANSPARENCY)
-					-- ------------------------------------------------
-					StatusLine = { bg = "none" },
-					StatusLineNC = { bg = "none" },
-				}
-			end,
-
-			-- ============================================================
-			-- THEME SELECTION
-			-- ============================================================
-			theme = "wave",
-			background = {
-				dark = "wave",
-				light = "lotus",
+				-- ------------------------------------------------
+				-- LINE NUMBERS
+				-- ------------------------------------------------
+				LineNr = { bg = "none" },
+				CursorLineNr = { bg = "none" },
 			},
+
+			-- ============================================================
+			-- BEFORE HIGHLIGHT HOOK (ADVANCED CUSTOMIZATION)
+			-- ============================================================
+			before_highlight = function(group, highlight, palette)
+				-- Disable all undercurls if you prefer
+				-- if highlight.undercurl then
+				--     highlight.undercurl = false
+				-- end
+
+				-- Change specific palette colors globally
+				-- if highlight.fg == palette.blue_two then
+				--     highlight.fg = palette.cyan_two
+				-- end
+
+				-- Force transparency on backgrounds
+				if highlight.bg and highlight.bg ~= "none" then
+					-- Uncomment to force all backgrounds to be transparent
+					-- highlight.bg = "none"
+				end
+			end,
 		})
 
-		-- Apply the colorscheme
-		vim.cmd.colorscheme("kanagawa")
+		-- ============================================================
+		-- APPLY THE COLORSCHEME
+		-- ============================================================
+		vim.cmd.colorscheme("flexoki")
 	end,
 }
