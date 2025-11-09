@@ -1,4 +1,4 @@
-# --- Kanagawa Tofi Config ---
+# --- Monochrome Tofi Config ---
 
 width = 100%
 height = 100%
@@ -13,12 +13,12 @@ num-results = 5
 result-spacing = 25
 
 font = Ubuntu Nerd Font 
-font-size=24
+font-size=26
 
 # --- Colors ---
 
-background-color = #000000CC
+background-color = #000000BB
 
 text-color = #707070
-prompt-color = #768D21
-selection-color = #768D21
+prompt-color = #E0E0E0
+selection-color = #E0E0E0 

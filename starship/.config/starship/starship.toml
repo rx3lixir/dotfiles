@@ -18,17 +18,17 @@ $character\
 palette = 'colors'
 
 [palettes.colors]
-accent = '#e0e0e0'
-accent-fixed = '#d0d0d0'
-secondary = '#C03E35'
-secondary-fixed = '#a83329'
-tertiary = '#768D21'
-tertiary-fixed = '#657a1c'
-bg = '#1a1a1a'
-bg-dim = '#0a0a0a'
-fg = '#b0b0b0'
-fg-strong = '#d4d4d4'
-fg-muted = '#707070'
+accent = '#7E9CD8'
+accent-fixed = '#658594'
+secondary = '#98BB6C'
+secondary-fixed = '#76946A'
+tertiary = '#957FB8'
+tertiary-fixed = '#938AA9'
+bg = '#1F1F28'
+bg-dim = '#16161D'
+fg = '#DCD7BA'
+fg-strong = '#DCD7BA'
+fg-muted = '#727169'
 
 [fill]
 symbol = ' '
@@ -41,9 +41,14 @@ format = '[on](color8) [$symbol$branch ]($style)'
 [git_status]
 style = 'fg:fg'
 format = '([\[$all_status$ahead_behind\]]($style) )'
+staged = '󰐕'
 deleted = ''
 untracked = ''
 modified = ''
+conflicted = ''
+ahead = ''
+behind = ''
+diverged = ''
 
 [docker_context]
 symbol = '🐋'

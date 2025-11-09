@@ -13,11 +13,11 @@ num-results = 5
 result-spacing = 25
 
 font = Ubuntu Nerd Font 
-font-size=24
+font-size=26
 
 # --- Colors ---
 
-background-color = #000000CC
+background-color = #000000BB
 
 text-color = #DCD7BA
 prompt-color = #957FB8

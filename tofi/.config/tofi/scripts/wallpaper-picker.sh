@@ -22,7 +22,7 @@ wallpapers=()
 while IFS= read -r -d '' file; do
     filename=$(basename "$file")
     wallpapers+=("${filename%.*}")
-done < <(find "$WALLPAPER_DIR" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.webp" \) -print0 | sort -z)
+done < <(find -L "$WALLPAPER_DIR" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.webp" \) -print0 | sort -z)
 
 # Check if we found any wallpapers
 if [[ ${#wallpapers[@]} -eq 0 ]]; then

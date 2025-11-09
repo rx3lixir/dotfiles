@@ -15,7 +15,7 @@ menu_items=(
     "󰂯 Bluetooth|$SCRIPT_DIR/apps/launch-bluetui.sh"
     "󰤥 Wifi|$SCRIPT_DIR/apps/launch-impala.sh"
     "󱡫 Audio|$SCRIPT_DIR/apps/launch-wiremix.sh"
-    " Explorer|$SCRIPT_DIR/apps/launch-yazi.sh"
+    " Files|$SCRIPT_DIR/apps/launch-yazi.sh"
     " System monitor|$SCRIPT_DIR/apps/launch-btop.sh"
     "⏻ Power|$SCRIPT_DIR/apps/launch-wlogout.sh"
     "󰗊 Translate|$SCRIPT_DIR/apps/launch-translate.sh"

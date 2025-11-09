@@ -16,7 +16,7 @@
     "modules": [
       "custom/separator",
       "cpu",
-      "memory"
+      "memory",
     ]
   },
 
@@ -35,23 +35,6 @@
     "interval": 30,
     "format": "{}%  ",
     "max-length": 10
-  },
-
-  "custom/weather": {
-    "exec": "~/.config/waybar/scripts/weather.sh",
-    "interval": 1800,
-    "return-type": "json",
-    "format": "{icon} {}",
-    "format-icons": {
-      "sunny": "󰖙",
-      "clear": "󰖔",
-      "cloudy": "󰖐",
-      "rainy": "󰖗",
-      "snowy": "󰼶",
-      "default": "󰖕"
-    },
-    "tooltip": true,
-    "max-length": 25
   },
 
   "hyprland/workspaces": {

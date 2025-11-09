@@ -266,7 +266,7 @@ show_menu() {
     fi
     
     # Show tofi menu
-    local selected=$(printf '%s\n' "${themes[@]}" | tofi --prompt-text "🎨 Themes: ")
+    local selected=$(printf '%s\n' "${themes[@]}" | tofi --prompt-text " Themes: ")
     
     if [ -z "$selected" ]; then
         echo "No theme selected, exiting."
