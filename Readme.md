@@ -826,11 +826,33 @@ sudo modprobe uinput
 # Make uinput load on boot
 echo "uinput" | sudo tee /etc/modules-load.d/uinput.conf
 
-# Enable kanata service
+# Enable kanata service (stowed from dotfiles)
 systemctl --user enable kanata
 ```
 
-**You'll need to create your kanata config at:** `~/.config/kanata/config.kbd`
+### 45. Enabling Xray (Proxy)
+
+```bash
+# Create config file
+mkdir -p ~/.config/xray
+
+add [configname].json into xray directory
+
+# Enabling xray service (stowed from dotfiles)
+systemctl --user enable xray
+```
+
+### 46. Enabling Battery notification timer
+
+```bash
+# Enabling notification service
+systemctl --user enable battery-notify.timer
+systemctl --user start battery-notify.timer
+
+# Check if it's actually work
+systemctl --user status battery-notify.timer
+systemctl --user list-timers battery-notify.timer
+```
 
 ---
 
@@ -838,14 +860,14 @@ systemctl --user enable kanata
 
 **IMPORTANT**: Your system is encrypted, which is great, but we need to add more layers of security.
 
-### 45. Install Security Essentials
+### 47. Install Security Essentials
 
 ```bash
 # Install security packages
 sudo pacman -S ufw fail2ban arch-audit
 ```
 
-### 46. Setup Firewall (UFW)
+### 48. Setup Firewall (UFW)
 
 UFW (Uncomplicated Firewall) is the easiest way to manage iptables.
 
@@ -887,7 +909,7 @@ sudo ufw delete [number]
 sudo ufw disable
 ```
 
-### 47. Harden SSH Configuration
+### 49. Harden SSH Configuration
 
 If you use SSH (especially if exposed to the internet):
 
@@ -943,7 +965,7 @@ sudo sshd -t
 
 **CRITICAL**: Test SSH access in a new terminal before closing your current session!
 
-### 48. Setup Fail2Ban
+### 50. Setup Fail2Ban
 
 Fail2Ban automatically bans IPs that show malicious signs (too many password failures, etc.)
 
@@ -1001,13 +1023,13 @@ sudo fail2ban-client set sshd unbanip [IP_ADDRESS]
 
 Proper maintenance keeps your system running smoothly and prevents issues.
 
-### 49. Install Maintenance Tools
+### 51. Install Maintenance Tools
 
 ```bash
 sudo pacman -S pacman-contrib pkgfile man-db man-pages tldr
 ```
 
-### 50. Setup Automatic Pacman Cache Cleaning
+### 52. Setup Automatic Pacman Cache Cleaning
 
 The package cache in `/var/cache/pacman/pkg/` can grow huge over time.
 
@@ -1032,7 +1054,7 @@ sudo systemctl enable --now paccache.timer
 systemctl list-timers paccache.timer
 ```
 
-### 51. Setup Journal Log Rotation
+### 53. Setup Journal Log Rotation
 
 Systemd journals can consume a lot of space.
 
@@ -1063,7 +1085,7 @@ sudo journalctl --vacuum-size=500M
 sudo journalctl --vacuum-time=2weeks
 ```
 
-### 52. Setup Orphaned Package Cleanup
+### 54. Setup Orphaned Package Cleanup
 
 Remove packages that were installed as dependencies but are no longer needed:
 
@@ -1075,7 +1097,7 @@ pacman -Qtdq
 sudo pacman -Rns $(pacman -Qtdq)
 ```
 
-### 53. Update Mirrorlist Regularly
+### 55. Update Mirrorlist Regularly
 
 Keep your mirrors fast and up to date:
 
@@ -1091,7 +1113,7 @@ systemctl list-timers reflector.timer
 sudo reflector --country Germany,France,Netherlands --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 ```
 
-### 54. Maintenance Checklist
+### 56. Maintenance Checklist
 
 **Daily:**
 
@@ -1111,7 +1133,7 @@ sudo reflector --country Germany,France,Netherlands --age 12 --protocol https --
 
 ---
 
-## 55. Backup Strategy
+## 57. Backup Strategy
 
 **CRITICAL**: Snapshots are NOT backups! They protect against mistakes but not hardware failure, theft, or catastrophic damage.
 
@@ -1137,7 +1159,6 @@ Snapshots do NOT protect you from:
 Remember to:
 
 - Create regular snapshots before major changes
-- Keep your system updated with `safe-update`
 - Back up your encryption password somewhere safe
 - Test booting into snapshots from GRUB menu occasionally
 
