@@ -3,6 +3,11 @@ if test -d $HOME/.bun/bin
     fish_add_path $HOME/.bun/bin
 end
 
+# Add cargo binaries to PATH
+if test -d $HOME/.cargo/bin
+    fish_add_path $HOME/.cargo/bin
+end
+
 # Add Go to PATH
 if test -d $HOME/go/bin
     fish_add_path $HOME/go/bin

@@ -34,7 +34,6 @@ return {
 				"tailwindcss",
 				"gopls",
 				"rust_analyzer",
-				"sqls",
 				"yamlls",
 			},
 			-- Auto-install configured servers (with lspconfig)
@@ -47,7 +46,6 @@ return {
 				"prettier", -- prettier formatter
 				"stylua", -- lua formatter
 				"eslint_d", -- js linter
-				"sqlfmt", -- sql formatter
 
 				"gofumpt", -- Strict Go formatter
 				"goimports-reviser", -- Go Imports formatter

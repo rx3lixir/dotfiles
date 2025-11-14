@@ -854,20 +854,113 @@ systemctl --user status battery-notify.timer
 systemctl --user list-timers battery-notify.timer
 ```
 
----
+### 47. Setting up IWD as wifi
+
+```bash
+# Create NetworkManager config directory if it doesn't exist
+sudo mkdir -p /etc/NetworkManager/conf.d
+
+# Create the iwd backend config
+sudo tee /etc/NetworkManager/conf.d/wifi_backend.conf << 'EOF'
+[device]
+wifi.backend=iwd
+EOF
+```
+
+Do not enable `iwd.service` or manually configure iwd. NetworkManager will start and manage it itself. Reboot the system.
+
+**One thing to watch out for:** If you had any saved WiFi connections in NetworkManager, they should automatically migrate over. But if something seems weird, you might need to reconnect to your networks once. NetworkManager stores the passwords and just hands them to iwd now instead of wpa_supplicant.
+
+### 48. Setting up Plymouth with a custom theme
+
+```bash
+# Installing plymouth package
+sudo pacman -S plymouth
+
+# Adding plymouth to mkinicpio HOOKS
+sudo nvim /etc/mkinitcpio.conf
+
+HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block plymouth encrypt filesystems fsck)
+
+# Edit GRUB config
+sudo nvim /etc/default/grub
+
+# Add quiet splash thing here
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet splash ......."
+
+# Install theme
+paru -S plymouth-theme-spinner-alt-git
+
+# Check available themes
+sudo plymouth-set-default-theme -l
+
+# Apply theme
+sudo plymouth-set-default-theme -R spinner_alt
+
+# Generate grub new config
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+# Just in case
+sudo mkinitcpio -P
+```
+
+### 49. Grub resolution fix
+
+Basically your grub can be look like it's resolution is crap. It probably is. If that's the case, we can fix it.
+
+```bash
+# Edit grub config using your comfortable editor
+sudo nvim /etc/default/grub
+```
+
+You need this line:
+
+```bash
+# Change this resolution for whatever you're like or keep auto if it works for you.
+GRUB_GFXMODE=auto
+```
+
+**Or you can also make font bigger or even change the font itself if you wish.**
+
+```bash
+# Find a font you actually lik
+ls /usr/share/fonts/TTF/
+
+# Convert the font to GRUB's format. We'll use a tool called `grub-mkfont`. Let's say you want like 24 size
+sudo grub-mkfont -s 24 -o /boot/grub/fonts/[YOUR_FONT]24.pf2 /usr/share/fonts/TTF/[YOUR_FONT].ttf
+
+```
+
+- `-s 24` means size 24 (you can try 32, 36, whatever you fancy)
+- `-o /boot/grub/fonts/[YOUR_FONT]24.pf2` is where it'll save the new font
+
+Then you should edit GRUB config to place this new font you generated.
+
+```bash
+sudo nvim /etc/default/grub
+
+# Add or modify this line:
+GRUB_FONT=/boot/grub/fonts/[YOUR_FONT]24.pf2
+
+# Then we should gen our updated config
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+# And reboot
+reboot
+```
 
 ## Essential Security Setup
 
 **IMPORTANT**: Your system is encrypted, which is great, but we need to add more layers of security.
 
-### 47. Install Security Essentials
+### 50. Install Security Essentials
 
 ```bash
 # Install security packages
 sudo pacman -S ufw fail2ban arch-audit
 ```
 
-### 48. Setup Firewall (UFW)
+### 51. Setup Firewall (UFW)
 
 UFW (Uncomplicated Firewall) is the easiest way to manage iptables.
 
@@ -909,7 +1002,7 @@ sudo ufw delete [number]
 sudo ufw disable
 ```
 
-### 49. Harden SSH Configuration
+### 52. Harden SSH Configuration
 
 If you use SSH (especially if exposed to the internet):
 
@@ -965,7 +1058,7 @@ sudo sshd -t
 
 **CRITICAL**: Test SSH access in a new terminal before closing your current session!
 
-### 50. Setup Fail2Ban
+### 53. Setup Fail2Ban
 
 Fail2Ban automatically bans IPs that show malicious signs (too many password failures, etc.)
 
@@ -1023,13 +1116,13 @@ sudo fail2ban-client set sshd unbanip [IP_ADDRESS]
 
 Proper maintenance keeps your system running smoothly and prevents issues.
 
-### 51. Install Maintenance Tools
+### 54. Install Maintenance Tools
 
 ```bash
 sudo pacman -S pacman-contrib pkgfile man-db man-pages tldr
 ```
 
-### 52. Setup Automatic Pacman Cache Cleaning
+### 55. Setup Automatic Pacman Cache Cleaning
 
 The package cache in `/var/cache/pacman/pkg/` can grow huge over time.
 
@@ -1054,7 +1147,7 @@ sudo systemctl enable --now paccache.timer
 systemctl list-timers paccache.timer
 ```
 
-### 53. Setup Journal Log Rotation
+### 56. Setup Journal Log Rotation
 
 Systemd journals can consume a lot of space.
 
@@ -1085,7 +1178,7 @@ sudo journalctl --vacuum-size=500M
 sudo journalctl --vacuum-time=2weeks
 ```
 
-### 54. Setup Orphaned Package Cleanup
+### 57. Setup Orphaned Package Cleanup
 
 Remove packages that were installed as dependencies but are no longer needed:
 
@@ -1097,7 +1190,7 @@ pacman -Qtdq
 sudo pacman -Rns $(pacman -Qtdq)
 ```
 
-### 55. Update Mirrorlist Regularly
+### 58. Update Mirrorlist Regularly
 
 Keep your mirrors fast and up to date:
 
@@ -1113,7 +1206,7 @@ systemctl list-timers reflector.timer
 sudo reflector --country Germany,France,Netherlands --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 ```
 
-### 56. Maintenance Checklist
+### 59. Maintenance Checklist
 
 **Daily:**
 
@@ -1133,7 +1226,7 @@ sudo reflector --country Germany,France,Netherlands --age 12 --protocol https --
 
 ---
 
-## 57. Backup Strategy
+## 60. Backup Strategy
 
 **CRITICAL**: Snapshots are NOT backups! They protect against mistakes but not hardware failure, theft, or catastrophic damage.
 

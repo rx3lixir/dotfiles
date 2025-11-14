@@ -1,4 +1,4 @@
-# --- Monochrome Tofi Config ---
+# --- Kanagawa Tofi Config ---
 
 width = 100%
 height = 100%
@@ -19,6 +19,7 @@ font-size=26
 
 background-color = #000000BB
 
-text-color = #707070
-prompt-color = #E0E0E0
-selection-color = #E0E0E0 
+text-color = #DCD7BA
+prompt-color = #957FB8
+selection-color = #957FB8
+
