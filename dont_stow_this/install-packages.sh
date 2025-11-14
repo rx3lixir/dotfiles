@@ -68,7 +68,8 @@ paru -S --needed --noconfirm \
     efibootmgr \
     grub \
     grub-btrfs \
-    os-prober
+    os-prober \
+    plymouth \
 
 # Filesystem and snapshot management
 paru -S --needed --noconfirm \
@@ -77,7 +78,8 @@ paru -S --needed --noconfirm \
 
 # Network management
 paru -S --needed --noconfirm \
-    networkmanager
+    networkmanager \
+    iwd
 
 # Graphics drivers (AMD)
 paru -S --needed --noconfirm \
@@ -156,14 +158,14 @@ paru -S --needed --noconfirm \
 paru -S --needed --noconfirm \
     nano \
     neovim \
-    vim
 
 # File managers and viewers
 paru -S --needed --noconfirm \
     evince \
     file-roller \
     loupe \
-    nautilus
+    nautilus \
+    onlyoffice-bin
 
 # Development tools - compilers and build tools
 paru -S --needed --noconfirm \
@@ -188,7 +190,6 @@ paru -S --needed --noconfirm \
 
 # Development tools - database and TUI apps
 paru -S --needed --noconfirm \
-    beekeeper-studio-bin \
     lazygit \
     rainfrog
 
@@ -244,7 +245,10 @@ paru -S --needed --noconfirm \
     papirus-icon-theme \
     phinger-cursors \
     ttf-apple-emoji \
-    ttf-ubuntu-nerd
+    ttf-ubuntu-nerd \
+    ttf-dejavu \
+    ttf-times-new-roman \
+    ttf-outfit
 
 # Applications
 paru -S --needed --noconfirm \
