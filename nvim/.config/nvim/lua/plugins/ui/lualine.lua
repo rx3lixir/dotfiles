@@ -4,53 +4,36 @@ return {
 		local auto = require("lualine.themes.auto")
 
 		-- ============================================================================
-		-- MONOCHROME COLOR PALETTE
+		-- KANAGAWA COLOR PALETTE
 		-- ============================================================================
 		local colors = {
-			-- Primary accent (Flexoki text/foreground)
-			accent = "#CECDC3", -- tx (main text)
-			accent_fixed = "#B7B5AC", -- tx-2 (dimmer text)
-
-			-- Secondary (Flexoki red for errors/warnings)
-			secondary = "#D14D41", -- red (flexoki red)
-			secondary_fixed = "#AF3029", -- red-2 (darker red)
-
-			-- Tertiary (Flexoki green for success/insert)
-			tertiary = "#879A39", -- green (flexoki green)
-			tertiary_fixed = "#66800B", -- green-2 (darker green)
-
-			-- Backgrounds (Flexoki base colors)
-			bg0 = "#100F0F", -- base (darkest)
-			bg1 = "#1C1B1A", -- bg (dark)
-			bg2 = "#282726", -- bg-2 (medium dark)
-			bg_bright = "#403E3C", -- ui (brighter UI elements)
-			bg_dim = "#100F0F", -- base (same as bg0)
-
-			-- Error states
-			error = "#D14D41", -- red
-			on_error = "#1C1B1A", -- bg (dark background)
-
-			-- Foreground variations
-			fg = "#CECDC3", -- tx (main text)
-			fg_strong = "#E6E4D9", -- tx-3 (brightest text)
-			fg_muted = "#878580", -- ui-2 (muted text)
-
-			-- Borders
-			border = "#282726", -- bg-2
-			border_strong = "#403E3C", -- ui
-			border_dim = "#1C1B1A", -- bg
-
-			-- Overlays
-			overlay = "#100F0F", -- base (with alpha in use)
-			scrim = "#100F0F", -- base (with alpha in use)
-
-			-- Mode colors (Vim modes)
-			mode_normal = "#4385BE", -- cyan (normal mode)
-			mode_insert = "#879A39", -- green (insert mode)
-			mode_visual = "#8B7EC8", -- purple (visual mode)
-			mode_replace = "#D14D41", -- red (replace mode)
-			mode_command = "#DA702C", -- orange (command mode)
-			mode_terminal = "#66800B", -- green-2 (terminal mode)
+			accent = "#7E9CD8",
+			accent_fixed = "#658594",
+			secondary = "#98BB6C",
+			secondary_fixed = "#76946A",
+			tertiary = "#7FB4CA",
+			tertiary_fixed = "#7AA89F",
+			bg0 = "#16161D",
+			bg1 = "#1F1F28",
+			bg2 = "#2A2A37",
+			bg_bright = "#54546D",
+			bg_dim = "#16161D",
+			error = "#E82424",
+			on_error = "#1F1F28",
+			fg = "#DCD7BA",
+			fg_strong = "#DCD7BA",
+			fg_muted = "#727169",
+			border = "#54546D",
+			border_strong = "#957FB8",
+			border_dim = "#363646",
+			overlay = "#000000",
+			scrim = "#000000",
+			mode_normal = "#7E9CD8",
+			mode_insert = "#98BB6C",
+			mode_visual = "#957FB8",
+			mode_replace = "#E82424",
+			mode_command = "#DCA561",
+			mode_terminal = "#7AA89F",
 		}
 
 		-- ============================================================================
