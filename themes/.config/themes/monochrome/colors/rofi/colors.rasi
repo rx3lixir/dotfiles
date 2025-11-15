@@ -1,0 +1,42 @@
+/*
+ * Monochrome Colorscheme for Rofi
+ */
+
+* {
+  /* Primary accent - main highlight color */
+  accent: #e0e0e0ff;
+  accent-fixed: #d0d0d0ff;
+
+  /* Secondary accent - supporting highlight */
+  secondary: #c03e35ff;
+  secondary-fixed: #a83329ff;
+
+  /* Tertiary accent */
+  tertiary: #768d21ff;
+  tertiary-fixed: #657a1cff;
+
+  /* Background layers */
+  bg0: #060606dd;
+  bg1: #060606dd;
+  bg2: #121212dd;
+  bg-bright: #404040dd;
+  bg-dim: #0d0d0ddd;
+
+  /* Error colors */
+  error: #c03e35ff;
+  on-error: #1a1a1aff;
+
+  /* Text colors */
+  fg: #b0b0b0ff;
+  fg-strong: #d4d4d4ff;
+  fg-muted: #707070ff;
+
+  /* Borders */
+  border: #2a2a2aff;
+  border-strong: #505050ff;
+  border-dim: #1e1e1eff;
+
+  /* Overlays / shadows */
+  overlay: #000000ff;
+  scrim: #000000ff;
+}

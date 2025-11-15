@@ -219,7 +219,7 @@ paru -S --needed --noconfirm \
 
 # Application launcher
 paru -S --needed --noconfirm \
-    tofi
+    rofi 
 
 # Clipboard manager
 paru -S --needed --noconfirm \

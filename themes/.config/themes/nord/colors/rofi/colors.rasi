@@ -1,0 +1,42 @@
+/*
+ * Nord Colorscheme for Rofi
+ */
+
+* {
+  /* Primary accent - main highlight color */
+  accent: #88c0d0ff;
+  accent-fixed: #81a1c1ff;
+
+  /* Secondary accent - supporting highlight */
+  secondary: #8fbcbbff;
+  secondary-fixed: #5e81acff;
+
+  /* Tertiary accent */
+  tertiary: #a3be8cff;
+  tertiary-fixed: #d08770ff;
+
+  /* Background layers */
+  bg0: #2e3440dd;
+  bg1: #434c5edd;
+  bg2: #3b4252dd;
+  bg-bright: #4c566add;
+  bg-dim: #0e1115dd;
+
+  /* Error colors */
+  error: #bf616aff;
+  on-error: #4c566aff;
+
+  /* Text colors */
+  fg: #d8dee9ff;
+  fg-strong: #eceff4ff;
+  fg-muted: #e5e9f0ff;
+
+  /* Borders */
+  border: #42474eff;
+  border-strong: #8d9199ff;
+  border-dim: #2e3135ff;
+
+  /* Overlays / shadows */
+  overlay: #000000ff;
+  scrim: #000000ff;
+}

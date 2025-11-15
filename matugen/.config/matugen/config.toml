@@ -46,8 +46,3 @@ output_path = "~/.config/swayosd/colors/colors.css"
 [templates.starship]
 input_path = "~/.config/matugen/templates/starship/starship.toml"
 output_path = "~/.config/starship/starship.toml"
-
-# --- Tofi ---
-[templates.tofi]
-input_path = "~/.config/matugen/templates/tofi/config"
-output_path = "~/.config/tofi/config"

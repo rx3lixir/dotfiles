@@ -1,3 +1,5 @@
+/* Monochrome colorscheme for waybar */
+
 /* Primary accent - main highlight color */
 @define-color accent #e0e0e0;
 @define-color accent-fixed #d0d0d0;

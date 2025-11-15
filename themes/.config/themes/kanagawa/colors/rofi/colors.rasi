@@ -1,0 +1,42 @@
+/*
+ * Kanagawa Colorscheme for Rofi
+ */
+
+* {
+  /* Primary accent - main highlight color */
+  accent: #7e9cd8ff; /* crystalBlue - functions/titles, bright and noticeable */
+  accent-fixed: #658594ff; /* dragonBlue - slightly muted blue for consistency */
+
+  /* Secondary accent - supporting highlight */
+  secondary: #98bb6cff; /* springGreen - strings, nice complement to blue */
+  secondary-fixed: #76946aff; /* autumnGreen - muted green, less intense */
+
+  /* Tertiary accent - subtle emphasis / less prominent highlights */
+  tertiary: #7fb4caff; /* springBlue - specials/builtins, softer blue */
+  tertiary-fixed: #7aa89fff; /* waveAqua2 - types, aqua tone */
+
+  /* Background layers */
+  bg0: #16161ddd; /* sumiInk0 - darkest, for statuslines/floating */
+  bg1: #1f1f28dd; /* sumiInk1 - default background */
+  bg2: #2a2a37dd; /* sumiInk2 - lighter bg for depth */
+  bg-bright: #54546ddd; /* sumiInk4 - brightest bg element */
+  bg-dim: #16161ddd; /* sumiInk0 again - dimmest option */
+
+  /* Error colors */
+  error: #e82424ff; /* samuraiRed - diagnostic error, very visible */
+  on-error: #1f1f28ff; /* sumiInk1 - text on error bg */
+
+  /* Text colors */
+  fg: #dcd7baff; /* fujiWhite - default foreground */
+  fg-strong: #dcd7baff; /* fujiWhite - keeping it same, Kanagawa doesn't go brighter */
+  fg-muted: #727169ff; /* fujiGray - comments, perfect for muted text */
+
+  /* Borders */
+  border: #54546dff; /* sumiInk4 - float borders work well here */
+  border-strong: #957fb8ff; /* oniViolet - statements/keywords, stands out */
+  border-dim: #363646ff; /* sumiInk3 - subtle border */
+
+  /* Overlays / shadows */
+  overlay: #000000ff; /* keeping black, makes sense */
+  scrim: #000000ff; /* same here */
+}

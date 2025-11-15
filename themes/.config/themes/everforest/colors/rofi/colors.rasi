@@ -1,0 +1,42 @@
+/*
+ * Everforest Colorscheme for Rofi
+ */
+
+* {
+  /* Primary accent - main highlight color */
+  accent: #a7c080ff;
+  accent-fixed: #83c092ff;
+
+  /* Secondary accent - supporting highlight */
+  secondary: #7fbbb3ff;
+  secondary-fixed: #7fbbb3ff;
+
+  /* Tertiary accent */
+  tertiary: #e69875ff;
+  tertiary-fixed: #dbbc7fff;
+
+  /* Background layers */
+  bg0: #272e33dd;
+  bg1: #374145dd;
+  bg2: #2e383cdd;
+  bg-bright: #414b50dd;
+  bg-dim: #1e2326dd;
+
+  /* Error colors */
+  error: #e67e80ff;
+  on-error: #374145ff;
+
+  /* Text colors */
+  fg: #d3c6aaff;
+  fg-strong: #f2efdfff;
+  fg-muted: #5c6a72ff;
+
+  /* Borders */
+  border: #4a4d45ff;
+  border-strong: #8d9199ff;
+  border-dim: #353831ff;
+
+  /* Overlays / shadows */
+  overlay: #000000ff;
+  scrim: #000000ff;
+}

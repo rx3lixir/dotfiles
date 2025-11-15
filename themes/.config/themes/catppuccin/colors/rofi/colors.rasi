@@ -1,0 +1,42 @@
+/*
+ * Catppuccin Colorscheme for Rofi
+ */
+
+* {
+  /* Primary accent - main highlight color */
+  accent: #b4befeff; /* accent */
+  accent-fixed: #81a1c1ff; /* accent-fixed */
+
+  /* Secondary accent - supporting highlight */
+  secondary: #a6e3a1ff; /* secondary */
+  secondary-fixed: #94e2d5ff; /* secondary-fixed */
+
+  /* Tertiary accent */
+  tertiary: #89b4faff; /* tertiary */
+  tertiary-fixed: #74c7ecff; /* tertiary-fixed */
+
+  /* Background layers */
+  bg0: #11111bdd; /* matches opacity style from your template */
+  bg1: #1e1e2edd;
+  bg2: #181825dd;
+  bg-bright: #585b70dd;
+  bg-dim: #171723dd;
+
+  /* Error colors */
+  error: #f38ba8ff;
+  on-error: #1e1e2eff;
+
+  /* Text colors */
+  fg: #bac2deff;
+  fg-strong: #cdd6f4ff;
+  fg-muted: #9399b2ff;
+
+  /* Borders */
+  border: #3d3c48ff;
+  border-strong: #967bb9ff;
+  border-dim: #2e2d33ff;
+
+  /* Overlays / shadows */
+  overlay: #000000ff;
+  scrim: #000000ff;
+}
