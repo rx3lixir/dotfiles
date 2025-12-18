@@ -3,7 +3,7 @@
   background: alpha(@bg0, 0.6);
   color: @bg0;
   border: 2px solid alpha(@bg0, 0.1);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 12px;
 }
 

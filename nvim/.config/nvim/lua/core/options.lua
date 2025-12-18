@@ -1,51 +1,51 @@
 local opt = vim.opt
 
--- Устанавливает клавишу <Space> как leader-key, для кастомок
+-- Set <Space> as leader key for custom mappings
 vim.g.mapleader = " "
 
--- Нумерация + относительная нумерация на постоянной основе
+-- Line numbers + relative line numbers always enabled
 opt.nu = true
 opt.relativenumber = true
 
--- Настройки табуляции:
-opt.tabstop = 2 -- Ширина таба в пробелах
-opt.softtabstop = 2 -- Количество пробелов при нажатии Tab
-opt.shiftwidth = 2 -- Количество пробелов для отступа при использовании >> | <<
-opt.expandtab = true -- Заменяет табы на пробелы
+-- Tab settings:
+opt.tabstop = 2 -- Tab width in spaces
+opt.softtabstop = 2 -- Number of spaces when pressing Tab
+opt.shiftwidth = 2 -- Number of spaces for indentation when using >> | <<
+opt.expandtab = true -- Replace tabs with spaces
 
--- Умные отступы: вкл
+-- Smart indentation: enabled
 opt.smartindent = true
 
--- Перенос строк: откл
+-- Line wrap: disabled
 opt.wrap = false
 
--- Отключает создание свап-файла
+-- Disable swap file creation
 opt.swapfile = false
 
--- Отключает бэкапы
+-- Disable backups
 opt.backup = false
 
--- Настройки для функции постоянной отмены (persistent undo):
-opt.undodir = os.getenv("HOME") .. "/.vim/undodir" -- Директория для хранения undo-истории
-opt.undofile = true -- Включает сохранение undo-истории между сессиями
+-- Settings for persistent undo function:
+opt.undodir = os.getenv("HOME") .. "/.vim/undodir" -- Directory for storing undo history
+opt.undofile = true -- Enable saving undo history between sessions
 
--- Отключает подсветку всех результатов поиска
+-- Disable highlighting of all search results
 opt.hlsearch = false
 
--- Включает инкрементальный поиск (по мере ввода)
+-- Enable incremental search (as you type)
 opt.incsearch = true
 
--- Включает поддержку 24-битных цветов в терминале
+-- Enable 24-bit color support in terminal
 opt.termguicolors = true
 
--- Устанавливает минимум 8 строк видимости сверху/снизу при скроллинге
+-- Set minimum 8 lines of visibility above/below when scrolling
 opt.scrolloff = 8
 
--- Включает колонку знаков слева от номеров строк (для LSP, git и т.д.)
+-- Enable sign column on the left of line numbers (for LSP, git, etc.)
 opt.signcolumn = "yes"
 
--- Устанавливает время обновления в мс (влияет на скорость реакции)
+-- Set update time in ms (affects responsiveness)
 opt.updatetime = 50
 
--- Отключает вертикальную линию ограничения длины строки
+-- Disable vertical line for text width limit
 opt.colorcolumn = "0"

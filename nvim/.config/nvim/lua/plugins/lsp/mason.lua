@@ -34,6 +34,7 @@ return {
 				"tailwindcss",
 				"gopls",
 				"rust_analyzer",
+				"pylyzer",
 				"yamlls",
 			},
 			-- Auto-install configured servers (with lspconfig)

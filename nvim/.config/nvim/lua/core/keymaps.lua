@@ -1,33 +1,33 @@
 local keymap = vim.keymap
 
--- Перемещение выделенных строк вниз (J) и вверх (K) в визуальном режимe
+-- Moving highlighted stuff up and down
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
--- Настройка Ctrl+d и Ctrl+u для прокрутки с центрированием курсора
+-- For quick scrolling with centering
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
 
--- Копирование в системный буфер обмена
-keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-keymap.set("n", "<leader>Y", [["+Y]])
+-- Yank to system clipboard
+keymap.set("n", "<leader>y", '"+y')
+keymap.set("v", "<leader>y", '"+y')
+keymap.set("n", "<leader>Y", '"+Y')
 
--- Выход из режима вставки по нажатию jk
+-- Skill issue
 keymap.set("i", "jk", "<Esc>")
 
-vim.keymap.set("n", "<leader>rr", function()
-	vim.cmd("source $MYVIMRC")
-	print("Neovim config reloaded!")
-end, { desc = "Reload config" })
-
--- Отключает клавишу Q (которая по умолчанию входит в Ex режим)
+-- Turns off Q key bc it's annoying
 keymap.set("n", "Q", "<nop>")
 
--- Быстрая замена слова под курсором во всём файле
+-- Mass replace string in file
 keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
--- Делает текущий файл исполняемым (chod +x)
+-- Makes file executable (chmod +x)
 keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Oil.nvim
 keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open Parent Directory" })
+
+keymap.set("n", "<leader>h", function()
+	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end)

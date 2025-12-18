@@ -18,10 +18,9 @@ scrollbar {
 /* ---- CONTROL CENTER ---- */
 
 .control-center {
-  background-color: alpha(@bg0, 0.8);
+  background-color: alpha(@bg0, 0.9);
   color: @fg;
-  border: 2px solid alpha(@bg0, 0.1);
-  border-radius: 10px;
+  border-radius: 16px;
   padding: 10px;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3);
 }
